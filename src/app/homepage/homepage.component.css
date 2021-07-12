@@ -1,0 +1,142 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width:100%;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+.first_body{
+  background-image: url("/../assets/green-pattern-wallpaper-1.jpg");
+  background-size: cover;
+  text-align: center;
+  height:100%;
+  width:100%;
+  margin:auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding:0;
+}
+
+.second_body {
+  text-align: center;
+  margin:auto;
+  width:1000px;
+  background-color:whitesmoke ;
+  height:100%;
+  }
+
+#mySidenav a {
+  position: absolute;
+  left: -80px;
+  margin-top: -20px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 100px;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  position: fixed;
+  border-radius: 0 5px 5px 0;
+}
+
+#mySidenav a:hover {
+  left: 0;
+}
+
+
+#web {
+  top: 80px;
+  background-color: #04AA6D;
+}
+
+#info {
+  top: 140px;
+  background-color: #04AA6D;
+}
+
+.form button {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background-color: dodgerblue;
+  border-style: groove ;
+  padding: 5px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 560px;
+  margin: 0 auto 100px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  margin: 0 0 15px;
+  padding-bottom: 100px;
+  padding-top: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.form ::placeholder{
+  font-size: 20px;
+  text-align: center;
+  opacity: 0.5;
+}
+
+h4 {
+  font-size: 15px;
+  font-family: sans-serif;
+  color: red;
+}
+
+h5 {
+  font-size: 15px;
+  font-family: sans-serif;
+  color: limegreen;
+}
+
+
+
+
+
+
+

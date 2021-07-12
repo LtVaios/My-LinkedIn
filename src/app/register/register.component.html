@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html style="padding: 0; margin: -8px;">
+<body style="padding: 0; margin: -8px;">
+<body>
+<div class="login-page">
+  <div class="form">
+    <div class="login">
+      <div class="login-header">
+        <h3>LinkedIn </h3>
+        <h6>Sign-Up Form</h6>
+      </div>
+    </div>
+    <form [formGroup]="RegisterForm" (ngSubmit)="onSubmit()">
+      <div><input type="text" placeholder="E-mail" formControlName="email" required/></div>
+      <div><input type="text" placeholder="Firstname" formControlName="fname" required/></div>
+      <div><input type="text" placeholder="Lastname" formControlName="lname" required/></div>
+      <div><input type="password" placeholder="Password" formControlName="pass" required/></div>
+      <div><input type="password" placeholder="Confirm Password" formControlName="confirmpass" required/></div>
+      <div><input type="text" placeholder="Phone" formControlName="phone" required/></div>
+      <button class="button" type="submit" >sign up</button>
+      <div *ngIf="usercondition"><h4>This user already exists.</h4></div>
+      <div *ngIf="passcondition"><h5>Wrong password in the confirm section.</h5></div>
+      <div *ngIf="requiredcondition"><h4>You must fill in all of the above information.</h4></div>
+    </form>
+  </div>
+</div>
+</body>
+</body>
+</html>
+<router-outlet></router-outlet>
+
