@@ -1,0 +1,37 @@
+<html style="padding: 0; margin: -8px;">
+
+<body class="first_body">
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
+  <a href="#" id="web" [routerLink]="['/web']">Το δίκτυό μου</a>
+</div>
+<ul>
+  <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
+  <li><a [routerLink]="['/web']">Δίκτυο</a></li>
+  <li><a [routerLink]="['/jobs']">Αγγελίες</a></li>
+  <li><a [routerLink]="['/chat']">Συζητήσεις</a></li>
+  <li><a [routerLink]="['/web']">Ειδοποιήσεις</a></li>
+  <li><a [routerLink]="['/info']">Προσωπικά στοιχεία</a></li>
+  <li><a class="active" [routerLink]="['/settings']">Ρυθμίσεις</a></li>
+  <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
+</ul>
+<body class="second_body">
+
+  <form [formGroup]="PassForm" (ngSubmit)="PassSubmit()">
+    <div><input type="text" placeholder="New Password" formControlName="new_pass" required/></div>
+    <div><input type="text" placeholder="Confirm new password" formControlName="conf_pass" required/></div>
+    <button class="button" type="submit" >Change Password</button>
+    <div *ngIf="passcondition"><h4>Passwords don't match.</h4></div>
+  </form>
+
+  <form [formGroup]="EmailForm" (ngSubmit)="EmailSubmit()">
+    <div><input type="text" placeholder="New E-mail" formControlName="new_email" required/></div>
+    <button class="button" type="submit" >Change E-mail</button>
+  </form>
+
+</body>
+
+</body>
+</html>
+<router-outlet></router-outlet>

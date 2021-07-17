@@ -1,0 +1,113 @@
+
+header .header{
+  background-color: #FFF;
+  height: 45px;
+}
+.welcome-page {
+
+  width: 100%;
+  padding: 8% 0 0;
+  margin:auto;
+}
+.welcome-page .form .login{
+  margin-top: -31px;
+  margin-bottom: 26px;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: ghostwhite;
+  width: 320px;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form input {
+  font-family: sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  width: 300px;
+  font-size: 14px;
+}
+
+.form .message {
+  margin: 15px 0 0;
+  color: darkslategrey;
+  font-family: serif;
+  font-size: 16px;
+}
+
+.form .mymessage {
+  margin-top:20px;
+  margin-bottom:0;
+  color: darkslategrey;
+  font-family: serif;
+  font-size: 16px;
+}
+
+.form .message a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+body {
+  background-image: url("/../assets/palm_leaves.jpg");
+  background-size: cover;
+  font-family: sans-serif;
+  height: 100vh;
+  width: 100vw;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h3 {
+  margin: -5px;
+  font-weight: bold;
+  font-size: 25px;
+  font-family: Arial;
+  color: black;
+}
+
+h4 {
+  font-family: cursive;
+  font-weight: bold;
+  font-size: 40px;
+  color: green;
+  margin-left: 8px;
+  padding:0;
+}
+
+.button{
+  font-size:18px;
+  text-decoration:none;
+  color:green;
+  border:green 1px solid;
+  padding:10px 20px;
+  border-radius:10px;
+  margin-right:5px;
+  margin-left:5px;
+  margin-top:20px;
+  background-color: white;
+}
+
+.button:hover{
+  background:green;
+  color:white;
+}
+
+.message{
+  color:green;
+}

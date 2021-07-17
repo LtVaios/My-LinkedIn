@@ -18,16 +18,19 @@ import { ErrorInterceptor} from './helpers/error.interceptor';
 import { JwtInterceptor} from './helpers/jwt.interceptor';
 import {RegisterService} from "./register/register.service";
 import {HomepageService} from "./homepage/homepage.service";
-
+import { InfoComponent } from './info/info.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/welcome', pathMatch: 'full'},
-  {path: 'login', children: [{path: '', component: LoginComponent},{path: 'register', redirectTo: '/register', pathMatch: 'full'}]},
+  {path: 'login', children: [{path: '', component: LoginComponent},{path: 'register', redirectTo: '/register', pathMatch: 'full'},], data: {header:false}},
   {path: 'home', component: HomepageComponent/**, canActivate: [AuthGuard]*/},
   {path: 'welcome', component: WelcomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'admin', component: AdminHomepageComponent/**, canActivate: [AuthGuard]*/},
-  {path: 'users', component: UserComponent/**, canActivate: [AuthGuard]*/}]
+  {path: 'users', component: UserComponent/**, canActivate: [AuthGuard]*/},
+  {path: 'info', component: InfoComponent},
+  {path: 'settings', component: SettingsComponent}]
 
 @NgModule({
   declarations: [
@@ -39,6 +42,8 @@ const appRoutes: Routes = [
     RegisterComponent,
     AdminHomepageComponent,
     WelcomeComponent,
+    InfoComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
