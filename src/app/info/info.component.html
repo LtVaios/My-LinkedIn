@@ -1,0 +1,34 @@
+<html style="padding: 0; margin: -8px;">
+
+<body class="first_body">
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
+  <a href="#" id="web" [routerLink]="['/web']">Το δίκτυό μου</a>
+</div>
+<ul>
+  <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
+  <li><a [routerLink]="['/web']">Δίκτυο</a></li>
+  <li><a [routerLink]="['/jobs']">Αγγελίες</a></li>
+  <li><a [routerLink]="['/chat']">Συζητήσεις</a></li>
+  <li><a [routerLink]="['/web']">Ειδοποιήσεις</a></li>
+  <li><a class="active" [routerLink]="['/info']">Προσωπικά στοιχεία</a></li>
+  <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
+  <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
+</ul>
+
+<body class="second_body">
+<div class="form">
+  <form [formGroup]="InfoForm" (ngSubmit)="onSubmit()">
+    <div><input type="text" placeholder="Work experience" formControlName="workexp_text" /></div>
+    <div><input type="text" placeholder="Education" formControlName="education_text" /></div>
+    <div><input type="text" placeholder="Skills" formControlName="skills_text" /></div>
+    <button class="button" type="submit" >Save changes</button>
+    <div *ngIf="saved"><h5>Saved!</h5></div>
+  </form>
+</div>
+</body>
+</body>
+</html>
+
+<router-outlet></router-outlet>

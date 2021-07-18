@@ -41,7 +41,7 @@ export class SettingsComponent implements OnInit {
       this.PassForm.reset();
     }
     else {
-      this.service.changePass(this.currentUser, this.PassForm.value.new_pass);
+      this.service.changePass(this.currentUser, this.PassForm.value.new_pass).subscribe(next=>console.log("subsribed"));
     }
 
   }

@@ -17,19 +17,20 @@
   <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
 </ul>
 <body class="second_body">
-
-  <form [formGroup]="PassForm" (ngSubmit)="PassSubmit()">
-    <div><input type="text" placeholder="New Password" formControlName="new_pass" required/></div>
-    <div><input type="text" placeholder="Confirm new password" formControlName="conf_pass" required/></div>
-    <button class="button" type="submit" >Change Password</button>
-    <div *ngIf="passcondition"><h4>Passwords don't match.</h4></div>
-  </form>
-
-  <form [formGroup]="EmailForm" (ngSubmit)="EmailSubmit()">
-    <div><input type="text" placeholder="New E-mail" formControlName="new_email" required/></div>
-    <button class="button" type="submit" >Change E-mail</button>
-  </form>
-
+  <div class="form">
+    <form [formGroup]="PassForm" (ngSubmit)="PassSubmit()">
+      <div><input type="password" placeholder="New Password" formControlName="new_pass" required/></div>
+      <div><input type="password" placeholder="Confirm new password" formControlName="conf_pass" required/></div>
+      <button class="button" type="submit" >Change Password</button>
+      <div *ngIf="passcondition"><h4>Passwords don't match.</h4></div>
+    </form>
+  </div>
+  <div class="form">
+    <form [formGroup]="EmailForm" (ngSubmit)="EmailSubmit()">
+      <div><input type="text" placeholder="New E-mail" formControlName="new_email" required/></div>
+      <button class="button" type="submit" >Change E-mail</button>
+    </form>
+  </div>
 </body>
 
 </body>
