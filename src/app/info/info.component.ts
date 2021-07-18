@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder} from "@angular/forms";
+import {FormArray, FormBuilder} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {SharedService} from "../shared.service";
 import {InfoService} from "../info/info.service";
 import {User} from "../model/user";
+import {UserService} from "../user/user.service";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-info',
@@ -17,9 +19,9 @@ export class InfoComponent implements OnInit {
   user: User
 
   InfoForm = this.formBuilder.group({
-    workexp_text: '',
-    education_text: '',
-    skills_text: ''
+    work_experience: '',
+    education: '',
+    skills: ''
   });
 
   constructor(private sharedService: SharedService,
@@ -27,22 +29,28 @@ export class InfoComponent implements OnInit {
               private service: InfoService) {
   }
 
-  async ngOnInit(): Promise<User> {
+  async ngOnInit() {
     this.sharedService.curr_user.subscribe(user => this.currentUser=user);
     console.log(this.service.getUser(this.currentUser));
     console.log(this.currentUser);
     this.saved = false;
-    this.user  = await this.service.getUser(this.currentUser).toPromise();
-    console.log("USER "+this.user);
-    this.InfoForm.value.workexp_text = this.user.work_experience;
-    return this.user;
+    await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
+    console.log("USER "+this.user.work_experience);
+
+    this.InfoForm.patchValue(this.user);
+    this.service.getUser(this.currentUser)
+      .pipe(tap(user => this.InfoForm.patchValue(user)));
   }
 
   onSubmit(): void {
     console.log('on submit'+this.InfoForm.value.workexp_text);
-    this.service.changeWorkexp(this.currentUser, this.InfoForm.value.workexp_text).subscribe(data=>this.InfoForm.value.workexp_text=data);
-    this.service.changeEducation(this.currentUser, this.InfoForm.value.education_text).subscribe(data=>this.InfoForm.value.workexp_text=data);
-    this.service.changeSkills(this.currentUser, this.InfoForm.value.skills_text).subscribe(data=>this.InfoForm.value.workexp_text=data);
+    if (this.InfoForm.value.work_experience != '')
+      this.service.changeWorkexp(this.currentUser, this.InfoForm.value.work_experience).subscribe();
+    if (this.InfoForm.value.education != '')
+      this.service.changeEducation(this.currentUser, this.InfoForm.value.education).subscribe();
+    if (this.InfoForm.value.skills != '')
+      this.service.changeSkills(this.currentUser, this.InfoForm.value.skills).subscribe();
     this.saved = true;
   }
+
 }
