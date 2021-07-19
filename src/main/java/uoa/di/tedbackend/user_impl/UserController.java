@@ -51,20 +51,164 @@ class UserController {
 
     @CrossOrigin(origins = "*")
     @PutMapping("/users/{id}")
-    User replaceUser(@RequestBody User newUser, @PathVariable String id) {
+    User replaceUser(@RequestBody User newData, @PathVariable String id) {
+        return repository.save(newData);
+//        String[] splitted;
+//        splitted = newData.split(",");
+//        if (splitted[0].equals("pass")) {
+//            return repository.findById(id)
+//                    .map(user -> {
+//                        user.setPassword(splitted[1]);
+//                        return repository.save(user);
+//                    })
+//                    .orElseGet(() -> {
+//                        User newuser = new User();
+//                        newuser.setUsername("empty");
+//                        return newuser;
+//                    });
+//        } else if (splitted[0].equals("email")){
+//            return repository.findById(id)
+//                    .map(user -> {
+//                        user.setFirstName(splitted[1]); //TODO this changes first name because we can't change id
+//                        return repository.save(user);
+//                    })
+//                    .orElseGet(() -> {
+//                        User newuser = new User();
+//                        newuser.setUsername("empty");
+//                        return newuser;
+//                    });
+//        } else {
+//            return repository.findById(id)
+//                    .map(user -> {
+//                        user.
+//                    })
+//                    .orElseGet(() -> {
+//                        User newuser = new User();
+//                        newuser.setUsername("empty");
+//                        return newuser;
+//                    });
+//        }
+    }
 
-        return repository.findById(id)
+//    @CrossOrigin(origins = "*")
+//    @GetMapping("/users/{id}/{field}")
+//    User getInfo(@RequestBody String newData, @PathVariable String id, @PathVariable String field) {
+//        if (field.equals("workexp")) {
+//            return repository.findById(id)
+//                    .map(user -> {
+//                        user.setWork_experience(newData);
+//                        return repository.save(user);
+//                    })
+//                    .orElseGet(() -> {
+//                        User newuser = new User();
+//                        newuser.setUsername("empty");
+//                        return newuser;
+//                    });
+//        } else if (field.equals("education")) {
+//            return repository.findById(id)
+//                    .map(user -> {
+//                        user.setEducation(newData);
+//                        return repository.save(user);
+//                    })
+//                    .orElseGet(() -> {
+//                        User newuser = new User();
+//                        newuser.setUsername("empty");
+//                        return newuser;
+//                    });
+//        } else {
+//            return repository.findById(id)
+//                    .map(user -> {
+//                        user.setSkills(newData);
+//                        return repository.save(user);
+//                    })
+//                    .orElseGet(() -> {
+//                        User newuser = new User();
+//                        newuser.setUsername("empty");
+//                        return newuser;
+//                    });
+//        }
+//
+//    }
+
+    @CrossOrigin(origins = "*")
+    @PutMapping("/users/{id}/{field}")
+    User replaceInfo(@RequestBody String newData, @PathVariable String id, @PathVariable String field) {
+        if (field.equals("workexp")) {
+            return repository.findById(id)
                 .map(user -> {
-                    user.setFirstName(newUser.getFirstName());
-                    user.setLastName(newUser.getLastName());
-                    user.setPhone(newUser.getPhone());
+                    user.setWork_experience(newData);
                     return repository.save(user);
                 })
                 .orElseGet(() -> {
-                    newUser.setUsername(id);
-                    return repository.save(newUser);
+                    User newuser = new User();
+                    newuser.setUsername("empty");
+                    return newuser;
                 });
+        } else if (field.equals("education")) {
+            return repository.findById(id)
+                    .map(user -> {
+                        user.setEducation(newData);
+                        return repository.save(user);
+                    })
+                    .orElseGet(() -> {
+                        User newuser = new User();
+                        newuser.setUsername("empty");
+                        return newuser;
+                    });
+        } else {
+            return repository.findById(id)
+                    .map(user -> {
+                        user.setSkills(newData);
+                        return repository.save(user);
+                    })
+                    .orElseGet(() -> {
+                        User newuser = new User();
+                        newuser.setUsername("empty");
+                        return newuser;
+                    });
+        }
+
     }
+
+//        else if (splitted[0].equals("workexp")){
+//            return repository.findById(id)
+//                    .map(user -> {
+//                        InfoText info = new InfoText(splitted[1]);
+//                        user.setWork_experience(info);
+//                        return repository.save(user);
+//                    })
+//                    .orElseGet(() -> {
+//                        User newuser = new User();
+//                        newuser.setUsername("empty");
+//                        return newuser;
+//                    });
+//        }
+//        else if (splitted[0].equals("email")){
+//            return repository.findById(id)
+//                    .map(user -> {
+//                        user.setFirstName(splitted[1]);
+//                        return repository.save(user);
+//                    })
+//                    .orElseGet(() -> {
+//                        User newuser = new User();
+//                        newuser.setUsername("empty");
+//                        return newuser;
+//                    });
+//        }else if (splitted[0].equals("email")){
+//            return repository.findById(id)
+//                    .map(user -> {
+//                        user.setFirstName(splitted[1]);
+//                        return repository.save(user);
+//                    })
+//                    .orElseGet(() -> {
+//                        User newuser = new User();
+//                        newuser.setUsername("empty");
+//                        return newuser;
+//                    });
+//        }
+//
+
+//    }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/user/{id}")
