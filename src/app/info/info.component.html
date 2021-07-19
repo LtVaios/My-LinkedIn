@@ -18,62 +18,15 @@
 </ul>
 
 <body class="second_body">
-
-<!--<div class="form-group" [class.has-error]="work_experience.invalid-->
-<!--        && work_experience.touched">-->
-<!--  <label class="control-label">work_experience</label>-->
-<!--  <div class="form-control">-->
-<!--    <label class="text-inline">-->
-<!--      <input type="text" required #work_experience="ngModel"-->
-<!--             name="work_experience" value="work_experience"-->
-<!--             [(ngModel)]="user.work_experience"> Work Experience-->
-<!--    </label>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<div class="form-group" [class.has-error]="education.invalid-->
-<!--        && education.touched">-->
-<!--  <label class="control-label">Education</label>-->
-<!--  <div class="form-control">-->
-<!--    <label class="text-inline">-->
-<!--      <input type="text" required #education="ngModel"-->
-<!--             name="education" value="education"-->
-<!--             [(ngModel)]="user.education"> Work Experience-->
-<!--    </label>-->
-<!--  </div>-->
-<!--</div>-->
-<!--<div class="form-group" [class.has-error]="skills.invalid-->
-<!--        && skills.touched">-->
-<!--  <label class="control-label">Education</label>-->
-<!--  <div class="form-control">-->
-<!--    <label class="text">-->
-<!--      <input type="text" required #skills="ngModel"-->
-<!--             name="skills" value="Email"-->
-<!--             [(ngModel)]="user.skills"> Work Experience-->
-<!--    </label>-->
-<!--  </div>-->
-<!--</div>-->
-
-
-<div class="form">
-  <form [formGroup]="InfoForm" (ngSubmit)="onSubmit()">
-    <div><input type="text" placeholder="Work experience" formControlName="work_experience" /></div>
-    <div><input type="text" placeholder="Education" formControlName="education" /></div>
-
-<!--    <label for="Skills">Skills</label>-->
-<!--    <input id="Skills" formControlName="Skills" />-->
-<!--    <div-->
-<!--      *ngIf="InfoForm.controls.Skills.errors?.required && InfoForm.controls.firstName.touched"-->
-<!--      class="error"-->
-<!--    >-->
-<!--      *Required-->
-<!--    </div>-->
-    <div><input type="text" placeholder="Skills" formControlName="skills" required/></div>
-
-
-    <button class="button" type="submit" >Save changes</button>
-    <div *ngIf="saved"><h5>Saved!</h5></div>
-  </form>
+<div>
+  <h1>Work Experience</h1>
+  <p>{{work_experience}}</p>
+  <h1>Education</h1>
+  <p>{{education}}</p>
+  <h1>Skills</h1>
+  <p>{{skills}}</p>
 </div>
+<a [routerLink]="['/info/edit']"><button class="button" type="submit" >Edit</button></a>
 </body>
 </body>
 </html>

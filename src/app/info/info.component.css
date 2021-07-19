@@ -37,7 +37,7 @@ li a:hover:not(.active) {
   background-image: url("/../assets/green-pattern-wallpaper-1.jpg");
   background-size: cover;
   text-align: center;
-  height:100%;
+  height:100vh;
   width:100%;
   margin:auto;
   background-position: center center;
@@ -50,7 +50,8 @@ li a:hover:not(.active) {
   margin:auto;
   width:1000px;
   background-color:whitesmoke ;
-  height:100%;
+  height:auto;
+  padding:10px;
 }
 
 #mySidenav a {
@@ -92,34 +93,7 @@ li a:hover:not(.active) {
   color: #FFFFFF;
   font-size: 14px;
   cursor: pointer;
-}
-
-.form {
-  position: relative;
-  z-index: 1;
-  background: #FFFFFF;
-  max-width: 560px;
-  margin: 0 auto 100px;
-  padding: 20px;
-  text-align: center;
-  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
-}
-.form input {
-  font-family: sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 100%;
-  margin: 0 0 15px;
-  padding-bottom: 100px;
-  padding-top: 3px;
-  box-sizing: border-box;
-  font-size: 14px;
-}
-
-.form ::placeholder{
-  font-size: 20px;
-  text-align: center;
-  opacity: 0.5;
+  margin: 10px
 }
 
 h4 {
@@ -134,7 +108,41 @@ h5 {
   color: limegreen;
 }
 
+button {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background-color: #328f8a;
+  background-image: linear-gradient(45deg,#328f8a,#08ac4b);
+  width: 150px;
+  height: 50px;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+}
 
+h1 {
+  margin: 0;
+  font-size: 25px;
+  font-family: sans-serif;
+  color: green;
+}
+
+p {
+  font-size: 14px;
+  font-family: sans-serif;
+  border-color: #04AA6D;
+  background: #e0ffe8;
+  max-width: 560px;
+  margin: 0 auto 25px;
+  padding: 20px;
+  text-align: left;
+  word-wrap: break-word;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 13px;
+}
 
 
 

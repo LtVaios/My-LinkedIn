@@ -20,6 +20,7 @@ import {RegisterService} from "./register/register.service";
 import {HomepageService} from "./homepage/homepage.service";
 import { InfoComponent } from './info/info.component';
 import { SettingsComponent } from './settings/settings.component';
+import { EditComponent } from './info/edit/edit.component';
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/welcome', pathMatch: 'full'},
@@ -29,7 +30,7 @@ const appRoutes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'admin', component: AdminHomepageComponent/**, canActivate: [AuthGuard]*/},
   {path: 'users', component: UserComponent/**, canActivate: [AuthGuard]*/},
-  {path: 'info', component: InfoComponent},
+  {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}]},
   {path: 'settings', component: SettingsComponent}]
 
 @NgModule({
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
     WelcomeComponent,
     InfoComponent,
     SettingsComponent,
+    EditComponent,
   ],
   imports: [
     BrowserModule,

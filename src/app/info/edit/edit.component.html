@@ -1,0 +1,96 @@
+<html>
+
+<body class="first_body">
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
+  <a href="#" id="web" [routerLink]="['/web']">Το δίκτυό μου</a>
+</div>
+<ul>
+  <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
+  <li><a [routerLink]="['/web']">Δίκτυο</a></li>
+  <li><a [routerLink]="['/jobs']">Αγγελίες</a></li>
+  <li><a [routerLink]="['/chat']">Συζητήσεις</a></li>
+  <li><a [routerLink]="['/web']">Ειδοποιήσεις</a></li>
+  <li><a class="active" [routerLink]="['/info']">Προσωπικά στοιχεία</a></li>
+  <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
+  <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
+</ul>
+
+<body class="second_body">
+
+<!--<div class="form-group" [class.has-error]="work_experience.invalid-->
+<!--        && work_experience.touched">-->
+<!--  <label class="control-label">work_experience</label>-->
+<!--  <div class="form-control">-->
+<!--    <label class="text-inline">-->
+<!--      <input type="text" required #work_experience="ngModel"-->
+<!--             name="work_experience" value="work_experience"-->
+<!--             [(ngModel)]="user.work_experience"> Work Experience-->
+<!--    </label>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="form-group" [class.has-error]="education.invalid-->
+<!--        && education.touched">-->
+<!--  <label class="control-label">Education</label>-->
+<!--  <div class="form-control">-->
+<!--    <label class="text-inline">-->
+<!--      <input type="text" required #education="ngModel"-->
+<!--             name="education" value="education"-->
+<!--             [(ngModel)]="user.education"> Work Experience-->
+<!--    </label>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="form-group" [class.has-error]="skills.invalid-->
+<!--        && skills.touched">-->
+<!--  <label class="control-label">Education</label>-->
+<!--  <div class="form-control">-->
+<!--    <label class="text">-->
+<!--      <input type="text" required #skills="ngModel"-->
+<!--             name="skills" value="Email"-->
+<!--             [(ngModel)]="user.skills"> Work Experience-->
+<!--    </label>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+<div class="form">
+  <form [formGroup]="InfoForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label> Work Experience </label>
+      <textarea rows="10" type="text" placeholder="Work experience" formControlName="work_experience"> </textarea>
+      <input id="ch1" type="checkbox" formControlName="work_experience_public" [ngModel]="user.work_experience_public">
+      <label for="ch1">public</label>
+<!--      <label for="public1">public</label>-->
+<!--      <input type="radio" id="private1" formControlName="work_experience_public" value=false [ngModel]=!user.work_experience_public >-->
+<!--      <label for="private1">private</label>-->
+<!--      <input id="asset-frequency-{{user.work_experience_public}}" type="radio" [value]="user.work_experience_public" formControlName="work_experience_public">-->
+    </div>
+    <div><label> Education </label>
+      <textarea rows="10" type="text" placeholder="Education" formControlName="education"> </textarea>
+      <input id="ch2" type="checkbox" formControlName="education_public" [ngModel]="user.education_public">
+      <label for="ch2">public</label>
+<!--      <input type="radio" id="public2" formControlName="education_public" value=true [ngModel]="user.education_public">-->
+<!--      <label for="public2">public</label>-->
+<!--      <input type="radio" id="private2" formControlName="education_public" value=false [ngModel]="user.education_public">-->
+<!--      <label for="private2">private</label>-->
+    </div>
+    <div><label> Skills </label>
+      <textarea rows="10" type="text" placeholder="Skills" formControlName="skills"> </textarea>
+      <input id="ch3" type="checkbox" formControlName="skills_public" [ngModel]="user.skills_public">
+      <label for="ch3">public</label>
+<!--      <input type="radio" id="public3" formControlName="skills_public" value=true [value]=user.skills_public>-->
+<!--      <label for="public3">public</label>-->
+<!--      <input type="radio" id="private3" formControlName="skills_public" value=false [value]=!user.skills_public>-->
+<!--      <label for="private3">private</label>-->
+    </div>
+
+    <button class="button" type="submit" >Save changes</button>
+    <div *ngIf="saved"><h5>Saved!</h5></div>
+  </form>
+</div>
+</body>
+</body>
+</html>
+
+<router-outlet></router-outlet>

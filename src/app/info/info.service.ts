@@ -14,20 +14,4 @@ export class InfoService {
   getUser(user: string): Observable<User>{
     return this.http.get<User>(this.usersUrl+"/"+user);
   }
-
-  getWork_exp(user: string): Observable<User>{
-    return this.http.get<User>(this.usersUrl+"/"+user);
-  }
-
-  changeWorkexp(user: string, text: string): Observable<User>{
-    return this.http.put<User>(this.usersUrl+"/"+user+"/workexp", text);
-  }
-
-  changeEducation(user: string, text: string): Observable<User>{
-    return this.http.put<User>(this.usersUrl+"/"+user+"/education", text);
-  }
-
-  changeSkills(user: string, text: string): Observable<User>{
-    return this.http.put<User>(this.usersUrl+"/"+user+"/skills", text);
-  }
 }
