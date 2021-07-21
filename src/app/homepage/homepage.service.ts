@@ -16,8 +16,8 @@ export class HomepageService {
   newpost:Post
   constructor(private http: HttpClient) { }
 
-  saveNewPost(pb:string,uid:string): Observable<Post> {
-    console.log("saving new user");
+  saveNewPost(pb:string,uid:number): Observable<Post> {
+    console.log("saving new post");
     this.newpost=new Post();
     this.newpost.post_body=pb;
     this.newpost.user_id=uid;

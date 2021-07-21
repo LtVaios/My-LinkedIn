@@ -13,12 +13,11 @@ export class SettingsService {
   constructor(private http: HttpClient,private router: Router) {
   }
 
-  changePass(user: string, new_pass: string): Observable<User>{
-    return this.http.put<User>(this.usersUrl+"/"+user, "pass,"+new_pass);
+  getUser(user: number): Observable<User>{
+    return this.http.get<User>(this.usersUrl+"/getbyid/"+user);
   }
 
-  changeEmail(user: string, new_email: string): Observable<User>{
-    console.log("email,"+new_email+"URL:"+this.usersUrl+"/"+user);
-    return this.http.put<User>(this.usersUrl+"/"+user, "email,"+new_email);
+  updateUser(id: number, user: User): Observable<User>{
+    return this.http.put<User>(this.usersUrl+"/"+id, user);
   }
 }

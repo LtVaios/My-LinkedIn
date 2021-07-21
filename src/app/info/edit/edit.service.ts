@@ -11,12 +11,12 @@ export class EditService {
   private usersUrl = 'http://localhost:8080/users';
   constructor(private http: HttpClient,private router: Router) { }
 
-  getUser(user: string): Observable<User>{
-    return this.http.get<User>(this.usersUrl+"/"+user);
+  getUser(user: number): Observable<User>{
+    return this.http.get<User>(this.usersUrl+"/getbyid/"+user);
   }
 
-  updateUser(username: string, user: User): Observable<User>{
-    return this.http.put<User>(this.usersUrl+"/"+username, user);
+  updateUser(id: number, user: User): Observable<User>{
+    return this.http.put<User>(this.usersUrl+"/"+id, user);
   }
   // getWork_exp(user: string): Observable<User>{
   //   return this.http.get<User>(this.usersUrl+"/"+user);

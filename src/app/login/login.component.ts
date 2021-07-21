@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
       this.usercondition = false;
       this.passcondition = false;
       if(this.currentuser.username!="_EMPTY_") {
-        this.shared_service.changeUser(this.currentuser.username);
+        this.shared_service.changeUser(this.currentuser.id);
         if (this.currentuser.admin == true)
           this.service.adminloggedin();
         else

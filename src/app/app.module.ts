@@ -18,20 +18,25 @@ import { ErrorInterceptor} from './helpers/error.interceptor';
 import { JwtInterceptor} from './helpers/jwt.interceptor';
 import {RegisterService} from "./register/register.service";
 import {HomepageService} from "./homepage/homepage.service";
+import { MywebComponent } from './myweb/myweb.component';
 import { InfoComponent } from './info/info.component';
-import { SettingsComponent } from './settings/settings.component';
 import { EditComponent } from './info/edit/edit.component';
+import {SettingsComponent} from "./settings/settings.component";
+import { UserinfoComponent } from './userinfo/userinfo.component';
+
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/welcome', pathMatch: 'full'},
-  {path: 'login', children: [{path: '', component: LoginComponent},{path: 'register', redirectTo: '/register', pathMatch: 'full'},], data: {header:false}},
+  {path: 'login', children: [{path: '', component: LoginComponent},{path: 'register', redirectTo: '/register', pathMatch: 'full'}]},
   {path: 'home', component: HomepageComponent/**, canActivate: [AuthGuard]*/},
   {path: 'welcome', component: WelcomeComponent},
   {path: 'register', component: RegisterComponent},
+  {path: 'myweb', component: MywebComponent},
   {path: 'admin', component: AdminHomepageComponent/**, canActivate: [AuthGuard]*/},
-  {path: 'users', component: UserComponent/**, canActivate: [AuthGuard]*/},
   {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}]},
-  {path: 'settings', component: SettingsComponent}]
+  {path: 'settings', component: SettingsComponent },
+  {path: ':id', component: UserinfoComponent},
+  {path: 'users', component: UserComponent/**, canActivate: [AuthGuard]*/}]
 
 @NgModule({
   declarations: [
@@ -42,10 +47,12 @@ const appRoutes: Routes = [
     HomepageComponent,
     RegisterComponent,
     AdminHomepageComponent,
-    WelcomeComponent,
     InfoComponent,
-    SettingsComponent,
     EditComponent,
+    SettingsComponent,
+    WelcomeComponent,
+    MywebComponent,
+    UserinfoComponent,
   ],
   imports: [
     BrowserModule,

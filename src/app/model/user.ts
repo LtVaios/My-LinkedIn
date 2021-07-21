@@ -1,14 +1,16 @@
 export class User {
+  id: number;
   username: string;
   password: string;
   firstName: string;
   lastName: string;
   phone: string;
   admin: boolean;
-  work_experience: String;
+  work_experience: string;
   work_experience_public: boolean;
-  education: String;
+  education: string;
   education_public: boolean;
-  skills: String;
+  skills: string;
   skills_public: boolean;
+
 }

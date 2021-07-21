@@ -43,7 +43,7 @@ export class RegisterComponent implements OnInit {
     }
     this.service.getUser(this.RegisterForm.value.email).subscribe(user=> {
       this.user=user;
-      //console.log("form" email:" + this.RegisterForm.value.email)
+      //console.log("form email:" + this.RegisterForm.value.email)
       if(this.RegisterForm.value.email==="" || this.RegisterForm.value.email===null
         || this.RegisterForm.value.fname==="" || this.RegisterForm.value.fname===null
         || this.RegisterForm.value.lname===""|| this.RegisterForm.value.lname===null

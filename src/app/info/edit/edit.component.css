@@ -34,7 +34,8 @@ li a:hover:not(.active) {
 }
 
 html {
-  height: 100vh;
+  min-height:100vh;
+  height: 100%;
   background: url("/../assets/green-pattern-wallpaper-1.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -55,12 +56,7 @@ html {
 }
 
 .second_body {
-  text-align: center;
-  margin:auto;
-  width:1000px;
-  background-color:whitesmoke ;
-  height:100%;
-  padding: 10px;
+  margin-top: 25px;
 }
 
 #mySidenav a {
@@ -95,6 +91,7 @@ html {
 .form button {
   font-family: sans-serif;
   text-transform: uppercase;
+
   outline: 0;
   background-color: dodgerblue;
   border-style: groove ;
@@ -172,5 +169,9 @@ button {
   color: #FFFFFF;
   font-size: 14px;
   cursor: pointer;
+}
+
+.load{
+  cursor: wait;
 }
 

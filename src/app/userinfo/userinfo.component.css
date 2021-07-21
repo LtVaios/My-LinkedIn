@@ -1,0 +1,11 @@
+@import "../info/info.component.css";
+
+h2 {
+  margin-bot: 75px;
+  font-size: 25px;
+  font-family: sans-serif;
+  color: rgba(6, 42, 3, 0.48);
+}
+.load{
+  cursor: wait;
+}

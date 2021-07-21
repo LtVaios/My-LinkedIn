@@ -1,0 +1,44 @@
+<html style="padding: 0; margin: -8px;">
+
+<body class="first_body">
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
+  <a href="#" id="web" [routerLink]="['/web']">Το δίκτυό μου</a>
+</div>
+<ul>
+  <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
+  <li><a class="active" [routerLink]="['/myweb']">Δίκτυο</a></li>
+  <li><a [routerLink]="['/jobs']">Αγγελίες</a></li>
+  <li><a [routerLink]="['/chat']">Συζητήσεις</a></li>
+  <li><a [routerLink]="['/notifications']">Ειδοποιήσεις</a></li>
+  <li><a [routerLink]="['/info']">Προσωπικά στοιχεία</a></li>
+  <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
+  <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
+</ul>
+<html class="load" *ngIf="!dataLoaded">
+</html>
+<body class="second_body" *ngIf="dataLoaded">
+<h2>{{other_user.username}}'s Personal Info</h2>
+<div>
+  <span *ngIf="is_friends || other_user.work_experience_public">
+  <h1>Work Experience</h1>
+  <p>{{other_user.work_experience}}</p>
+  </span>
+  <span *ngIf="is_friends || other_user.education_public">
+  <h1>Education</h1>
+  <p>{{other_user.education}}</p>
+  </span>
+  <span *ngIf="is_friends || other_user.education_public">
+  <h1>Skills</h1>
+  <p>{{other_user.skills}}</p>
+  </span>
+  <span *ngIf="!is_friends && !other_user.education_public && !other_user.work_experience_public && !other_user.skills_public">
+    <p>No public Info</p>
+  </span>
+</div>
+
+</body>
+</body>
+</html>
+<router-outlet></router-outlet>

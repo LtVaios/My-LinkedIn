@@ -1,0 +1,45 @@
+<html style="padding: 0; margin: -8px;">
+
+<body class="first_body">
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
+  <a href="#" id="web" [routerLink]="['/web']">Το δίκτυό μου</a>
+</div>
+<ul>
+  <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
+  <li><a class="active" [routerLink]="['/myweb']">Δίκτυο</a></li>
+  <li><a [routerLink]="['/jobs']">Αγγελίες</a></li>
+  <li><a [routerLink]="['/chat']">Συζητήσεις</a></li>
+  <li><a [routerLink]="['/notifications']">Ειδοποιήσεις</a></li>
+  <li><a [routerLink]="['/info']">Προσωπικά στοιχεία</a></li>
+  <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
+  <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
+</ul>
+<body class="second_body" *ngIf="dataLoaded">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<form class="search" [formGroup]="searchForm" (ngSubmit)="onSearch()" style="margin:auto;max-width:300px">
+  <input type="text" placeholder="Search Users..." name="search2" formControlName="searchbar">
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+<div class="grid-container">
+  <div class="grid-item" *ngFor="let user of users">
+    <h1>First name: {{user.firstName}}</h1>
+    <h1>Last name: {{user.lastName}}</h1>
+    <h1>Job: myjob</h1>
+    <h1>Company: mycompany</h1>
+    <a [routerLink]="['/chat']" class="button">Στείλτε μήνυμα</a>
+    <a [routerLink]="['/', user.username]" class="button">Προσωπικά Στοιχεία</a>
+  </div>
+
+
+
+</div>
+
+</body>
+
+</body>
+</html>
+<router-outlet></router-outlet>
+

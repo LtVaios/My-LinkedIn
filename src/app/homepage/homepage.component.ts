@@ -16,7 +16,7 @@ export class HomepageComponent implements OnInit {
   loading = false;
   requiredcondition:boolean;
   uploadcondition:boolean;
-  currentuser:string;
+  currentuser:number;
 
   postForm = this.formBuilder.group({
     post_text: ''

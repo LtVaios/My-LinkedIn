@@ -14,7 +14,10 @@ import {SettingsService} from "../settings/settings.service";
 
 export class SettingsComponent implements OnInit {
   passcondition: boolean
-  currentUser: string
+  currentUser: number
+  user: User
+  loading: boolean
+  saved: boolean
 
   PassForm = this.formBuilder.group({
     new_pass: '',
@@ -30,8 +33,17 @@ export class SettingsComponent implements OnInit {
               private service: SettingsService) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.loading=false;
     this.sharedService.curr_user.subscribe(user => this.currentUser=user);
+    //await new Promise(f => setTimeout(f, 5000));
+    // console.log(this.service.getUser(this.currentUser));
+    console.log(this.currentUser);
+    this.saved = false;
+    await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
+    console.log(this.user.username);
+    // console.log("USER "+this.user.work_experience);
+    this.loading=true;
   }
 
   PassSubmit(): void {
@@ -41,12 +53,17 @@ export class SettingsComponent implements OnInit {
       this.PassForm.reset();
     }
     else {
-      this.service.changePass(this.currentUser, this.PassForm.value.new_pass).subscribe(next=>console.log("subsribed"));
+      this.user.password = this.PassForm.value.new_pass;
+      this.service.updateUser(this.currentUser, this.user).subscribe(next=>console.log("subsribed"));
     }
-
+    this.saved = true;
   }
 
   EmailSubmit(): void {
-      this.service.changeEmail(this.currentUser, this.EmailForm.value.new_email).subscribe(next=>console.log("subsribed"));
+    this.user.username = this.EmailForm.value.new_email;
+    console.log(this.user.username);
+    console.log(this.currentUser);
+    this.service.updateUser(this.currentUser, this.user).subscribe();
+    this.saved = true;
   }
 }

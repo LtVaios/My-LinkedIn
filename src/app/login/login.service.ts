@@ -19,8 +19,8 @@ export class LoginService {
   }
 
 
-  getUser(id: string): Observable<User> {
-    const url = this.usersUrl + '/' + id;
+  getUser(un: string): Observable<User> {
+    const url = this.usersUrl + '/' + un;
     return this.http.get<User>(url);
   }
 

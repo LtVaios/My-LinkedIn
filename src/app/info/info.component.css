@@ -37,7 +37,8 @@ li a:hover:not(.active) {
   background-image: url("/../assets/green-pattern-wallpaper-1.jpg");
   background-size: cover;
   text-align: center;
-  height:100vh;
+  min-height:100vh;
+  height: 100%;
   width:100%;
   margin:auto;
   background-position: center center;
@@ -48,8 +49,10 @@ li a:hover:not(.active) {
 .second_body {
   text-align: center;
   margin:auto;
+  border-radius: 13px;
+  margin-top: 150px;
   width:1000px;
-  background-color:whitesmoke ;
+  background-color:whitesmoke;
   height:auto;
   padding:10px;
 }
