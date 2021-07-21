@@ -12,10 +12,11 @@ class LoadDatabase {
 
     @Bean
     CommandLineRunner initDatabase(UserRepository repository) {
-        repository.deleteAll();
+        //repository.deleteAll();
         return args -> {
-            log.info("Preloading " + repository.save(new User("bilbo@gmail.com","1234","Bilbo", "Baggins", "1234",false)));
-            log.info("Preloading " + repository.save(new User("frodo@gmail.com","5678","Frodo", "Baggins", "5678",true)));
+            log.info("Preloading " + repository.save(new User(1,"bilbo@gmail.com","1234","Bilbo", "Baggins", "1234",false)));
+            log.info("Preloading " + repository.save(new User(2,"sam@gmail.com","4321","Sam", "Baggins", "4321",false)));
+            log.info("Preloading " + repository.save(new User(3,"frodo@gmail.com","5678","Frodo", "Baggins", "5678",true)));
         };
     }
 }

@@ -1,17 +1,16 @@
 package uoa.di.tedbackend.user_impl;
 
 import lombok.Data;
-import org.springframework.data.util.Pair;
-import org.w3c.dom.Text;
 
 import javax.persistence.*;
-import javax.swing.text.StyledEditorKit;
-import java.awt.*;
 
 @Data
 @Entity
 public class User {
-    private @Id String username;
+    @Id
+//    @GeneratedValue
+    private int id;
+    private String username;
     private String password;
     private String firstName;
     private String lastName;
@@ -30,7 +29,8 @@ public class User {
 
     public User() {}
 
-    public User(String uname, String pass, String fname, String lname, String phone, boolean admin) {
+    public User(int id,String uname,String pass, String fname, String lname, String phone, boolean admin) {
+        this.id=id;
         this.username=uname;
         this.password = pass;
         this.firstName = fname;

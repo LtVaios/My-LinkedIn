@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.*;
-import uoa.di.tedbackend.post_impl.Post;
+
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -31,21 +31,16 @@ class FriendsController {
     // Single item
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/friends/{id}")
-    Friends one(@PathVariable int id) {
+    @GetMapping("/friends/{user_one}")
+    List<Friends> one(@PathVariable int user_one) {
         try {
-            Optional<Friends> comment;
-            comment=repository.findById(id);
-            if(!comment.isEmpty())
-                return comment.orElseThrow();
-            else{
-                throw new RuntimeException("Could not find a friend relationship by this id");
-            }
+            return this.repository.findFriendsOfUser(user_one);
         }
         catch(Exception e){
-            throw new RuntimeException("Error getting friends");
+            throw new RuntimeException();
         }
     }
+
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/friends/{id}")

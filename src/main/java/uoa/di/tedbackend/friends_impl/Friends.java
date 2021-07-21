@@ -8,13 +8,15 @@ import javax.persistence.*;
 @Entity
 public class Friends {
     private @Id @GeneratedValue int id;
-    private String user_one;
-    private String user_two;
+    private int user_one;
+    private int user_two;
+    private String state;
 
 
     public Friends() {}
 
-    public Friends(String u1,String u2) {
+    public Friends(int id,int u1,int u2,String state) {
+        this.state="completed";
         this.user_one=u1;
         this.user_two=u2;
     }
