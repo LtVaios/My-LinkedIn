@@ -67,6 +67,19 @@ class UserController {
         }
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/users/getbyfullname/{firstname}")
+    List<User> findAllUsersbyfull(@PathVariable String firstname) {
+        try {
+            List<User> users;
+            users=repository.findByFullname(firstname);
+            return users;
+        }
+        catch(Exception e){
+            throw new UserNotFoundException();
+        }
+    }
+
 
     @CrossOrigin(origins = "*")
     @PutMapping("/users/{id}")

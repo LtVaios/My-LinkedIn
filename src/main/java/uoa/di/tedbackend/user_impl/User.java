@@ -1,14 +1,16 @@
 package uoa.di.tedbackend.user_impl;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
 public class User {
     @Id
-//    @GeneratedValue
+    //@GeneratedValue
     private int id;
     private String username;
     private String password;

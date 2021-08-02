@@ -26,4 +26,13 @@ public class FriendsRepositoryCustomImpl implements FriendsRepositoryCustom {
         return friends_;
     }
 
+    @Override
+    public List<Friends> findFriendsAndRequestsOfUser(int id) {
+        Query query = entityManager.createQuery("SELECT f FROM Friends f WHERE (f.user_one = ?1 OR f.user_two=?2)");
+        query.setParameter(1, id);
+        query.setParameter(2, id);
+        List<Friends> friends_ = query.getResultList();
+        return friends_;
+    }
+
 }

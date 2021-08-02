@@ -41,6 +41,17 @@ class FriendsController {
         }
     }
 
+    @CrossOrigin(origins = "*")
+    @GetMapping("/friends/findall/{user_one}")
+    List<Friends> two(@PathVariable int user_one) {
+        try {
+            return this.repository.findFriendsAndRequestsOfUser(user_one);
+        }
+        catch(Exception e){
+            throw new RuntimeException();
+        }
+    }
+
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/friends/{id}")

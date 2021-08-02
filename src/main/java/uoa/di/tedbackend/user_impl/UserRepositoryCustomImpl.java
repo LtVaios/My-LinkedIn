@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -24,5 +25,29 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
         if (users != null && users.size() > 0)
             user = users.get(0);
         return user;
+    }
+
+    @Override
+    public List<User> findByFullname(String name) {
+        String[] splited=null;
+        List<User> users=new ArrayList<>();
+        if (name.contains(" ")){
+            splited=name.split(" ");
+        }
+        if(splited!=null) {
+            for (String str : splited) {
+                Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.firstName = ?1 OR u.lastName = ?2");
+                query.setParameter(1, str);
+                query.setParameter(2, str);
+                users.addAll(query.getResultList());
+            }
+        }
+        else{
+            Query query = entityManager.createQuery("SELECT u FROM User u WHERE u.firstName = ?1 OR u.lastName = ?2");
+            query.setParameter(1, name);
+            query.setParameter(2, name);
+            users=query.getResultList();
+        }
+        return users;
     }
 }

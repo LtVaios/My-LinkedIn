@@ -6,4 +6,5 @@ import uoa.di.tedbackend.comment_impl.Comment;
 
 public interface FriendsRepositoryCustom {
     List<Friends> findFriendsOfUser(int id);
+    List<Friends> findFriendsAndRequestsOfUser(int id);
 }
