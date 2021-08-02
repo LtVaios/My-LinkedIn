@@ -19,7 +19,7 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
     @Override
     public List<Post> findByUser(String username) {
         Post post = null;
-        Query query = entityManager.createQuery("SELECT p FROM Post p WHERE p.user_id = ?1");
+        Query query = entityManager.createQuery("SELECT p FROM Job p WHERE p.user_id = ?1");
         query.setParameter(1, username);
         List<Post> posts = query.getResultList();
         return posts;
