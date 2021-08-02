@@ -18,7 +18,17 @@ export class UserinfoService {
     return this.http.get<User>(this.usersUrl+"/"+user);
   }
 
-  getFriends(id:number): Observable<Friends[]> {
-    return this.http.get<Friends[]>(this.friendsUrl+ '/' + id);
+  getFriendsAndRequests(id:number): Observable<Friends[]> {
+    return this.http.get<Friends[]>(this.friendsUrl+ '/findall/' + id);
   }
+
+  sendFriendRequest(u1:number,u2:number): Observable<Friends>{
+    var friends:Friends;
+    friends=new Friends();
+    friends.user_one=u1;
+    friends.user_two=u2;
+    friends.state="pending";
+    return this.http.post<Friends>(this.friendsUrl,friends);
+  }
+
 }

@@ -1,0 +1,273 @@
+.load{
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+  width: 200px;
+  cursor: wait;
+  background-color: white;
+  color: black;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width:100%;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+
+
+#mySidenav a {
+  position: absolute;
+  left: -80px;
+  margin-top: -20px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 100px;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  position: fixed;
+  border-radius: 0 5px 5px 0;
+}
+
+#mySidenav a:hover {
+  left: 0;
+}
+
+
+#web {
+  top: 80px;
+  background-color: #04AA6D;
+}
+
+#info {
+  top: 140px;
+  background-color: #04AA6D;
+}
+
+h4 {
+  font-size: 15px;
+  font-family: sans-serif;
+  color: red;
+}
+
+h5 {
+  font-size: 15px;
+  font-family: sans-serif;
+  color: limegreen;
+}
+
+.first_body{
+  background-image: url("/../assets/green-pattern-wallpaper-1.jpg");
+  background-size: cover;
+  text-align: center;
+  min-height: 100vh;
+  height:100%;
+  width:100%;
+  margin:auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  position: fixed;
+  padding:0;
+}
+
+.second_body {
+  text-align: center;
+  margin:auto;
+  width:1300px;
+  height: 100%;
+  min-height: 100vh;
+  background-color:darkgreen ;
+}
+
+.grid-container {
+  display: grid;
+  background-color: whitesmoke;
+  width: 25%;
+  height: 95%;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  row-gap: 0px;
+  overflow-y: scroll;
+  border: 2px solid lightgreen;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 5%;
+  font-size: 30px;
+  height:55px;
+  color: green;
+  width: 85%;
+  text-align: center;
+  margin-left: 7px;
+  margin-top: 1px;
+}
+
+.mess_container{
+  overflow-y: scroll;
+  width: 74%;
+  height: 89vh;
+  float: right;
+  background-color:#282828 ;
+  border: 2px solid lightgreen;
+}
+
+.container {
+  border: 2px solid lightslategrey;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  width: 50%;
+  float: right;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: lightslategrey;
+  float: left;
+}
+
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.container img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.container img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.form {
+  float: right;
+  display: inline;
+  z-index: 1;
+  background: #282828;
+  width: 40%;
+  margin-left:10%;
+  padding: 10px;
+  text-align: center;
+  border: 2px solid lightgreen;
+}
+
+
+.form button {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background-color: dodgerblue;
+  border-style: groove ;
+  padding: 5px;
+  margin-right: 19.5%;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form ::placeholder{
+  font-size: 20px;
+  text-align: center;
+  opacity: 0.5;
+}
+
+.form input {
+  font-family: sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 70%;
+  float: left;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+
+.grid-item button{
+  background-color: #4CAF50; /* Green */
+  border: 1px solid darkolivegreen;
+  color: white;
+  padding: 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.load{
+  cursor: wait;
+  position: relative;
+  margin:auto;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+
+
+
+
+
+
+

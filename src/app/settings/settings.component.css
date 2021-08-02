@@ -43,14 +43,7 @@ li a:hover:not(.active) {
   background-position: center center;
   background-repeat: no-repeat;
   padding:0;
-}
-
-.second_body {
-  text-align: center;
-  margin:auto;
-  width:75%;
-  background-color:whitesmoke ;
-  height:100%;
+  min-height: 100vh;
 }
 
 #mySidenav a {
@@ -87,6 +80,7 @@ li a:hover:not(.active) {
   z-index: 1;
   background: #FFFFFF;
   max-width: 360px;
+
   margin: 0 auto 100px;
   margin-bottom: 15px;
   padding: 45px;

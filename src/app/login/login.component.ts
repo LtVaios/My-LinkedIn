@@ -40,23 +40,23 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.loading=true;
     //the function's code will only be executed after the subscribe get the results from the observable that came from the database
     this.service.getUser(this.loginForm.value.email).subscribe(user => {
+      this.passcondition=false;
+      this.usercondition=false;
       this.currentuser = user;
-      if (this.currentuser.password === this.loginForm.value.pass)
-        this.router.navigate(["http://localhost:4200/home"]);
-      else
-        this.passcondition = true
-      this.loginForm.reset();
-      this.usercondition = false;
-      this.passcondition = false;
       if(this.currentuser.username!="_EMPTY_") {
-        this.shared_service.changeUser(this.currentuser.id);
-        if (this.currentuser.admin == true)
-          this.service.adminloggedin();
-        else
-          this.service.userloggedin();
+        if (this.currentuser.password === this.loginForm.value.pass) {
+          this.shared_service.changeUser(this.currentuser.id);
+          if (this.currentuser.admin == true)
+            this.service.adminloggedin();
+          else
+            this.service.userloggedin();
+        }
+        else {
+          this.passcondition = true
+          this.loginForm.reset();
+        }
       }
       else
         this.usercondition = true

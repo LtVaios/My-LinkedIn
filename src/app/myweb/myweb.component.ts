@@ -4,6 +4,8 @@ import {MywebService} from './myweb.service';
 import {User} from '../model/user';
 import {FormBuilder} from "@angular/forms";
 import {SharedService} from "../shared.service";
+import {Router} from "@angular/router";
+import {ChatService} from "../chat/chat.service";
 
 
 @Component({
@@ -17,14 +19,20 @@ export class MywebComponent implements OnInit {
   friends_: Friends[];
   users: User[];
   currentUser:number;
-  dataLoaded: Promise<boolean>;
+  dataLoaded: boolean;
+  filledCondition:boolean
   searchForm = this.formBuilder.group({
     searchbar: ''
   });
-  constructor(private formBuilder: FormBuilder,private service: MywebService,private sharedService: SharedService) { this.friends_=[]; this.users=[]}
+  constructor(private formBuilder: FormBuilder,
+              private service: MywebService,
+              private sharedService: SharedService,
+              private ChatService: ChatService,
+              private router: Router) { this.friends_=[]; this.users=[] }
 
   async ngOnInit() {
-    this.dataLoaded= Promise.resolve(false);
+    this.dataLoaded= false;
+    //await new Promise(f => setTimeout(f, 5000));
     this.sharedService.curr_user.subscribe(user => this.currentUser=user);
     await this.service.getFriends(this.currentUser).toPromise().then(friend => this.friends_=friend);
     for(let friend of this.friends_){
@@ -33,12 +41,19 @@ export class MywebComponent implements OnInit {
       else
         await this.service.getUser(friend.user_one).toPromise().then(user=>this.users.push(user));
     }
-    console.log("got users: " +this.users[0].firstName);
-    this.dataLoaded= Promise.resolve(true);
+    this.dataLoaded= true;
   }
 
   async onSearch() {
-    ;
+    this.filledCondition=false;
+    if(this.searchForm.value.searchbar==="" || this.searchForm.value.searchbar===null) {
+      this.filledCondition = true;
+      this.searchForm.reset();
+    }
+    else {
+      this.sharedService.editSearch(this.searchForm.value.searchbar);
+      this.router.navigate(['./myweb/search']);
+    }
   }
 
 }

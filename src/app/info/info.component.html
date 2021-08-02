@@ -4,7 +4,7 @@
 
 <div id="mySidenav" class="sidenav">
   <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
-  <a href="#" id="web" [routerLink]="['/web']">Το δίκτυό μου</a>
+  <a href="#" id="web" [routerLink]="['/myweb']">Το δίκτυό μου</a>
 </div>
 <ul>
   <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
@@ -16,17 +16,24 @@
   <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
   <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
 </ul>
-
-<body class="second_body">
+<html class="load" *ngIf="!data_loaded">LOADING ...
+</html>
+<body class="second_body" *ngIf="data_loaded">
 <div>
-  <h1>Work Experience</h1>
+  <h1>Όνομα</h1>
+  <p>{{user.firstName}}</p>
+  <h1>Επίθετο</h1>
+  <p>{{user.lastName}}</p>
+  <h1>E-mail</h1>
+  <p>{{user.username}}</p>
+  <h1>Επαγγελματική Εμπειρία</h1>
   <p>{{work_experience}}</p>
-  <h1>Education</h1>
+  <h1>Εκπαίδευση</h1>
   <p>{{education}}</p>
-  <h1>Skills</h1>
+  <h1>Επαγγελματικές Ικανότητες</h1>
   <p>{{skills}}</p>
 </div>
-<a [routerLink]="['/info/edit']" ><button class="button" type="submit" >Edit</button></a>
+<a [routerLink]="['/info/edit']"><button class="button" type="submit" >Edit</button></a>
 </body>
 </body>
 </html>

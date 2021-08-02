@@ -4,11 +4,11 @@
 
 <div id="mySidenav" class="sidenav">
   <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
-  <a href="#" id="web" [routerLink]="['/web']">Το δίκτυό μου</a>
+  <a href="#" id="web" [routerLink]="['/myweb']">Το δίκτυό μου</a>
 </div>
 <ul>
   <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
-  <li><a [routerLink]="['/web']">Δίκτυο</a></li>
+  <li><a [routerLink]="['/myweb']">Δίκτυο</a></li>
   <li><a [routerLink]="['/jobs']">Αγγελίες</a></li>
   <li><a [routerLink]="['/chat']">Συζητήσεις</a></li>
   <li><a [routerLink]="['/web']">Ειδοποιήσεις</a></li>
@@ -23,12 +23,16 @@
       <div><input type="password" placeholder="Confirm new password" formControlName="conf_pass" required/></div>
       <button class="button" type="submit" >Change Password</button>
       <div *ngIf="passcondition"><h4>Passwords don't match.</h4></div>
+      <div *ngIf="passfilledCondition"><h4>You must fill in the boxes first.</h4></div>
+      <div *ngIf="passsaved"><h5>Saved!</h5></div>
     </form>
   </div>
   <div class="form">
     <form [formGroup]="EmailForm" (ngSubmit)="EmailSubmit()">
       <div><input type="text" placeholder="New E-mail" formControlName="new_email" required/></div>
       <button class="button" type="submit" >Change E-mail</button>
+      <div *ngIf="emailfilledCondition"><h4>You must fill in the box first.</h4></div>
+      <div *ngIf="emailsaved"><h5>Saved!</h5></div>
     </form>
   </div>
 </body>

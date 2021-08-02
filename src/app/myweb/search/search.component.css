@@ -105,8 +105,6 @@ h1 {
 
 .grid-container {
   display: grid;
-  grid-template-columns: auto auto auto;
-
   padding: 10px;
 }
 .grid-item {
@@ -114,6 +112,8 @@ h1 {
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding: 15px;
   font-size: 30px;
+  width: 50%;
+  margin: auto;
   text-align: center;
 }
 
@@ -129,42 +129,6 @@ h1 {
   border-left: 1px solid #CCCCCC;
 }
 
-form.search input[type=text] {
-  padding: 10px;
-  font-size: 17px;
-  border: 1px solid grey;
-  float: left;
-  width: 80%;
-  background: #f1f1f1;
-  box-sizing: border-box;
-}
-
-form.search button {
-  float: left;
-  width: 20%;
-  padding: 10px;
-  background: #2196F3;
-  color: white;
-  font-size: 17px;
-  border: 1px solid grey;
-  border-left: none;
-  cursor: pointer;
-}
-
-form.search button:hover {
-  background: #0b7dda;
-}
-
-form.search::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-form.search{
-  padding-top: 20px;
-}
-
 html {
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -172,7 +136,7 @@ html {
   background-size: cover;
 }
 
-load{
+.load{
   margin: auto;
   margin-top: 50px;
   text-align: center;
@@ -186,7 +150,6 @@ h4 {
   font-size: 15px;
   font-family: sans-serif;
   color: red;
-  background-color:white;
 }
 
 

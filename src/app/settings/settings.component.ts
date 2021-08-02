@@ -17,7 +17,10 @@ export class SettingsComponent implements OnInit {
   currentUser: number
   user: User
   loading: boolean
-  saved: boolean
+  emailsaved: boolean
+  passsaved:boolean
+  passfilledCondition:boolean
+  emailfilledCondition:boolean
 
   PassForm = this.formBuilder.group({
     new_pass: '',
@@ -39,7 +42,8 @@ export class SettingsComponent implements OnInit {
     //await new Promise(f => setTimeout(f, 5000));
     // console.log(this.service.getUser(this.currentUser));
     console.log(this.currentUser);
-    this.saved = false;
+    this.passsaved = false;
+    this.emailsaved=false;
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
     console.log(this.user.username);
     // console.log("USER "+this.user.work_experience);
@@ -48,22 +52,41 @@ export class SettingsComponent implements OnInit {
 
   PassSubmit(): void {
     this.passcondition=false;
-    if(this.PassForm.value.new_pass !== this.PassForm.value.conf_pass){
-      this.passcondition = true;
+    this.passsaved = false;
+    this.passfilledCondition=false;
+    if(this.PassForm.value.new_pass==="" || this.PassForm.value.new_pass===null)
+    {
+      this.passfilledCondition = true;
       this.PassForm.reset();
     }
     else {
-      this.user.password = this.PassForm.value.new_pass;
-      this.service.updateUser(this.currentUser, this.user).subscribe(next=>console.log("subsribed"));
+      if (this.PassForm.value.new_pass !== this.PassForm.value.conf_pass) {
+        this.passcondition = true;
+        this.PassForm.reset();
+      } else {
+        this.user.password = this.PassForm.value.new_pass;
+        this.service.updateUser(this.currentUser, this.user).subscribe(next => console.log("subscribed new pass"));
+      }
+      this.passsaved = true;
+      this.PassForm.reset();
     }
-    this.saved = true;
   }
 
   EmailSubmit(): void {
-    this.user.username = this.EmailForm.value.new_email;
-    console.log(this.user.username);
-    console.log(this.currentUser);
-    this.service.updateUser(this.currentUser, this.user).subscribe();
-    this.saved = true;
+    this.emailsaved = false;
+    this.emailfilledCondition=false;
+    if(this.EmailForm.value.new_email==="" || this.EmailForm.value.new_email===null)
+    {
+      this.emailfilledCondition = true;
+      this.PassForm.reset();
+    }
+    else {
+      this.user.username = this.EmailForm.value.new_email;
+      console.log(this.user.username);
+      console.log(this.currentUser);
+      this.service.updateUser(this.currentUser, this.user).subscribe();
+      this.emailsaved = true;
+      this.PassForm.reset();
+    }
   }
 }

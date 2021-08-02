@@ -16,28 +16,20 @@
   <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
   <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
 </ul>
-<html class="load" *ngIf="!dataLoaded">LOADING ...
+<html class="load" *ngIf="!dataLoaded">LOADING...
 </html>
+
 <body class="second_body" *ngIf="dataLoaded">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<form class="search" [formGroup]="searchForm" (ngSubmit)="onSearch()" style="margin:auto;max-width:300px">
-  <input type="text" placeholder="Search Users..." name="search2" formControlName="searchbar">
-
-  <button type="submit"><i class="fa fa-search"></i></button>
-  <div *ngIf="filledCondition"><h4>You must type in something first.</h4></div>
-</form>
 <div class="grid-container">
   <div class="grid-item" *ngFor="let user of users">
     <h1><span style="text-decoration: underline">Όνομα:</span><span style="color:darkgreen"> {{user.firstName}}</span></h1>
     <h1><span style="text-decoration: underline">Επώνυμο:</span><span style="color:darkgreen"> {{user.lastName}}</span></h1>
-    <h1><span style="text-decoration: underline">Εμπειρία:</span><span style="color:darkgreen"> {{user.work_experience}}</span></h1>
-    <button [routerLink]="['/chat']" class="button">Στείλτε μήνυμα</button>
-    <span style="font-size: 25px"> ή </span>
     <a [routerLink]="['/',user.username]" class="button">Μεταβείτε στην σελίδα του</a>
   </div>
-
+  <div *ngIf="empty" class="grid-item"><h4>Δεν υπάρχουν χρήστες με αυτό το όνομα</h4></div>
 </div>
+
 </body>
 
 </body>
@@ -45,4 +37,5 @@
 </html>
 
 <router-outlet></router-outlet>
+
 

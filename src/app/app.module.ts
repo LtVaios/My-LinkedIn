@@ -21,8 +21,10 @@ import {HomepageService} from "./homepage/homepage.service";
 import { MywebComponent } from './myweb/myweb.component';
 import { InfoComponent } from './info/info.component';
 import { EditComponent } from './info/edit/edit.component';
-import {SettingsComponent} from "./settings/settings.component";
+import { SearchComponent } from './myweb/search/search.component';
 import { UserinfoComponent } from './userinfo/userinfo.component';
+import {SettingsComponent} from "./settings/settings.component";
+import { ChatComponent } from './chat/chat.component';
 
 
 const appRoutes: Routes = [
@@ -31,10 +33,11 @@ const appRoutes: Routes = [
   {path: 'home', component: HomepageComponent/**, canActivate: [AuthGuard]*/},
   {path: 'welcome', component: WelcomeComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'myweb', component: MywebComponent},
+  {path: 'chat', component: ChatComponent},
+  {path: 'myweb', children:[{path: '', component: MywebComponent} , {path:'search',component: SearchComponent}]},
   {path: 'admin', component: AdminHomepageComponent/**, canActivate: [AuthGuard]*/},
-  {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}]},
   {path: 'settings', component: SettingsComponent },
+  {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}]},
   {path: ':id', component: UserinfoComponent},
   {path: 'users', component: UserComponent/**, canActivate: [AuthGuard]*/}]
 
@@ -49,10 +52,12 @@ const appRoutes: Routes = [
     AdminHomepageComponent,
     InfoComponent,
     EditComponent,
-    SettingsComponent,
     WelcomeComponent,
     MywebComponent,
+    SearchComponent,
     UserinfoComponent,
+    SettingsComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

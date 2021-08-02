@@ -1,0 +1,60 @@
+<html *ngIf="sending">
+  <body class="load">
+  <span style="margin-right: 23%">LOADING</span>
+    <div class="loader"></div>
+  </body>
+</html>
+
+<html style="padding: 0; margin: -8px;" *ngIf="!sending">
+
+<body class="first_body">
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
+  <a href="#" id="web" [routerLink]="['/myweb']">Το δίκτυό μου</a>
+</div>
+<ul>
+  <li><a  [routerLink]="['/home']">Αρχική σελίδα</a></li>
+  <li><a [routerLink]="['/myweb']">Δίκτυο</a></li>
+  <li><a [routerLink]="['/jobs']">Αγγελίες</a></li>
+  <li><a class="active" [routerLink]="['/chat']">Συζητήσεις</a></li>
+  <li><a [routerLink]="['/notifications']">Ειδοποιήσεις</a></li>
+  <li><a [routerLink]="['/info']">Προσωπικά στοιχεία</a></li>
+  <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
+  <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
+</ul>
+<html class="load" *ngIf="!dataLoaded">LOADING...
+</html>
+
+<body class="second_body" *ngIf="dataLoaded">
+
+<div class="mess_container" *ngIf="messagesLoaded">
+  <div *ngFor="let message of load_messages">
+    <div *ngIf="message[1]" class="container">
+      <p>{{message[0]}}</p>
+    </div>
+    <div *ngIf="!message[1]" class="container darker">
+      <p>{{message[0]}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="form">
+  <form [formGroup]="messageForm" (ngSubmit)="Send()">
+    <div><input rows="10" type="text" placeholder="Send a message" formControlName="message_text"/></div>
+    <button class="button" type="submit" >Send</button>
+  </form>
+</div>
+
+<div class="grid-container">
+  <div class="grid-item" *ngFor="let user of chat_users">
+    {{user.firstName}} {{user.lastName}}
+    <div></div>
+    <button (click)="openChat(user.id)">Open Chat</button>
+  </div>
+</div>
+</body>
+</body>
+</html>
+<router-outlet></router-outlet>
+
