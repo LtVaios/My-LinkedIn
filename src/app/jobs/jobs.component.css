@@ -1,0 +1,16 @@
+@import "../homepage/homepage.component.css";
+@import "../info/edit/edit.component.css";
+@import "../info/info.component.css";
+
+p label {
+  font-size: 18px;
+  font-family: sans-serif;
+  mso-ansi-font-style: oblique;
+}
+
+label a {
+  color: black;
+  text-align: center;
+
+  text-decoration: none;
+}

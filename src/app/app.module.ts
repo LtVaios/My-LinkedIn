@@ -25,6 +25,7 @@ import { SearchComponent } from './myweb/search/search.component';
 import { UserinfoComponent } from './userinfo/userinfo.component';
 import {SettingsComponent} from "./settings/settings.component";
 import { ChatComponent } from './chat/chat.component';
+import { JobsComponent } from './jobs/jobs.component';
 
 
 const appRoutes: Routes = [
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
   {path: 'admin', component: AdminHomepageComponent/**, canActivate: [AuthGuard]*/},
   {path: 'settings', component: SettingsComponent },
   {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}]},
-  {path: ':id', component: UserinfoComponent},
+  {path: 'jobs', component: JobsComponent},
+  {path: ':id', component: UserinfoComponent}, /** TODO maybe make this a different component?? **/
   {path: 'users', component: UserComponent/**, canActivate: [AuthGuard]*/}]
 
 @NgModule({
@@ -58,6 +60,7 @@ const appRoutes: Routes = [
     UserinfoComponent,
     SettingsComponent,
     ChatComponent,
+    JobsComponent,
   ],
   imports: [
     BrowserModule,
