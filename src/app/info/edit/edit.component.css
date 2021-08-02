@@ -34,8 +34,7 @@ li a:hover:not(.active) {
 }
 
 html {
-  min-height:100vh;
-  height: 100%;
+  height: 100vh;
   background: url("/../assets/green-pattern-wallpaper-1.jpg") no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -171,7 +170,4 @@ button {
   cursor: pointer;
 }
 
-.load{
-  cursor: wait;
-}
 

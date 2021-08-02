@@ -5,7 +5,7 @@
 
 <div id="mySidenav" class="sidenav">
   <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
-  <a href="#" id="web" [routerLink]="['/web']">Το δίκτυό μου</a>
+  <a href="#" id="web" [routerLink]="['/myweb']">Το δίκτυό μου</a>
 </div>
 <ul>
   <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
@@ -17,28 +17,27 @@
   <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
   <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
 </ul>
-<html class="load" *ngIf="!loading">
-</html>
+
 <body class="second_body">
 
-<div class="form" *ngIf="loading">
+<div class="form" >
   <form [formGroup]="InfoForm" (ngSubmit)="onSubmit()" >
     <div>
-      <label> Work Experience </label>
-      <textarea rows="10" type="text" placeholder="Work experience" formControlName="work_experience"> </textarea>
+      <label> Επαγγελματική εμπειρία </label>
+      <textarea rows="10" type="text" formControlName="work_experience"> </textarea>
       <input id="ch1" type="checkbox" formControlName="work_experience_public" [ngModel]="user.work_experience_public">
-      <label for="ch1">public</label>
+      <label for="ch1">Δημόσια</label>
 
     </div>
-    <div><label> Education </label>
-      <textarea rows="10" type="text" placeholder="Education" formControlName="education"> </textarea>
+    <div><label> Εκπαίδευση </label>
+      <textarea rows="10" type="text" formControlName="education"> </textarea>
       <input id="ch2" type="checkbox" formControlName="education_public" [ngModel]="user.education_public">
-      <label for="ch2">public</label>
+      <label for="ch2">Δημόσια</label>
     </div>
-    <div><label> Skills </label>
-      <textarea rows="10" type="text" placeholder="Skills" formControlName="skills"> </textarea>
+    <div><label> Επαγγελματικές ικανότητες </label>
+      <textarea rows="10" type="text" formControlName="skills"> </textarea>
       <input id="ch3" type="checkbox" formControlName="skills_public" [ngModel]="user.skills_public">
-      <label for="ch3">public</label>
+      <label for="ch3">Δημόσια</label>
     </div>
 
     <button class="button" type="submit" >Save changes</button>

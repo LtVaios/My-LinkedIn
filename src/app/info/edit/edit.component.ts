@@ -26,11 +26,9 @@ export class EditComponent implements OnInit {
 
   constructor(private sharedService: SharedService,
               private formBuilder: FormBuilder,
-              private service: EditService) {
-  }
+              private service: EditService) { this.user=new User(); }
 
   async ngOnInit() {
-    this.loading=false;
     //await new Promise(f => setTimeout(f, 5000));
     this.sharedService.curr_user.subscribe(user => this.currentUser=user);
     // console.log(this.service.getUser(this.currentUser));
@@ -38,7 +36,6 @@ export class EditComponent implements OnInit {
     this.saved = false;
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
     // console.log("USER "+this.user.work_experience);
-    this.loading=true;
     this.InfoForm.patchValue(this.user);
   }
 
