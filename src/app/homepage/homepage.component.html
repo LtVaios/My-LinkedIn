@@ -1,4 +1,11 @@
-<html style="padding: 0; margin: -8px;">
+<html *ngIf="loading">
+<body class="load">
+<span style="margin-right: 23%">LOADING</span>
+<div class="loader"></div>
+</body>
+</html>
+
+<html style="padding: 0; margin: -8px;" *ngIf="!loading">
 
 <body class="first_body">
 
@@ -19,15 +26,34 @@
 <body class="second_body">
 <div class="form">
   <form [formGroup]="postForm" (ngSubmit)="submitPost()">
-    <div><input type="text" placeholder="Write a new post" formControlName="post_text"/></div>
-    <button [disabled]="loading" class="button" type="submit" >Upload Post</button>
-    <div *ngIf="requiredcondition"><h4>You must write a post before trying to upload.</h4></div>
-    <div *ngIf="uploadcondition"><h5>Post uploaded successfully!</h5></div>
+    <div>
+      <textarea class="newpost" rows="7" type="text" placeholder="Write a new post" formControlName="post_text"> </textarea>
+    </div>
+    <button
+      [disabled]="loading" class="button" type="submit" >Upload Post
+    </button>
+    <div *ngIf="requiredcondition">
+      <h4>
+        You must write a post before trying to upload.
+      </h4>
+    </div>
+    <div *ngIf="uploaded">
+      <h5>
+        Post uploaded successfully!
+      </h5>
+    </div>
   </form>
 </div>
-
-<h1>THE REST OF THE POSTS GO HERE</h1>
-
+<div class="form" *ngFor="let post of posts">
+  <span class="author">{{post.user.firstName}} {{post.user.lastName}}</span>
+  <br>
+  <span class="date">
+    {{post.date_time}}
+  </span>
+  <br>
+  <br>
+  <textarea disabled cols="77">{{post.post_body}}</textarea>
+</div>
 </body>
 
 </body>

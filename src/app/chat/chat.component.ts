@@ -55,10 +55,6 @@ export class ChatComponent implements OnInit {
   async openChat(id:number){
     this.messagesLoaded=false;
     var current_messages:Message[];
-    var year:string;
-    var month:string;
-    var day:string;
-    var time:string;
 
     for(let u of this.chat_users){
       if(u.id==id)
