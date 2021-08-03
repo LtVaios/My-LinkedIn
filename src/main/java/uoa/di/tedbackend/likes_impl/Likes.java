@@ -1,26 +1,25 @@
-package uoa.di.tedbackend.post_impl;
+package uoa.di.tedbackend.likes_impl;
 
-import java.util.*;
 import lombok.Data;
 import lombok.Generated;
+import uoa.di.tedbackend.post_impl.Post;
 import uoa.di.tedbackend.user_impl.User;
 
 import javax.persistence.*;
 
 @Data
 @Entity
-public class Post {
+public class Likes {
     private @Id @GeneratedValue int id;
-    private String post_body;
-    private String date_time;
+    private String str;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 
-    public Post() {}
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "post_id",referencedColumnName = "id")
+    private Post post;
 
-    public Post(String pb) {
-        this.post_body=pb;
-    }
+    public Likes() {}
 }

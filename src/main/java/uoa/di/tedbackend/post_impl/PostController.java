@@ -2,8 +2,10 @@ package uoa.di.tedbackend.post_impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.web.bind.annotation.*;
+import uoa.di.tedbackend.user_impl.User;
 import uoa.di.tedbackend.user_impl.UserRepository;
 
 @RestController
@@ -64,6 +66,7 @@ class PostController {
             throw new RuntimeException("Error with post getting");
         }
     }
+
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/posts/{id}")
