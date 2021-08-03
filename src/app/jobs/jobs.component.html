@@ -1,0 +1,44 @@
+<html style="padding: 0; margin: -8px;">
+
+<body class="first_body">
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
+  <a href="#" id="web" [routerLink]="['/web']">Το δίκτυό μου</a>
+</div>
+<ul>
+  <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
+  <li><a [routerLink]="['/myweb']">Δίκτυο</a></li>
+  <li><a class="active" [routerLink]="['/jobs']">Αγγελίες</a></li>
+  <li><a [routerLink]="['/chat']">Συζητήσεις</a></li>
+  <li><a [routerLink]="['/notifications']">Ειδοποιήσεις</a></li>
+  <li><a [routerLink]="['/info']">Προσωπικά στοιχεία</a></li>
+  <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
+  <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
+</ul>
+<body class="second_body">
+<div class="form" >
+  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" >
+    <div>
+      <label> Νέα Αγγελία </label>
+      <textarea rows="10" type="text" formControlName="job_text"> </textarea>
+    <button class="button" type="submit" >Post</button>
+    </div>
+    <div *ngIf="posted"><h5>Posted!</h5></div>
+  </form>
+</div>
+
+<div *ngFor="let job of all_jobs">
+
+  <p>
+    <label> <a [routerLink]="['/{{job.user.username}}']"> {{job.user.username}} </a></label>
+    <br/> {{job.body}}
+    <br/> <button><a> Apply</a></button>
+  </p>
+</div>
+
+</body>
+
+</body>
+</html>
+<router-outlet></router-outlet>
