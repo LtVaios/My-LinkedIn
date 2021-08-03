@@ -4,15 +4,18 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.web.bind.annotation.*;
+import uoa.di.tedbackend.user_impl.UserRepository;
 
 @RestController
 @CrossOrigin(origins = "*")
 class PostController {
 
     private final PostRepository repository;
+    private final UserRepository urepository;
 
-    PostController(PostRepository repository) {
+    PostController(PostRepository repository,UserRepository urepository) {
         this.repository = repository;
+        this.urepository=urepository;
     }
 
     // Aggregate root
@@ -24,10 +27,26 @@ class PostController {
     }
 
     @CrossOrigin(origins = "*")
-    @PostMapping("/posts")
-    Post newUser(@RequestBody Post newPost) {  return repository.save(newPost); }
+    @GetMapping("/posts/ofuser/{userId}")
+    List<Post> some(@PathVariable (value = "userId") int userId) {
+        try {
+            List<Post> Posts;
+            Posts=repository.findPostsByUser(userId);
+            return Posts;
+        }
+        catch(Exception e){
+            throw new RuntimeException("Error getting posts of user");
+        }
+    }
 
-    // Single item
+    @CrossOrigin(origins = "*")
+    @PostMapping("/posts/{userId}")
+    Post newPost(@PathVariable (value = "userId") int userId,@RequestBody Post newPost) {
+        return urepository.findById(userId).map(user -> {
+            newPost.setUser(user);
+            return repository.save(newPost);
+        }) .orElseThrow(()->new RuntimeException("error posting post"));
+    }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/posts/{id}")
@@ -44,23 +63,6 @@ class PostController {
         catch(Exception e){
             throw new RuntimeException("Error with post getting");
         }
-    }
-
-
-    @CrossOrigin(origins = "*")
-    @PutMapping("/posts/{id}")
-    Post replaceUser(@RequestBody Post newPost, @PathVariable int id) {
-
-        return repository.findById(id)
-                .map(Post -> {
-                    Post.setUser_id(newPost.getUser_id());
-                    Post.setPost_body(newPost.getPost_body());
-                    return repository.save(Post);
-                })
-                .orElseGet(() -> {
-                    newPost.setId(id);
-                    return repository.save(newPost);
-                });
     }
 
     @CrossOrigin(origins = "*")

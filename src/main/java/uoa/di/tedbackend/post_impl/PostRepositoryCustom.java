@@ -5,6 +5,5 @@ import uoa.di.tedbackend.post_impl.Post;
 import uoa.di.tedbackend.comment_impl.Comment;
 
 public interface PostRepositoryCustom {
-    List<Post> findByUser(String username);
-    List<Comment> get_comms(int post_id);
+    List<Post> findPostsByUser(int user_id);
 }
