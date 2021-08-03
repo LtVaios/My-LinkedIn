@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Post} from "../model/post";
+import {User} from "../model/user";
 import {Friends} from "../model/friends";
+import {Likes} from "../model/likes";
 
 const httpOptions = {
   headers: new HttpHeaders({'Accept': 'application/json', 'Content-Type': 'application/json'})
@@ -14,7 +16,9 @@ const httpOptions = {
 
 export class HomepageService {
   private postsUrl = 'http://localhost:8080/posts';
+  private likesUrl = 'http://localhost:8080/likes';
   private friendsUrl = 'http://localhost:8080/friends';
+  private usersUrl = 'http://localhost:8080/users';
   newpost:Post
   constructor(private http: HttpClient) { }
 
@@ -24,7 +28,7 @@ export class HomepageService {
     this.newpost.post_body=pb;
     let date_time =new Date();
     this.newpost.date_time=date_time.toLocaleString();
-    console.log(date_time)
+    //console.log(date_time)
     return this.http.post<Post>(this.postsUrl+"/"+uid,this.newpost);
   }
 
@@ -34,6 +38,18 @@ export class HomepageService {
 
   getFriends(id:number): Observable<Friends[]> {
     return this.http.get<Friends[]>(this.friendsUrl+ '/' + id);
+  }
+
+  saveLike(user_id:number,l:Likes): Observable<Post>{
+    return this.http.post<Post>(this.likesUrl+"/addlike",l);
+  }
+
+  getPostLikes(post_id:number): Observable<Likes[]>{
+    return this.http.get<Likes[]>(this.likesUrl+"/ofpost/"+post_id);
+  }
+
+  getUser(user: number): Observable<User>{
+    return this.http.get<User>(this.usersUrl+"/getbyid/"+user);
   }
 
 }

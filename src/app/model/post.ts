@@ -6,6 +6,5 @@ export class Post {
   post_body: string;
   user_id: number;
   user: User;
-  likes: Set<User>;
   date_time: string;
 }

@@ -49,9 +49,9 @@ li a:hover:not(.active) {
 .second_body {
   text-align: center;
   margin:auto;
-  width:1000px;
+  width:900px;
   min-height: 100vh;
-  background-color:whitesmoke ;
+  background-color: silver;
   height:100%;
   padding-bottom: 10px;
   padding-top: 10px;
@@ -223,11 +223,29 @@ h5 {
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-  margin: 5px;
+  margin: 5px 5px 5px 0px;
   transition-duration: 0.4s;
   cursor: pointer;
   border-radius: 5px;
   float: left;
+}
+
+.disabled {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 5px 5px 5px 0px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 5px;
+  float: left;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .like {
