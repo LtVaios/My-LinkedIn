@@ -57,8 +57,11 @@ export class HomepageComponent implements OnInit {
 
   async submitPost() {
     this.loading=true;
+    this.requiredcondition=false;
+    this.uploaded=false;
     if(this.postForm.value.post_text==="" || this.postForm.value.post_text===null) {
       this.requiredcondition = true;
+      this.loading=false;
       this.postForm.reset();
     }
     else {
@@ -70,4 +73,9 @@ export class HomepageComponent implements OnInit {
     }
     this.loadPosts();
   }
+
+  async likePost(post_id:number){
+
+  }
+
 }
