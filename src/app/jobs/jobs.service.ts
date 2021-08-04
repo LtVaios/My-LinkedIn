@@ -36,4 +36,9 @@ export class JobsService {
   getAllJobs(): Observable<Job[]> {
     return this.http.get<Job[]>(this.jobsUrl);
   }
+
+  saveLike(post_id:number, user_id:number): Observable<Post> {
+    console.log("liked!  "+this.jobsUrl + '/like' + '?jobid=' + post_id + '&userid=' + user_id);
+    return this.http.post<Post>(this.jobsUrl + '/like' + '?jobid=' + post_id + '&userid=' + user_id, null);
+  }
 }

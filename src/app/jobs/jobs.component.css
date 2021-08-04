@@ -14,3 +14,19 @@ label a {
 
   text-decoration: none;
 }
+
+.posts .author{
+  color: green;
+  font-size: 15px;
+  float: left;
+}
+
+.posts .author:hover{
+  text-decoration: underline;
+  cursor: pointer;
+  color: darkolivegreen;
+}
+
+.posts .date{
+  float:left;
+}

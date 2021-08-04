@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../model/user";
 import {JobsService} from "./jobs.service";
 import {Job} from "../model/job";
+import {Observable} from "rxjs";
+import {Post} from "../model/post";
 
 @Component({
   selector: 'app-jobs',
@@ -61,5 +63,10 @@ export class JobsComponent implements OnInit {
       this.service.saveNewJob(this.jobForm.value.job_text,this.user).subscribe(data=>this.uploadcondition=true);
     }
   }
+
+  likeJob(post_id:number): void{
+    this.service.saveLike(post_id, this.currentUser).subscribe((data=>console.log(data)));
+  }
+
 
 }
