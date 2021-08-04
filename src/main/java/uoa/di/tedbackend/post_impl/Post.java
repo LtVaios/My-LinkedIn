@@ -18,9 +18,6 @@ public class Post {
     @JoinColumn(name = "user_id",referencedColumnName = "id")
     private User user;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<User> likes = new HashSet<>();
-
     public Post() {}
 
     public Post(String pb) {
