@@ -15,6 +15,7 @@ class LoadDatabase {
         //repository.deleteAll();
         return args -> {
             log.info("Preloading " + repository.save(new User(1,"bilbo@gmail.com","1234","Bilbo", "Baggins", "1234",false)));
+            log.info("Preloading " + repository.save(new User(4,"bob@gmail.com","1234","Bob", "Baggins", "1234",false)));
             log.info("Preloading " + repository.save(new User(2,"sam@gmail.com","4321","Sam", "Baggins", "4321",false)));
             log.info("Preloading " + repository.save(new User(3,"frodo@gmail.com","5678","Frodo", "Baggins", "5678",true)));
         };

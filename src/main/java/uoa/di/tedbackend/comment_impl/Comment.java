@@ -1,6 +1,8 @@
 package uoa.di.tedbackend.comment_impl;
 
 import lombok.Data;
+import uoa.di.tedbackend.post_impl.Post;
+import uoa.di.tedbackend.user_impl.User;
 
 import javax.persistence.*;
 
@@ -9,15 +11,15 @@ import javax.persistence.*;
 public class Comment {
     private @Id @GeneratedValue int id;
     private String comment_text;
-    private int post_id;
-    private String user_id;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id",referencedColumnName = "id")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "post_id",referencedColumnName = "id")
+    private Post post;
 
 
     public Comment() {}
-
-    public Comment(String ct,int pid, String uid) {
-        this.comment_text=ct;
-        this.post_id=pid;
-        this.user_id=uid;
-    }
 }

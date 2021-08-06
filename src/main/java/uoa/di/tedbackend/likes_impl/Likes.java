@@ -11,7 +11,6 @@ import javax.persistence.*;
 @Entity
 public class Likes {
     private @Id @GeneratedValue int id;
-    private String str;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id",referencedColumnName = "id")

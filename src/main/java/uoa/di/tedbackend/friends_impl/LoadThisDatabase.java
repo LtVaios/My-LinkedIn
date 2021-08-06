@@ -15,6 +15,7 @@ class LoadThisDatabase {
         repository.deleteAll();
         return args -> {
             log.info("Preloading " + repository.save(new Friends(1,1,3,"completed")));
+            log.info("Preloading " + repository.save(new Friends(1,4,2,"completed")));
             log.info("Preloading " + repository.save(new Friends(1,1,2,"completed")));
         };
     }
