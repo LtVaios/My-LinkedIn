@@ -91,13 +91,20 @@ li a:hover:not(.active) {
   text-transform: uppercase;
   outline: 0;
   background-color: dodgerblue;
-  border-style: groove ;
+  border: 1px solid black ;
   padding: 10px 5px 9px 5px;
   color: #FFFFFF;
   font-size: 14px;
   cursor: pointer;
   float: right;
-  border-radius: 2px;
+  border-radius: 25px;
+  position: absolute;
+  margin-left: 1px;
+  transition-duration: 0.4s;
+}
+
+.form button:hover {
+  background-color: royalblue;
 }
 
 .form {
@@ -254,6 +261,15 @@ h5 {
   background-color: white;
   border: 2px solid #4CAF50;
   color: black;
+}
+
+.separator{
+  color: green;
+  font-size: 16px;
+}
+
+.comm_sep{
+  text-decoration: underline;
 }
 
 
