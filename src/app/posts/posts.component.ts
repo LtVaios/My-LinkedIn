@@ -48,7 +48,6 @@ export class PostsComponent implements OnInit {
     temp_post=new Post();
 
     await this.service.getPost(Number(this.post_id)).toPromise().then(response => temp_post=response)
-    console.log(temp_post)
     await this.service.getPostComments(Number(this.post_id)).toPromise().then(response=>this.comms=response)
     await this.service.getPostLikes(Number(this.post_id)).toPromise().then(response=>this.likes=response);
     for(let l of this.likes)
@@ -74,6 +73,7 @@ export class PostsComponent implements OnInit {
   }
 
   async submitComment() {
+    this.loading=true
     this.requiredcondition = false;
     if (this.commentForm.value.comm_text === "" || this.commentForm.value.comm_text === null) {
       this.requiredcondition = true;
@@ -83,7 +83,11 @@ export class PostsComponent implements OnInit {
       let u:User;
       u = new User();
       await this.service.getUser(this.currentuser).toPromise().then(result => u=result)
-      await this.service.saveNewComment(this.commentForm.value.comm_text,this.post[0],u)
+      await this.service.saveNewComment(this.commentForm.value.comm_text,this.post[0],u).subscribe()
+      await new Promise(f => setTimeout(f, 2000));
+      this.commentForm.reset();
+      this.load_post()
+      this.loading=false;
     }
   }
 

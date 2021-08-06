@@ -43,6 +43,7 @@ export class PostsService {
     comm.comment_text=text
     comm.post=p
     comm.user=u
+    console.log(comm)
     return this.http.post<Comment>(this.commentsUrl,comm);
   }
 }

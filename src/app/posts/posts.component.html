@@ -35,18 +35,24 @@
   </p>
   <button *ngIf="post[1]" class="disabled">Ενδιαφέρον!</button>
   <button *ngIf="!post[1]" (click)="likePost(post[0])" class="like">Ενδιαφέρον!</button>
+  <br><br>
+  <span>
+    ---------------------------------------------------------------------------------------------------------COMMENTS
+  </span>
+  <br>
   <div *ngFor="let c of this.comms">
+    <a [routerLink]="['/'+post[0].user.username]" class="author">{{c.user.firstName}} {{c.user.lastName}}</a>
     <p class="post_body">{{c.comment_text}}</p>
   </div>
   <div class="form">
     <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
       <div>
-          <textarea class="newpost" rows="2" type="text" placeholder="Write a comment" formControlName="post_text">
+          <textarea class="newpost" rows="2" type="text" placeholder="Write a comment" formControlName="comm_text">
           </textarea>
-      </div>
       <button class="button" type="submit" >
-        Upload comment
+        Upload
       </button>
+      </div>
       <div *ngIf="requiredcondition">
         <h4>
           You must write something first.
