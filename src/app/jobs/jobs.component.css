@@ -1,32 +1,268 @@
-@import "../homepage/homepage.component.css";
-@import "../info/edit/edit.component.css";
-@import "../info/info.component.css";
-
-p label {
-  font-size: 18px;
-  font-family: sans-serif;
-  mso-ansi-font-style: oblique;
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width:100%;
 }
 
-label a {
-  color: black;
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: white;
   text-align: center;
 
+  padding: 14px 16px;
   text-decoration: none;
 }
 
-.posts .author{
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+.first_body{
+  background-image: url("/../assets/green-pattern-wallpaper-1.jpg");
+  background-size: cover;
+  text-align: center;
+  min-height: 100vh;
+  height:100%;
+  width:100%;
+  margin:auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding:0;
+}
+
+.second_body {
+  text-align: center;
+  margin:auto;
+  width:900px;
+  min-height: 100vh;
+  background-color: silver;
+  height:100%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+#mySidenav a {
+  position: absolute;
+  left: -80px;
+  margin-top: -20px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 100px;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  position: fixed;
+  border-radius: 0 5px 5px 0;
+}
+
+#mySidenav a:hover {
+  left: 0;
+}
+
+
+#web {
+  top: 80px;
+  background-color: #04AA6D;
+}
+
+#info {
+  top: 140px;
+  background-color: #04AA6D;
+}
+
+.form button {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background-color: dodgerblue;
+  border-style: groove ;
+  padding: 5px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 560px;
+  margin: 0 auto 50px;
+  margin-bottom: 50px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.form .newpost {
+  font-family: sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  margin: 0 0 15px;
+  padding-top: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+  resize: none;
+}
+
+.form ::placeholder{
+  font-size: 20px;
+  text-align: center;
+  opacity: 0.5;
+}
+
+h4 {
+  font-size: 15px;
+  font-family: sans-serif;
+  color: red;
+}
+
+h5 {
+  font-size: 15px;
+  font-family: sans-serif;
+  color: limegreen;
+  padding:0px;
+}
+
+.author{
   color: green;
   font-size: 15px;
   float: left;
 }
 
-.posts .author:hover{
+.author:hover{
   text-decoration: underline;
   cursor: pointer;
   color: darkolivegreen;
 }
 
-.posts .date{
+.date{
   float:left;
+  background-color: whitesmoke;
+  border-radius: 2px;
+  padding: 2px;
 }
+
+.posts p{
+  width: 550px;
+  background-color: whitesmoke;
+  border: 1px solid grey;
+  border-radius: 2px;
+  text-align: left;
+  padding: 2px 5px;
+  overflow: hidden;
+  margin: 0px;
+  word-break: break-all;
+  white-space: normal;
+
+}
+
+.load{
+  cursor: wait;
+  position: relative;
+  margin:50px auto auto auto;
+  text-align: center;
+  width: 200px;
+  background-color: white;
+  color: black;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.posts{
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 560px;
+  margin: 0 auto 50px auto;
+  padding: 10px 20px 40px 20px;
+  text-align: center;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+.like {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 5px 5px 5px 0px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 5px;
+  float: left;
+}
+
+.disabled {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 5px 5px 5px 0px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 5px;
+  float: left;
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.like {
+  background-color: #4CAF50;
+  color: white;
+  border: 2px solid forestgreen;
+}
+
+.like:hover {
+  background-color: white;
+  border: 2px solid #4CAF50;
+  color: black;
+}
+
+
+
+
+
+
+

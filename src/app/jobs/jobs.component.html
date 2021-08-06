@@ -21,23 +21,27 @@
   <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" >
     <div>
       <label> Νέα Αγγελία </label>
-      <textarea rows="10" type="text" formControlName="job_text"> </textarea>
+      <br>
+      <textarea class="newpost" rows="10" type="text" formControlName="job_text"> </textarea>
+      <br>
     <button class="button" type="submit" >Post</button>
     </div>
     <div *ngIf="posted"><h5>Posted!</h5></div>
   </form>
 </div>
 
-<div class="posts" *ngFor="let job of all_jobs">
+<div *ngIf="dataLoaded">
+<div  class="posts" *ngFor="let job of html_jobs">
 
-  <a [routerLink]="['/',job.user.username]"><div class="author"> {{job.user.firstName}} {{job.user.lastName}}</div> </a>
-  <br/><div class="date">{{job.createdDate}}</div>
-  <p>
-    <br/> {{job.body}}
-  </p>
-  <button (click)="likeJob(job.id)" class="like">Ενδιαφέρον!</button>
+  <a [routerLink]="['/',job[0].user.username]"><div class="author"> {{job[0].user.firstName}} {{job[0].user.lastName}}</div> </a>
+  <br/><span class="date">{{job[0].createdDate}}</span>
+  <br/>
+  <p> {{job[0].body}}  </p>
+  <br/>
+  <button *ngIf="job[1]" class="disabled">Ενδιαφέρον!</button>
+  <button *ngIf="!job[1]" (click)="likeJob(job[0].id)" class="like">Ενδιαφέρον!</button>
 </div>
-
+</div>
 </body>
 
 </body>

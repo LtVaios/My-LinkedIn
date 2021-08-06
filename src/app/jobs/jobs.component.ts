@@ -22,6 +22,7 @@ export class JobsComponent implements OnInit {
   uploadcondition: boolean;
   dataLoaded: boolean;
   all_jobs: Job[];
+  html_jobs: [Job,boolean][];
 
   jobForm = this.formBuilder.group({
     job_text: ''
@@ -40,7 +41,22 @@ export class JobsComponent implements OnInit {
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
 
     await this.service.getAllJobs().toPromise().then(response => this.all_jobs=response);
-    console.log(this.all_jobs);
+    console.log(this.all_jobs[0].likes);
+    this.html_jobs=[];
+    var flag;
+    for (let job of this.all_jobs){
+      flag = false;
+      for (let likeuser of job.likes) {
+        if (likeuser.id == this.currentUser) {
+          this.html_jobs.push([job, true]);
+          flag=true;
+          break;
+        }
+      }
+      if (flag==false){
+        this.html_jobs.push([job,false]);
+      }
+    }
     // await this.webService.getFriends(this.currentUser).toPromise().then(friend => this.friends_=friend);
     // for(let friend of this.friends_){
     //   if(friend.user_one==this.currentUser)
@@ -50,6 +66,7 @@ export class JobsComponent implements OnInit {
     // }
     // this.user=this.chat_users[0];
     // await this.openChat(this.chat_users[0].id);
+
     this.dataLoaded=true;
   }
 
