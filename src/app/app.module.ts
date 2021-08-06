@@ -26,12 +26,13 @@ import { UserinfoComponent } from './userinfo/userinfo.component';
 import {SettingsComponent} from "./settings/settings.component";
 import { ChatComponent } from './chat/chat.component';
 import { JobsComponent } from './jobs/jobs.component';
+import { PostsComponent } from './posts/posts.component';
 
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/welcome', pathMatch: 'full'},
   {path: 'login', children: [{path: '', component: LoginComponent},{path: 'register', redirectTo: '/register', pathMatch: 'full'}]},
-  {path: 'home', component: HomepageComponent/**, canActivate: [AuthGuard]*/},
+  {path: 'home', component: HomepageComponent},
   {path: 'welcome', component: WelcomeComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'chat', component: ChatComponent},
@@ -40,8 +41,9 @@ const appRoutes: Routes = [
   {path: 'settings', component: SettingsComponent },
   {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}]},
   {path: 'jobs', component: JobsComponent},
-  {path: ':id', component: UserinfoComponent}, /** TODO maybe make this a different component?? **/
-  {path: 'users', component: UserComponent/**, canActivate: [AuthGuard]*/}]
+  {path: ':id', component: UserinfoComponent},
+  {path: 'users', component: UserComponent},
+  {path: 'posts', children:[{path:'',component: HomepageComponent},{path: ':id',component: PostsComponent}]}]
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ const appRoutes: Routes = [
     SettingsComponent,
     ChatComponent,
     JobsComponent,
+    PostsComponent,
   ],
   imports: [
     BrowserModule,

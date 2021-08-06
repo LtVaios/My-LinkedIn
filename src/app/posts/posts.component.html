@@ -1,0 +1,61 @@
+<html *ngIf="loading">
+<body class="load">
+<span style="margin-right: 23%">LOADING</span>
+<div class="loader"></div>
+</body>
+</html>
+
+<html style="padding: 0; margin: -8px;" *ngIf="!loading">
+<body class="first_body">
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
+  <a href="#" id="web" [routerLink]="['/web']">Το δίκτυό μου</a>
+</div>
+<ul>
+  <li><a class="active" [routerLink]="['/home']">Αρχική σελίδα</a></li>
+  <li><a [routerLink]="['/myweb']">Δίκτυο</a></li>
+  <li><a [routerLink]="['/jobs']">Αγγελίες</a></li>
+  <li><a [routerLink]="['/chat']">Συζητήσεις</a></li>
+  <li><a [routerLink]="['/notifications']">Ειδοποιήσεις</a></li>
+  <li><a [routerLink]="['/info']">Προσωπικά στοιχεία</a></li>
+  <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
+  <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
+</ul>
+<body class="second_body" *ngIf="!loading">
+
+<div class="posts">
+  <a [routerLink]="['/'+post[0].user.username]" class="author">{{post[0].user.firstName}} {{post[0].user.lastName}}</a>
+  <br>
+  <span class="date">
+        {{post[0].date_time}}
+  </span>
+  <br><br>
+  <p class="post_body">
+    {{post[0].post_body}}
+  </p>
+  <button *ngIf="post[1]" class="disabled">Ενδιαφέρον!</button>
+  <button *ngIf="!post[1]" (click)="likePost(post[0])" class="like">Ενδιαφέρον!</button>
+  <div *ngFor="let c of this.comms">
+    <p class="post_body">{{c.comment_text}}</p>
+  </div>
+  <div class="form">
+    <form [formGroup]="commentForm" (ngSubmit)="submitComment()">
+      <div>
+          <textarea class="newpost" rows="2" type="text" placeholder="Write a comment" formControlName="post_text">
+          </textarea>
+      </div>
+      <button class="button" type="submit" >
+        Upload comment
+      </button>
+      <div *ngIf="requiredcondition">
+        <h4>
+          You must write something first.
+        </h4>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</body>
+</html>
+<router-outlet></router-outlet>
