@@ -26,6 +26,12 @@ class CommentController {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/comments")
+    List<Comment> all() {
+        return repository.findAll();
+    }
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/comments/ofuser/{userId}")
     List<Comment> commentsbyuser(@PathVariable (value = "userId") int userId) {
         try {
