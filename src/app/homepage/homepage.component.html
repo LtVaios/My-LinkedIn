@@ -21,7 +21,7 @@
       <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
       <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
     </ul>
-    <body class="second_body">
+    <body class="second_body" *ngIf="!loading">
     <div class="form">
       <form [formGroup]="postForm" (ngSubmit)="submitPost()">
         <div>
@@ -49,12 +49,13 @@
       <span class="date">
         {{post[0].date_time}}
       </span>
-      <br>
-      <br>
-      <p class="post_body">{{post[0].post_body}}
+      <br><br>
+      <p class="post_body">
+        {{post[0].post_body}}
       </p >
       <button *ngIf="post[1]" class="disabled">Ενδιαφέρον!</button>
       <button *ngIf="!post[1]" (click)="likePost(post[0])" class="like">Ενδιαφέρον!</button>
+      <button (click)="goToPost(post[0].id)" class="comments_button">Σχόλια</button>
     </div>
     </body>
   </body>

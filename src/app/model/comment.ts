@@ -1,6 +1,9 @@
+import {User} from "./user";
+import {Post} from "./post";
+
 export class Comment {
   id:number;
   comment_text: string;
-  post_id: number;
-  user_id: string;
+  user: User;
+  post: Post;
 }
