@@ -28,13 +28,14 @@
   </form>
 </div>
 
-<div *ngFor="let job of all_jobs">
+<div class="posts" *ngFor="let job of all_jobs">
 
+  <a [routerLink]="['/',job.user.username]"><div class="author"> {{job.user.firstName}} {{job.user.lastName}}</div> </a>
+  <br/><div class="date">{{job.createdDate}}</div>
   <p>
-    <label> <a [routerLink]="['/{{job.user.username}}']"> {{job.user.username}} </a></label>
     <br/> {{job.body}}
-    <br/> <button><a> Apply</a></button>
   </p>
+  <button (click)="likeJob(job.id)" class="like">Ενδιαφέρον!</button>
 </div>
 
 </body>
