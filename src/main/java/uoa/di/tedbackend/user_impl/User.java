@@ -1,13 +1,21 @@
 package uoa.di.tedbackend.user_impl;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import uoa.di.tedbackend.job_impl.Job;
 
 @Data
 @Entity
+//@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User {
     @Id
     //@GeneratedValue
@@ -28,6 +36,11 @@ public class User {
     private String skills;
     private boolean skills_public;
 
+//    @JsonIgnoreProperties("likes")
+//    @ManyToMany(fetch = FetchType.LAZY,
+//            cascade = {CascadeType.MERGE},
+//            mappedBy = "likes")
+//    private Set<Job> likedJobs = new HashSet<>();
 
     public User() {}
 
