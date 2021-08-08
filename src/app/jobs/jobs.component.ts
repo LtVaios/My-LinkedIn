@@ -36,12 +36,13 @@ export class JobsComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.posted=false;
     this.dataLoaded=false;
     this.sharedService.curr_user.subscribe(user => this.currentUser=user);
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
 
-    await this.service.getAllJobs().toPromise().then(response => this.all_jobs=response);
-    console.log(this.all_jobs[0].likes);
+    await this.service.getJobsBySkills(this.user.skills).toPromise().then(response => this.all_jobs=response);
+    console.log(this.user.skills);
     this.html_jobs=[];
     var flag;
     for (let job of this.all_jobs){
@@ -74,10 +75,11 @@ export class JobsComponent implements OnInit {
     console.log('on submit ' + this.jobForm.value.job_text);
     if(this.jobForm.value.job_text==="" || this.jobForm.value.job_text===null) {
       this.requiredcondition = true;
-      this.jobForm.reset();
     }
     else {
       this.service.saveNewJob(this.jobForm.value.job_text,this.user).subscribe(data=>this.uploadcondition=true);
+      this.jobForm.reset();
+      this.posted=true;
     }
   }
 

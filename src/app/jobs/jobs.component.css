@@ -241,7 +241,6 @@ h5 {
   font-size: 14px;
   margin: 5px 5px 5px 0px;
   transition-duration: 0.4s;
-  cursor: pointer;
   border-radius: 5px;
   float: left;
   opacity: 0.6;
@@ -258,6 +257,19 @@ h5 {
   background-color: white;
   border: 2px solid #4CAF50;
   color: black;
+}
+
+.options {
+  text-align: right;
+  position: relative;
+  z-index: 1;
+  max-width: 560px;
+  margin: 0 auto 25px auto;
+  color: green;
+}
+
+.options a {
+  color: green;
 }
 
 

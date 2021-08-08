@@ -37,6 +37,15 @@ export class JobsService {
     return this.http.get<Job[]>(this.jobsUrl);
   }
 
+  getJobsBySkills(skills: string): Observable<Job[]> {
+    if (skills == null)
+      return this.http.get<Job[]>(this.jobsUrl);
+    else
+      // var regskills = skills.replace(/\s/g , "+");
+      console.log(this.jobsUrl+'?search='+encodeURIComponent(skills));
+      return this.http.get<Job[]>(this.jobsUrl+'?search='+encodeURIComponent(skills));
+  }
+
   saveLike(post_id:number, user_id:number): Observable<Post> {
     console.log("liked!  "+this.jobsUrl + '/like' + '?jobid=' + post_id + '&userid=' + user_id);
     return this.http.post<Post>(this.jobsUrl + '/like' + '?jobid=' + post_id + '&userid=' + user_id, null);

@@ -4,7 +4,7 @@
 
 <div id="mySidenav" class="sidenav">
   <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
-  <a href="#" id="web" [routerLink]="['/web']">Το δίκτυό μου</a>
+  <a href="#" id="web" [routerLink]="['/myweb']">Το δίκτυό μου</a>
 </div>
 <ul>
   <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
@@ -29,7 +29,11 @@
     <div *ngIf="posted"><h5>Posted!</h5></div>
   </form>
 </div>
-
+<div class="options">
+  <a [routerLink]="['/jobs/mostrecent']">Πιο πρόσφατα</a> |
+  <a [routerLink]="[]">Οι αγγελίες μου</a> |
+  <a [routerLink]="[]">Αγγελίες Συνδεδεμένων</a>
+</div>
 <div *ngIf="dataLoaded">
 <div  class="posts" *ngFor="let job of html_jobs">
 
