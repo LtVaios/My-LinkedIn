@@ -7,7 +7,10 @@ import uoa.di.tedbackend.post_impl.Post;
 import uoa.di.tedbackend.user_impl.User;
 import uoa.di.tedbackend.user_impl.UserRepository;
 
-import java.util.List;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -23,16 +26,36 @@ public class JobController {
 
     // Aggregate root
 
-    @CrossOrigin(origins = "*")
-    @GetMapping("/jobs")
-    List<Job> all() {
-        return repository.findAll();
-    }
+//    @CrossOrigin(origins = "*")
+//    @GetMapping("/jobs")
+//    List<Job> all() {
+//        return repository.findAll();
+//    }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/jobs/{userId}")
     List<Job> all(@PathVariable(value = "userId") User userid) {
-        return repository.findJobByUserOrderById(userid);
+        return repository.findJobByUser(userid);
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/jobs")
+    List<Job> all(@RequestParam(value = "search", required = false) String search) throws UnsupportedEncodingException {
+        if (search == null) return repository.findAll();
+//        System.out.println("In get by skills after null check: "+search);
+        Set<Job> jobs = new HashSet<Job>();
+        search = URLDecoder.decode(search, StandardCharsets.UTF_8.toString());
+//        System.out.println("In get by skills after decode: "+search);
+        search = search.replaceAll("[,.!?\\-]", " ");
+        search = search.replaceAll("\\s+", " ");
+        String[] allWords = search.toLowerCase().split(" ");
+        for (String word: allWords){
+//            System.out.println("print word: "+ word);
+            List<Job> temp = repository.getJobBasedOnWord(word);
+            if (!temp.isEmpty())
+                jobs.addAll(temp);
+        }
+        return new ArrayList<Job>(jobs);
     }
 
     @CrossOrigin(origins = "*")
@@ -61,7 +84,7 @@ public class JobController {
     @CrossOrigin(origins = "*")
     @DeleteMapping("/jobs/{userId}")
     void deleteMessages(@PathVariable (value = "userId") User userid) {
-        List<Job> jobs=repository.findJobByUserOrderById(userid);
+        List<Job> jobs=repository.findJobByUser(userid);
         for(Job j:jobs){
             repository.deleteById(j.getId());
         }
