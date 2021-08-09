@@ -12,7 +12,6 @@ import {Router} from "@angular/router";
 export class JobsService {
   private jobsUrl = 'http://localhost:8080/jobs';
   private usersUrl = 'http://localhost:8080/users';
-  newjob: Job;
 
   constructor(private http: HttpClient) { }
 
@@ -22,11 +21,12 @@ export class JobsService {
 
   saveNewJob(jb:string,user:User): Observable<Post> {
     console.log("saving new post");
-    this.newjob=new Job();
-    this.newjob.body=jb;
-    this.newjob.user=user;
-    this.newjob.createdDate = new Date();
-    return this.http.post<Post>(this.jobsUrl,this.newjob);
+    var newjob: Job;
+    newjob=new Job();
+    newjob.body=jb;
+    newjob.user=user;
+    newjob.createdDate = new Date();
+    return this.http.post<Post>(this.jobsUrl, newjob);
   }
 
   getMyJobs(user:User): Observable<Job[]> {

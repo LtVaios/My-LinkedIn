@@ -27,6 +27,7 @@ import {SettingsComponent} from "./settings/settings.component";
 import { ChatComponent } from './chat/chat.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { PostsComponent } from './posts/posts.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 
 const appRoutes: Routes = [
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
   {path: 'settings', component: SettingsComponent },
   {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}]},
   {path: 'jobs', component: JobsComponent},
+  {path: 'notifications', component:NotificationsComponent},
   {path: ':id', component: UserinfoComponent},
   {path: 'users', component: UserComponent},
   {path: 'posts', children:[{path:'',component: HomepageComponent},{path: ':id',component: PostsComponent}]}]
@@ -64,6 +66,7 @@ const appRoutes: Routes = [
     ChatComponent,
     JobsComponent,
     PostsComponent,
+    NotificationsComponent,
   ],
   imports: [
     BrowserModule,

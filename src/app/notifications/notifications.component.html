@@ -1,0 +1,59 @@
+<html style="padding: 0; margin: -8px;">
+<!--<head>-->
+<!--  <meta charset="utf-8">-->
+<!--  <meta name="viewport" content="width=device-width, initial-scale=1">-->
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
+<!--</head>-->
+<body class="first_body">
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
+  <a href="#" id="web" [routerLink]="['/myweb']">Το δίκτυό μου</a>
+</div>
+<ul>
+  <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
+  <li><a [routerLink]="['/myweb']">Δίκτυο</a></li>
+  <li><a [routerLink]="['/jobs']">Αγγελίες</a></li>
+  <li><a [routerLink]="['/chat']">Συζητήσεις</a></li>
+  <li><a class="active" [routerLink]="['/notifications']">Ειδοποιήσεις</a></li>
+  <li><a [routerLink]="['/info']">Προσωπικά στοιχεία</a></li>
+  <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
+  <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
+</ul>
+<body class="second_body" *ngIf="dataLoaded">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<div class="grid-container">
+  <label>Αιτήματα Φιλίας</label>
+  <div class="grid-item" *ngIf="friend_requests_users.length>0">
+    <span *ngFor="let fruser of friend_requests_users; index as i">
+      <h1><span style="text-decoration: underline">Όνομα:</span>
+          <a href="#" style="color:darkgreen" [routerLink]="['/',fruser.username]"> {{fruser.firstName}} {{fruser.lastName}} </a>
+        <span *ngIf="friend_requests[i].state=='pending'">
+          <button style="float: right" class="button" type="button" (click)="onAccept(friend_requests[i])">Aποδοχή</button>
+        </span>
+        <span *ngIf="friend_requests[i].state=='completed'" style="float: right; color: limegreen">
+          Αποδεχθήκατε το αίτημα
+        </span>
+      </h1>
+    </span>
+  </div>
+  <div class="grid-item" *ngIf="friend_requests_users.length==0">
+    <h1><span style="text-decoration: underline"></span><span style="color:darkgreen">Δεν έχετε αιτήματα φιλίας</span></h1>
+  </div>
+<!--  <div class="grid-item" *ngIf="notifications.length>0">-->
+<!--    <div *ngFor="let n of notifications">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <div class="grid-item" *ngIf="notifications.length==0">-->
+<!--    <h1><span style="text-decoration: underline"></span><span style="color:darkgreen">Δεν έχετε ειδοποιήσεις</span></h1>-->
+<!--  </div>-->
+</div>
+
+</body>
+
+</body>
+</html>
+<router-outlet></router-outlet>
+

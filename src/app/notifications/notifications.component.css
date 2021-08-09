@@ -1,0 +1,169 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width:100%;
+  /*position: fixed;*/
+}
+
+li {
+  float: left;
+  /*border-right:1px solid #bbb;*/
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+.first_body{
+  background-image: url("/../assets/green-pattern-wallpaper-1.jpg");
+  background-size: cover;
+  text-align: center;
+  min-height: 100vh;
+  height:100%;
+  width:100%;
+  margin:auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding:0;
+}
+
+.second_body {
+  text-align: center;
+  margin:auto;
+  width:900px;
+  min-height: 100vh;
+  background-color: silver;
+  height:100%;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+#mySidenav a {
+  position: absolute;
+  left: -80px;
+  margin-top: -20px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 100px;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  position: fixed;
+  border-radius: 0 5px 5px 0;
+}
+
+#mySidenav a:hover {
+  left: 0;
+}
+
+
+#web {
+  top: 80px;
+  background-color: #04AA6D;
+}
+
+#info {
+  top: 140px;
+  background-color: #04AA6D;
+}
+
+
+h1 {
+  font-size: 15px;
+  font-family: sans-serif;
+  color: black;
+  text-align: left;
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto;
+
+  padding: 10px;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.button {
+  font: bold 15px Arial;
+  text-decoration: none;
+  background-color: lightgreen;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+
+.button:hover{
+  cursor: pointer;
+}
+
+.button:after{
+  font: bold 15px Arial;
+  text-decoration: none;
+  background-color: gray;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+}
+
+html {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+load{
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+  width: 200px;
+  cursor: wait;
+  background-color: white;
+  color: black;
+}
+
+h4 {
+  font-size: 15px;
+  font-family: sans-serif;
+  color: red;
+  background-color:white;
+}
+
+.grid-container label{
+  font-size: 20px;
+  color: darkgreen;
+}
+
