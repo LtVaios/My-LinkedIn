@@ -27,6 +27,14 @@ public class FriendsRepositoryCustomImpl implements FriendsRepositoryCustom {
     }
 
     @Override
+    public List<Friends> findRequestsOfUser(int id) {
+        Query query = entityManager.createQuery("SELECT f FROM Friends f WHERE (f.user_two=?1) AND f.state='pending'");
+        query.setParameter(1, id);
+        List<Friends> friends_ = query.getResultList();
+        return friends_;
+    }
+
+    @Override
     public List<Friends> findFriendsAndRequestsOfUser(int id) {
         Query query = entityManager.createQuery("SELECT f FROM Friends f WHERE (f.user_one = ?1 OR f.user_two=?2)");
         query.setParameter(1, id);

@@ -46,7 +46,7 @@ public class Job {
     private String body;
 
     @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-    @SortableField
+//    @SortableField
     private Date createdDate;
 
     public Job() {

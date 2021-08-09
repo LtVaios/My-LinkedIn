@@ -42,6 +42,17 @@ class FriendsController {
     }
 
     @CrossOrigin(origins = "*")
+    @GetMapping("/friends/requests")
+    List<Friends> getPending(@RequestParam(value="userid") int user_one) {
+        try {
+            return this.repository.findRequestsOfUser(user_one);
+        }
+        catch(Exception e){
+            throw new RuntimeException();
+        }
+    }
+
+    @CrossOrigin(origins = "*")
     @GetMapping("/friends/findall/{user_one}")
     List<Friends> two(@PathVariable int user_one) {
         try {
