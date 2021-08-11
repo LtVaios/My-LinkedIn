@@ -1,16 +1,18 @@
-package uoa.di.tedbackend.likes_impl;
+package uoa.di.tedbackend.joblike_impl;
 
 import lombok.Data;
-import lombok.Generated;
-import uoa.di.tedbackend.post_impl.Post;
+import lombok.NoArgsConstructor;
+import uoa.di.tedbackend.job_impl.Job;
 import uoa.di.tedbackend.user_impl.User;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
 @Entity
-public class Likes {
+@Data
+@NoArgsConstructor
+public class JobLike {
+
     private @Id @GeneratedValue int id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -18,12 +20,10 @@ public class Likes {
     private User user;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "post_id",referencedColumnName = "id")
-    private Post post;
+    @JoinColumn(name = "job_id",referencedColumnName = "id")
+    private Job job;
 
     @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 //    @SortableField
     private Date createdDate;
-
-    public Likes() {}
 }
