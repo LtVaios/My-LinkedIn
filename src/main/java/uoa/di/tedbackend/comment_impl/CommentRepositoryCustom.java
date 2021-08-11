@@ -7,4 +7,5 @@ import uoa.di.tedbackend.comment_impl.Comment;
 public interface CommentRepositoryCustom {
     List<Comment> findCommentsByPost(int postId);
     List<Comment> findCommentsByUser(int userId);
+    List<Comment> findCommentsToUsersPosts(int userId);
 }

@@ -31,4 +31,12 @@ public class JobLikeRepositoryCustomImpl implements JobLikeRepositoryCustom {
         List<JobLike> likes = query.getResultList();
         return likes;
     }
+
+    @Override
+    public List<JobLike> findLikesToUsersJobs(int userId){
+        Query query = entityManager.createQuery(("SELECT l FROM JobLike l WHERE l.job.user.id=?1")); //TODO add l.user.id!= userId to not show notifications for users's own likes
+        query.setParameter(1, userId);
+        List<JobLike> likes = query.getResultList();
+        return likes;
+    }
 }

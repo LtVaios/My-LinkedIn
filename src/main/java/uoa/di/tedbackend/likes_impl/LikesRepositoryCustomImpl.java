@@ -31,4 +31,12 @@ public class LikesRepositoryCustomImpl implements LikesRepositoryCustom {
         List<Likes> likes = query.getResultList();
         return likes;
     }
+
+    @Override
+    public List<Likes> findLikesToUsersPosts(int userId){
+        Query query = entityManager.createQuery(("SELECT l FROM Likes l WHERE l.post.user.id=?1")); //TODO add l.user.id!= userId to not show notifications for users's own likes
+        query.setParameter(1, userId);
+        List<Likes> likes = query.getResultList();
+        return likes;
+    }
 }

@@ -7,4 +7,5 @@ import java.util.List;
 public interface JobLikeRepositoryCustom {
     List<JobLike> findJobLikesByPost(int postId);
     List<JobLike> findJobLikesByUser(int userId);
+    List<JobLike> findLikesToUsersJobs(int userId);
 }

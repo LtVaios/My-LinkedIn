@@ -83,8 +83,8 @@ class UserController {
 
     @CrossOrigin(origins = "*")
     @PutMapping("/users/{id}")
-    User replaceUser(@RequestBody User newUser, @PathVariable int id) {
-        return repository.save(newUser);
+    User replaceUser(@RequestBody User user, @PathVariable int id) {
+        return repository.save(user);
         /*return repository.findById(id)
                 .map(user -> {
                     user.setFirstName(newUser.getFirstName());

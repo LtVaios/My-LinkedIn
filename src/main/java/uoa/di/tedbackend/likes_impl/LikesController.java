@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.web.bind.annotation.*;
+import uoa.di.tedbackend.joblike_impl.JobLike;
 import uoa.di.tedbackend.post_impl.Post;
 import uoa.di.tedbackend.post_impl.PostRepository;
 import uoa.di.tedbackend.user_impl.User;
@@ -22,6 +23,12 @@ class LikesController {
         this.repository = repository;
         this.urepository = urepository;
         this.prepository = prepository;
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/likes")
+    List<Likes> allLikes() {
+        return repository.findAll();
     }
 
     @CrossOrigin(origins = "*")
@@ -43,6 +50,19 @@ class LikesController {
         try {
             List<Likes> likes;
             likes=repository.findLikesByPost(postId);
+            return likes;
+        }
+        catch(Exception e){
+            throw new RuntimeException("Error getting likes of post");
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/likes/touser")
+    List<Likes> likestouserspost(@RequestParam int userid){
+        try {
+            List<Likes> likes;
+            likes=repository.findLikesToUsersPosts(userid);
             return likes;
         }
         catch(Exception e){

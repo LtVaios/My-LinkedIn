@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 import uoa.di.tedbackend.job_impl.JobRepository;
+import uoa.di.tedbackend.likes_impl.Likes;
 import uoa.di.tedbackend.user_impl.UserRepository;
 
 @RestController
@@ -45,6 +46,19 @@ class JobLikeController {
         }
         catch(Exception e){
             throw new RuntimeException("Error getting likes of job");
+        }
+    }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/joblikes/touser")
+    List<JobLike> likestousersjob(@RequestParam int userid){
+        try {
+            List<JobLike> likes;
+            likes=repository.findLikesToUsersJobs(userid);
+            return likes;
+        }
+        catch(Exception e){
+            throw new RuntimeException("Error getting likes of user's jobs");
         }
     }
 

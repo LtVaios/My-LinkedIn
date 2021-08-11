@@ -7,4 +7,5 @@ import uoa.di.tedbackend.comment_impl.Comment;
 public interface LikesRepositoryCustom {
     List<Likes> findLikesByPost(int postId);
     List<Likes> findLikesByUser(int userId);
+    List<Likes> findLikesToUsersPosts(int userId);
 }

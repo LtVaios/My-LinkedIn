@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.web.bind.annotation.*;
+import uoa.di.tedbackend.joblike_impl.JobLike;
 import uoa.di.tedbackend.likes_impl.Likes;
 import uoa.di.tedbackend.post_impl.Post;
 import uoa.di.tedbackend.post_impl.PostRepository;
@@ -56,6 +57,20 @@ class CommentController {
             throw new RuntimeException("Error getting likes of post");
         }
     }
+
+    @CrossOrigin(origins = "*")
+    @GetMapping("/comments/touser")
+    List<Comment> commentstouserspost(@RequestParam int userid){
+        try {
+            List<Comment> comments;
+            comments=repository.findCommentsToUsersPosts(userid);
+            return comments;
+        }
+        catch(Exception e){
+            throw new RuntimeException("Error getting comments of user's posts");
+        }
+    }
+
 
     @CrossOrigin(origins = "*")
     @PostMapping("/comments")
