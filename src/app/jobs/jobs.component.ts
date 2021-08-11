@@ -7,6 +7,8 @@ import {JobsService} from "./jobs.service";
 import {Job} from "../model/job";
 import {Observable} from "rxjs";
 import {Post} from "../model/post";
+import {JobLike} from "../model/joblike";
+import {flatMap} from "rxjs/internal/operators";
 
 @Component({
   selector: 'app-jobs',
@@ -22,7 +24,7 @@ export class JobsComponent implements OnInit {
   uploadcondition: boolean;
   dataLoaded: boolean;
   all_jobs: Job[];
-  html_jobs: [Job,boolean][];
+  likedJobs: Map<Job, boolean>;
 
   jobForm = this.formBuilder.group({
     job_text: ''
@@ -33,6 +35,7 @@ export class JobsComponent implements OnInit {
               private service: JobsService) {
     this.requiredcondition = false;
     this.posted = false;
+    this.likedJobs = new Map();
   }
 
   async ngOnInit() {
@@ -43,19 +46,22 @@ export class JobsComponent implements OnInit {
 
     await this.service.getJobsBySkills(this.user.skills).toPromise().then(response => this.all_jobs=response);
     console.log(this.user.skills);
-    this.html_jobs=[];
-    var flag;
+    var flag: boolean;
     for (let job of this.all_jobs){
       flag = false;
-      for (let likeuser of job.likes) {
-        if (likeuser.id == this.currentUser) {
-          this.html_jobs.push([job, true]);
+      console.log(job);
+      var likes: JobLike[] = [];
+      await this.service.getJobLikes(job.id).toPromise().then(response => likes=response);
+      for (let like of likes) {
+        console.log(like.id);
+        if (like.user.id == this.currentUser) {
+          this.likedJobs.set(job, true);
           flag=true;
           break;
         }
       }
       if (flag==false){
-        this.html_jobs.push([job,false]);
+        this.likedJobs.set(job, false);
       }
     }
     // await this.webService.getFriends(this.currentUser).toPromise().then(friend => this.friends_=friend);
@@ -83,8 +89,14 @@ export class JobsComponent implements OnInit {
     }
   }
 
-  likeJob(post_id:number): void{
-    this.service.saveLike(post_id, this.currentUser).subscribe((data=>console.log(data)));
+  likeJob(job: Job): void{
+    var jl = new JobLike();
+    jl.job = job;
+    jl.user = this.user;
+    jl.createdDate = new Date();
+    console.log(jl);
+    this.service.saveLike(jl).subscribe((data=>console.log(data)));
+    this.likedJobs.set(job,true);
   }
 
 

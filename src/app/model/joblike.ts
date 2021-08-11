@@ -1,9 +1,9 @@
 import {User} from "./user";
-import {JobLike} from "./joblike";
+import {Job} from "./job";
 
-export class Job {
+export class JobLike {
   id: number;
   user: User;
-  body: string;
+  job: Job;
   createdDate: Date;
 }

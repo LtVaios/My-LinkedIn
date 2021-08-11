@@ -5,6 +5,8 @@ import {Observable} from "rxjs";
 import {Job} from "../model/job";
 import {User} from "../model/user";
 import {Router} from "@angular/router";
+import {JobLike} from "../model/joblike";
+import {Likes} from "../model/likes";
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,7 @@ import {Router} from "@angular/router";
 export class JobsService {
   private jobsUrl = 'http://localhost:8080/jobs';
   private usersUrl = 'http://localhost:8080/users';
+  private joblikesUrl = 'http://localhost:8080/joblikes';
 
   constructor(private http: HttpClient) { }
 
@@ -46,8 +49,12 @@ export class JobsService {
       return this.http.get<Job[]>(this.jobsUrl+'?search='+encodeURIComponent(skills));
   }
 
-  saveLike(post_id:number, user_id:number): Observable<Post> {
-    console.log("liked!  "+this.jobsUrl + '/like' + '?jobid=' + post_id + '&userid=' + user_id);
-    return this.http.post<Post>(this.jobsUrl + '/like' + '?jobid=' + post_id + '&userid=' + user_id, null);
+  saveLike(jl: JobLike): Observable<Post> {
+    console.log(jl);
+    return this.http.post<Post>(this.joblikesUrl, jl);
+  }
+
+  getJobLikes(job_id:number): Observable<JobLike[]>{
+    return this.http.get<JobLike[]>(this.joblikesUrl+"/ofpost/"+job_id);
   }
 }
