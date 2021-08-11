@@ -40,10 +40,11 @@ export class PostsService {
 
   saveNewComment(text:string,p:Post,u:User): Observable<Comment>{
     let comm: Comment=new Comment();
-    comm.comment_text=text
-    comm.post=p
-    comm.user=u
-    console.log(comm)
+    comm.comment_text=text;
+    comm.post=p;
+    comm.user=u;
+    console.log(comm);
+    comm.createdDate = new Date();
     return this.http.post<Comment>(this.commentsUrl,comm);
   }
 }

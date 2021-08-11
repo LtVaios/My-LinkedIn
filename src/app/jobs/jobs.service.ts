@@ -41,10 +41,9 @@ export class JobsService {
   }
 
   getJobsBySkills(skills: string): Observable<Job[]> {
-    if (skills == null)
+    if (skills == null || skills == '')
       return this.http.get<Job[]>(this.jobsUrl);
     else
-      // var regskills = skills.replace(/\s/g , "+");
       console.log(this.jobsUrl+'?search='+encodeURIComponent(skills));
       return this.http.get<Job[]>(this.jobsUrl+'?search='+encodeURIComponent(skills));
   }

@@ -105,9 +105,8 @@ h1 {
 .grid-item {
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0, 0, 0, 0.8);
-  padding: 15px;
   font-size: 30px;
-  text-align: center;
+  text-align: left;
 }
 
 .button {
@@ -166,4 +165,42 @@ h4 {
   font-size: 20px;
   color: darkgreen;
 }
+
+
+.notification{
+  padding-left: 15px;
+  padding-right: 15px;
+  border-bottom: 1px solid #333333;
+  font-size: 16px;
+}
+
+.notification p{
+  font-family: sans-serif;
+}
+
+.notification .date {
+  font-family: sans-serif;
+  padding: 5px;
+  font-size: 12px;
+  float: right;
+}
+
+label {
+  font-family: sans-serif;
+}
+
+.userlink{
+  color: green;
+  font-size: 15px;
+  text-decoration: none;
+  text-underline: green;
+}
+
+.userlink:hover{
+  text-decoration: underline;
+  cursor: pointer;
+  color: darkolivegreen;
+}
+
+
 

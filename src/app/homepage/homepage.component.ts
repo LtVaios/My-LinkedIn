@@ -150,6 +150,7 @@ export class HomepageComponent implements OnInit {
     l=new Likes();
     await this.service.getUser(this.currentuser).toPromise().then(response=>l.user=response)
     l.post=p;
+    l.createdDate = new Date();
     await this.service.saveLike(this.currentuser,l).toPromise().then(response=>console.log(response))
     this.loading=false;
     await this.loadPosts();

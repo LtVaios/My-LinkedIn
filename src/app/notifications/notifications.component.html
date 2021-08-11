@@ -28,7 +28,7 @@
   <label>Αιτήματα Φιλίας</label>
   <div class="grid-item" *ngIf="friend_requests_users.length>0">
     <span *ngFor="let fruser of friend_requests_users; index as i">
-      <h1><span style="text-decoration: underline">Όνομα:</span>
+      <h1 style="padding:15px"><span style="text-decoration: underline">Όνομα:</span>
           <a href="#" style="color:darkgreen" [routerLink]="['/',fruser.username]"> {{fruser.firstName}} {{fruser.lastName}} </a>
         <span *ngIf="friend_requests[i].state=='pending'">
           <button style="float: right" class="button" type="button" (click)="onAccept(friend_requests[i])">Aποδοχή</button>
@@ -40,15 +40,35 @@
     </span>
   </div>
   <div class="grid-item" *ngIf="friend_requests_users.length==0">
-    <h1><span style="text-decoration: underline"></span><span style="color:darkgreen">Δεν έχετε αιτήματα φιλίας</span></h1>
+    <h1 style="padding:15px"><span style="text-decoration: underline"></span><span style="color:darkgreen">Δεν έχετε αιτήματα φιλίας</span></h1>
   </div>
-<!--  <div class="grid-item" *ngIf="notifications.length>0">-->
-<!--    <div *ngFor="let n of notifications">-->
+
+<!--  <div class="grid-item" *ngIf="post_likes.length>0">-->
+<!--    <div *ngFor="let n of post_likes">-->
+<!--      {{n.createdDate}}-->
+<!--      <br> Ο χρήστης {{n.user.firstName}} {{n.user.lastName}} έδειξε ενδιαφέρον για την δημοσίευση σας: {{n.post.post_body}}-->
 <!--    </div>-->
 <!--  </div>-->
-<!--  <div class="grid-item" *ngIf="notifications.length==0">-->
+<!--  <div class="grid-item" *ngIf="post_likes.length==0">-->
 <!--    <h1><span style="text-decoration: underline"></span><span style="color:darkgreen">Δεν έχετε ειδοποιήσεις</span></h1>-->
 <!--  </div>-->
+  <label>Ειδοποιήσεις</label>
+  <div class="grid-item" *ngIf="notifications.length>0">
+    <div *ngFor="let n of notifications" class="notification">
+      <span class="date"> {{n.createdDate}}</span>
+      <br>
+      <p>
+        Ο χρήστης <a [routerLink]="['/',n.user.username]" class="userlink"> {{n.user.firstName}} {{n.user.lastName}}</a>
+        <span *ngIf="isComment(n)"> σχολίασε στην <a [routerLink]="['/posts',getComment(n).post.id]">ανάρτηση</a> σας "{{getComment(n).comment_text}}" </span>
+        <span *ngIf="isJobLike(n)"> ενδιαφέρεται για την <a [routerLink]="['/posts',getJobLike(n).job.id]">αγγελία</a> σας </span> <!-- TODO make a link for specific jobs -->
+        <span *ngIf="isPostLike(n)"> ενδιαφέρεται για την <a [routerLink]="['/posts',getPostLike(n).post.id]">ανάρτηση</a> σας </span>
+      </p>
+      <br>
+    </div>
+  </div>
+  <div class="grid-item" *ngIf="notifications.length==0">
+    <h1><span style="text-decoration: underline"></span><span style="color:darkgreen">Δεν έχετε ειδοποιήσεις</span></h1>
+  </div>
 </div>
 
 </body>
