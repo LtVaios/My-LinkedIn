@@ -22,7 +22,7 @@ export class HomepageComponent implements OnInit {
   comments_loaded:boolean;
   uploaded:boolean;
   posts: Post[];
-  html_posts: [Post,boolean][];
+  liked_posts: Map<Post,boolean>;
   friends: Friends[];
   currentuser:number;
 
@@ -52,7 +52,7 @@ export class HomepageComponent implements OnInit {
     let friend_likes:Likes[]=[];
     let likes_id:number[]=[];
     temp=new Set<Post>();
-    this.html_posts=[];
+    this.liked_posts=new Map<Post, boolean>();
     this.posts=[];
 
     await this.service.getPosts(this.currentuser).toPromise().then(post=>this.posts=post);
@@ -108,18 +108,20 @@ export class HomepageComponent implements OnInit {
             break
         }
 
+    this.posts=[]
     //adding the posts with the boolean indicator aside that shows if the user has liked the current post
     //so the html button will be disabled (you cannot like the same post more than 1 times)
     for (let p of temp) {
+      this.posts.push(p)
       likes_id=[];
       likes=[];
       await this.service.getPostLikes(p.id).toPromise().then(response=>likes=response);
       for(let l of likes)
         likes_id.push(l.user.id)
       if(likes_id.includes(this.currentuser))
-        this.html_posts.push([p, true]);
+        this.liked_posts.set(p, true);
       else
-        this.html_posts.push([p, false]);
+        this.liked_posts.set(p, false);
     }
     this.loading=false;
   }
@@ -145,15 +147,13 @@ export class HomepageComponent implements OnInit {
   }
 
   async likePost(p:Post){
-    this.loading=true;
     let l:Likes;
     l=new Likes();
     await this.service.getUser(this.currentuser).toPromise().then(response=>l.user=response)
     l.post=p;
     l.createdDate = new Date();
     await this.service.saveLike(this.currentuser,l).toPromise().then(response=>console.log(response))
-    this.loading=false;
-    await this.loadPosts();
+    this.liked_posts.set(p,true);
   }
 
   goToPost(id:number){
