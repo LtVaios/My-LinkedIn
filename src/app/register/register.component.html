@@ -17,6 +17,7 @@
       <div><input type="password" placeholder="Password" formControlName="pass" required/></div>
       <div><input type="password" placeholder="Confirm Password" formControlName="confirmpass" required/></div>
       <div><input type="text" placeholder="Phone" formControlName="phone" required/></div>
+      <div><input type="image" formControlName="picture"/></div>
       <button class="button" type="submit" >sign up</button>
       <div *ngIf="usercondition"><h4>This user already exists.</h4></div>
       <div *ngIf="passcondition"><h5>Wrong password in the confirm section.</h5></div>

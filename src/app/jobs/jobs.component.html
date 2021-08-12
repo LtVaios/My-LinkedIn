@@ -27,6 +27,11 @@
     <button class="button" type="submit" >Post</button>
     </div>
     <div *ngIf="posted"><h5>Posted!</h5></div>
+    <div *ngIf="requiredcondition">
+      <h4>
+        You must write a post before trying to upload.
+      </h4>
+    </div>
   </form>
 </div>
 <div class="options">

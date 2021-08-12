@@ -31,10 +31,16 @@
       <h1 style="padding:15px"><span style="text-decoration: underline">Όνομα:</span>
           <a href="#" style="color:darkgreen" [routerLink]="['/',fruser.username]"> {{fruser.firstName}} {{fruser.lastName}} </a>
         <span *ngIf="friend_requests[i].state=='pending'">
+          <button style="float: right" class="button" type="button" (click)="onDecline(friend_requests[i])">Απόρριψη</button>
+        </span>
+        <span *ngIf="friend_requests[i].state=='pending'">
           <button style="float: right" class="button" type="button" (click)="onAccept(friend_requests[i])">Aποδοχή</button>
         </span>
         <span *ngIf="friend_requests[i].state=='completed'" style="float: right; color: limegreen">
           Αποδεχθήκατε το αίτημα
+        </span>
+        <span *ngIf="friend_requests[i].state=='deleted'" style="float: right; color: limegreen">
+          Απορρίψατε το αίτημα
         </span>
       </h1>
     </span>
@@ -67,7 +73,7 @@
     </div>
   </div>
   <div class="grid-item" *ngIf="notifications.length==0">
-    <h1><span style="text-decoration: underline"></span><span style="color:darkgreen">Δεν έχετε ειδοποιήσεις</span></h1>
+    <h1 style="padding:15px"><span style="text-decoration: underline"></span><span style="color:darkgreen">Δεν έχετε ειδοποιήσεις</span></h1>
   </div>
 </div>
 
