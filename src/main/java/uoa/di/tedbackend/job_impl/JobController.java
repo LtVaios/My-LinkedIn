@@ -52,7 +52,7 @@ public class JobController {
         search = URLDecoder.decode(search, StandardCharsets.UTF_8.toString());
 //        System.out.println("In get by skills after decode: "+search);
         search = search.replaceAll("[,.!?\\-]", " ");
-        search = search.replaceAll("\\s+", " ");
+        search = search.replaceAll("\\s+", " "); //replace more than 1 space
         String[] allWords = search.toLowerCase().split(" ");
         for (String word: allWords){
             if (stopwords.contains(word)) continue;
