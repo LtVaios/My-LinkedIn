@@ -50,7 +50,7 @@ export class NotificationsComponent implements OnInit {
     this.notifications.push(...this.comments);
     console.log(this.notifications);
     this.notifications.sort((a:notification,b:notification) =>
-     (new Date(b.createdDate).getTime()- new Date(a.createdDate).getTime())
+     (new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime())
     );
     this.dataLoaded = true;
   }
@@ -58,6 +58,11 @@ export class NotificationsComponent implements OnInit {
   onAccept(fr: Friends) {
     fr.state = 'completed';
     this.service.saveFriendship(fr).subscribe(data => console.log(data));
+  }
+
+  onDecline(fr: Friends) {
+    fr.state = 'deleted';
+    this.service.deleteFriendship(fr.id).subscribe(data => console.log(data));
   }
 
   isJobLike(n: notification): n is JobLike {

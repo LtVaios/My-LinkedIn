@@ -31,6 +31,10 @@ export class NotificationsService {
     return this.http.post<Friends>(this.friendsUrl, fr);
   }
 
+  deleteFriendship(id: number){
+    return this.http.delete(this.friendsUrl+"/"+id);
+  }
+
   getPostLikes(user_id: number):Observable<Likes[]>{
       return this.http.get<Likes[]>(this.postLikesUrl+'?userid='+user_id);
   }
