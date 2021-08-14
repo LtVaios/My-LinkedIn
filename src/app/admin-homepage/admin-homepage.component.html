@@ -1,1 +1,25 @@
-<p>admin-homepage works!</p>
+<html style="padding: 0; margin: -8px;">
+
+<body class="first_body">
+
+<html class="load" *ngIf="!dataLoaded">LOADING ...
+</html>
+<body class="second_body" *ngIf="dataLoaded">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <div class="grid-container">
+    <div class="grid-item" *ngFor="let u of users">
+      <h1><span style="text-decoration: underline">ID:</span><span style="color:darkgreen"> {{u.id}}</span><span style="color:darkgreen" class="right"> {{u.firstName}}</span><span style="text-decoration: underline" class="right">Όνομα:</span></h1>
+      <h1><span style="text-decoration: underline">E-mail:</span><span style="color:darkgreen"> {{u.username}}</span><span style="color:darkgreen" class="right"> {{u.lastName}}</span><span style="text-decoration: underline" class="right">Επώνυμο:</span></h1>
+      <a [routerLink]="['/',u.username]" class="button">Μεταβείτε στην σελίδα του</a>
+      <a [href]="this.xmls.get(u.id)" download="data.xml"  class="xmlbutton">XML</a>
+      <a [href]="this.jsons.get(u.id)" download="data.json"  class="jsonbutton">JSON</a>
+    </div>
+  </div>
+</body>
+
+</body>
+
+</html>
+
+<router-outlet></router-outlet>
+

@@ -1,0 +1,118 @@
+.first_body{
+  background-image: url("/../assets/green-pattern-wallpaper-1.jpg");
+  background-size: cover;
+  text-align: center;
+  min-height:100vh;
+  height:100%;
+  width:100%;
+  margin:auto;
+  background-position: center center;
+  background-repeat: no-repeat;
+  padding:0;
+}
+
+.second_body {
+  text-align: center;
+  margin:auto;
+  width:500px;
+  height:100%;
+}
+
+
+h1 {
+  font-size: 15px;
+  font-family: sans-serif;
+  color: black;
+  text-align: left;
+}
+
+.right{
+  float: right;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto;
+  padding: 10px;
+}
+.grid-item {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.button {
+  font: bold 15px Arial;
+  text-decoration: none;
+  background-color: greenyellow;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+  float: left;
+  transition-duration: 0.3s;
+}
+
+.jsonbutton{
+  font: bold 15px Arial;
+  text-decoration: none;
+  background-color: lightskyblue;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+  float: right;
+  transition-duration: 0.3s;
+}
+
+.xmlbutton{
+  font: bold 15px Arial;
+  text-decoration: none;
+  background-color: mediumseagreen;
+  color: #333333;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #333333;
+  border-bottom: 1px solid #333333;
+  border-left: 1px solid #CCCCCC;
+  float: right;
+  transition-duration: 0.3s;
+}
+
+.xmlbutton:hover,.jsonbutton:hover,.button:hover{
+  box-shadow: 0 6px 8px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+  cursor: pointer;
+}
+
+html {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+load{
+  margin: auto;
+  margin-top: 50px;
+  text-align: center;
+  width: 200px;
+  cursor: wait;
+  background-color: white;
+  color: black;
+}
+
+
+
+
+
+
+
+
+
+
