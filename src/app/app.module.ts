@@ -28,6 +28,7 @@ import { ChatComponent } from './chat/chat.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { PostsComponent } from './posts/posts.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { ImageUploadComponent } from './image-upload/image-upload.component';
 
 
 const appRoutes: Routes = [
@@ -43,9 +44,11 @@ const appRoutes: Routes = [
   {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}]},
   {path: 'jobs', component: JobsComponent},
   {path: 'notifications', component:NotificationsComponent},
+  {path: 'image-upload', component: ImageUploadComponent},
   {path: ':id', component: UserinfoComponent},
   {path: 'users', component: UserComponent},
-  {path: 'posts', children:[{path:'',component: HomepageComponent},{path: ':id',component: PostsComponent}]}]
+  {path: 'posts', children:[{path:'',component: HomepageComponent},{path: ':id',component: PostsComponent}]}
+]
 
 @NgModule({
   declarations: [
@@ -67,6 +70,7 @@ const appRoutes: Routes = [
     JobsComponent,
     PostsComponent,
     NotificationsComponent,
+    ImageUploadComponent,
   ],
   imports: [
     BrowserModule,

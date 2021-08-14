@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ImageUpload</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+
+<div class="container row">
+  <div class="col-md-6">
+    <img id="pic" alt="your image" src="#" style="max-width:100%; max-height:100%;"/>
+
+    <input type="file" onchange="document.getElementById('pic').src = window.URL.createObjectURL(this.files[0])" (change)="onFileChanged($event)">
+  </div>
+  <div class="col-md-6">
+    <input type="button" (click)="onUpload()" value="upload">
+  </div>
+</div>
+<hr />
+<!--<div class="container row">-->
+<!--  <div class="col-md-12">-->
+<!--    <div *ngIf=message>{{message}}</div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="container row">-->
+<!--  <div class="col-md-6">-->
+<!--    <input type="text" class="form-control" id="name" placeholder="image name" [(ngModel)]="imageName"-->
+<!--           name="name" />-->
+<!--  </div>-->
+<!--  <div class="col-md-6">-->
+<!--    <input type="button" (click)="getImage()" value="Get Image">-->
+<!--  </div>-->
+<!--</div>-->
+<!--<div class="container row">-->
+<!--  <div class="col-md-12">-->
+<!--    <div *ngIf=retrievedImage>-->
+<!--      <img [src]="retrievedImage">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+</body>
+</html>
