@@ -12,5 +12,5 @@ export class User {
   education_public: boolean;
   skills: string;
   skills_public: boolean;
-
+  img: any;
 }

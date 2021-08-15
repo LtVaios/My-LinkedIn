@@ -48,9 +48,8 @@ li a:hover:not(.active) {
 .second_body {
   text-align: center;
   margin:auto;
-  border-radius: 13px;
-  margin-top: 50px;
-  width:1000px;
+  margin-top: 0px;
+  width:760px;
   background-color:whitesmoke ;
   height:auto;
   padding:10px;
@@ -133,7 +132,14 @@ button {
 
 h1 {
   margin: 0;
-  font-size: 25px;
+  font-size: 20px;
+  font-family: sans-serif;
+  color: green;
+}
+
+label {
+  margin: 0;
+  font-size: 20px;
   font-family: sans-serif;
   color: green;
 }
@@ -143,7 +149,7 @@ p {
   font-family: sans-serif;
   border-color: #04AA6D;
   background: #e0ffe8;
-  max-width: 560px;
+  max-width: 100%;
   margin: 0 auto 25px;
   padding: 20px;
   text-align: left;
@@ -162,7 +168,48 @@ load{
   color: black;
 }
 
+.grid-container .grid-item1 .image {
+  width:250px;
+  height:250px;
+  object-fit:cover;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
+}
 
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 33.3% 33.3% 33.3%;
+  padding: 10px;
+  min-height: 350px;
+}
+
+.grid-container .grid-item1 {
+  padding: 15px;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  position:relative;
+}
+
+.grid-container .grid-item2 {
+  padding: 15px;
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+.grid-container .grid-item3 {
+  padding: 15px;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+
+/*.grid-container > div {*/
+/*}*/
 
 
 

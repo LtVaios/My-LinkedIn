@@ -25,25 +25,38 @@
 <h2>{{other_user.firstName}} {{other_user.lastName}}'s Personal Info</h2>
 
 <div>
-  <span>
-  <h1>Ε-mail</h1>
-  <p>{{other_user.username}}</p>
-  </span>
-  <span *ngIf="is_friends || other_user.work_experience_public">
-  <h1>Επαγγελματική Εμπειρία</h1>
-  <p>{{other_user.work_experience}}</p>
-  </span>
-  <span *ngIf="is_friends || other_user.education_public">
-  <h1>Εκπαίδευση</h1>
-  <p>{{other_user.education}}</p>
-  </span>
-  <span *ngIf="is_friends || other_user.education_public">
-  <h1>Επαγγελματικές Ικανότητες</h1>
-  <p>{{other_user.skills}}</p>
-  </span>
-  <span *ngIf="!is_friends && !other_user.education_public && !other_user.work_experience_public && !other_user.skills_public">
-    <p>Δεν υπάρχουν Πληροφορίες</p>
-  </span>
+  <div class="grid-container">
+    <div class="grid-item1">
+      <img *ngIf="other_user.img" src="{{other_userimage}}" class="image">
+    </div>
+    <div class = "grid-item2">
+      <h1>Όνομα</h1>
+      <p>{{other_user.firstName}}</p>
+      <h1>Επίθετο</h1>
+      <p>{{other_user.lastName}}</p>
+      <h1>E-mail</h1>
+      <p>{{other_user.username}}</p>
+      <h1>Τηλέφωνο</h1>
+      <p>{{other_user.phone}}</p>
+    </div>
+    <div class="grid-item3">
+      <span *ngIf="is_friends || other_user.work_experience_public">
+      <h1>Επαγγελματική Εμπειρία</h1>
+      <p>{{other_user.work_experience}}</p>
+      </span>
+      <span *ngIf="is_friends || other_user.education_public">
+      <h1>Εκπαίδευση</h1>
+      <p>{{other_user.education}}</p>
+      </span>
+      <span *ngIf="is_friends || other_user.education_public">
+      <h1>Επαγγελματικές Ικανότητες</h1>
+      <p>{{other_user.skills}}</p>
+      </span>
+      <span *ngIf="!is_friends && !other_user.education_public && !other_user.work_experience_public && !other_user.skills_public">
+        <p>Δεν υπάρχουν Πληροφορίες</p>
+      </span>
+    </div>
+  </div>
 </div>
 
 </body>
