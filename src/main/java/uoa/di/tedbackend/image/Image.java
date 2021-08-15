@@ -1,6 +1,7 @@
 package uoa.di.tedbackend.image;
 
 import lombok.Data;
+import uoa.di.tedbackend.user_impl.User;
 
 import javax.persistence.*;
 
@@ -33,4 +34,7 @@ public class Image {
     //which is more than the default length for picByte column
     @Column(name = "picByte", length = 1000)
     private byte[] picByte;
+
+    @OneToOne(mappedBy = "img")
+    private User user;
 }

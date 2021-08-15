@@ -25,7 +25,9 @@ class UserController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/users")
-    User newUser(@RequestBody User newUser) {  return repository.save(newUser); }
+    User newUser(@RequestBody User newUser) {
+        return repository.save(newUser);
+    }
 
     // Single item
 

@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import uoa.di.tedbackend.image.Image;
 import uoa.di.tedbackend.job_impl.Job;
 
 @Data
@@ -18,7 +19,7 @@ import uoa.di.tedbackend.job_impl.Job;
 //@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class User {
     @Id
-    //@GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String username;
     private String password;
@@ -35,6 +36,11 @@ public class User {
 
     private String skills;
     private boolean skills_public;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    @JsonIgnoreProperties("user")
+    private Image img;
 
 //    @JsonIgnoreProperties("likes")
 //    @ManyToMany(fetch = FetchType.LAZY,
@@ -53,4 +59,5 @@ public class User {
         this.phone = phone;
         this.admin = admin;
     }
+
 }

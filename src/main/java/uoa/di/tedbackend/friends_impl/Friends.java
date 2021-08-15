@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Data
 @Entity
 public class Friends {
-    private @Id @GeneratedValue int id;
+    private @Id @GeneratedValue(strategy = GenerationType.IDENTITY) int id;
     private int user_one;
     private int user_two;
     private String state;

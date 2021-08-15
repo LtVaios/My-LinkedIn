@@ -5,11 +5,15 @@ import uoa.di.tedbackend.joblike_impl.JobLikeRepository;
 import uoa.di.tedbackend.user_impl.User;
 import uoa.di.tedbackend.user_impl.UserRepository;
 
+import java.io.File;
+import java.util.Scanner;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -26,7 +30,9 @@ public class JobController {
         this.repository = repository;
         this.urepository = urepository;
         this.jbrepository = jbrepository;
-        stopwords = Files.readAllLines(Paths.get("C:\\Users\\Θεοδώρα\\IdeaProjects\\ted_backend\\src\\main\\resources\\static\\stopwords.txt"));
+        File f = new File("./src/main/resources/static/stopwords.txt");
+        System.out.println(f.getAbsolutePath());
+        stopwords = Files.readAllLines(Paths.get(f.getAbsolutePath()));
     }
 
     // Aggregate root
