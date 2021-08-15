@@ -41,7 +41,7 @@
 </div>
 <div *ngIf="dataLoaded">
 <div  class="posts" *ngFor="let job of all_jobs">
-
+  <img *ngIf="job.user.img" src="{{job.user.img}}" class="image">
   <a [routerLink]="['/',job.user.username]"><div class="author"> {{job.user.firstName}} {{job.user.lastName}}</div> </a>
   <br/><span class="date">{{job.createdDate}}</span>
   <br/>

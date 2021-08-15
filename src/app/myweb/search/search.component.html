@@ -23,9 +23,18 @@
 
 <div class="grid-container">
   <div class="grid-item" *ngFor="let user of users">
-    <h1><span style="text-decoration: underline">Όνομα:</span><span style="color:darkgreen"> {{user.firstName}}</span></h1>
-    <h1><span style="text-decoration: underline">Επώνυμο:</span><span style="color:darkgreen"> {{user.lastName}}</span></h1>
-    <a [routerLink]="['/',user.username]" class="button">Μεταβείτε στην σελίδα του</a>
+    <div class="grid-container-simple">
+      <div class="grid-item-simple1">
+        <img *ngIf="users_images.get(user)" src="{{users_images.get(user)}}" class="image">
+      </div>
+      <div class="grid-item-simple2">
+        <h1><span style="text-decoration: underline">Όνομα:</span><span style="color:darkgreen"> {{user.firstName}}</span></h1>
+        <h1><span style="text-decoration: underline">Επώνυμο:</span><span style="color:darkgreen"> {{user.lastName}}</span></h1>
+      </div>
+      <div class="grid-item-simple3">
+        <a [routerLink]="['/',user.username]" class="button">Μεταβείτε στην σελίδα του</a>
+      </div>
+    </div>
   </div>
   <div *ngIf="empty" class="grid-item"><h4>Δεν υπάρχουν χρήστες με αυτό το όνομα</h4></div>
 </div>

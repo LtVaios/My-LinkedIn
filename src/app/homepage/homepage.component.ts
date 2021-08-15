@@ -112,6 +112,7 @@ export class HomepageComponent implements OnInit {
     //adding the posts with the boolean indicator aside that shows if the user has liked the current post
     //so the html button will be disabled (you cannot like the same post more than 1 times)
     for (let p of temp) {
+      p.user.img = 'data:image/jpeg;base64,' + p.user.img.picByte;
       this.posts.push(p)
       likes_id=[];
       likes=[];

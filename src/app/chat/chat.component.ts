@@ -21,7 +21,8 @@ export class ChatComponent implements OnInit {
   all_messages: Message[];
   load_messages: [string,boolean][];
   friends_: Friends[];
-  chat_users:User[]
+  chat_users:User[];
+  users_images: Map<User, any>;
 
   messageForm = this.formBuilder.group({
     message_text: ''
@@ -34,6 +35,7 @@ export class ChatComponent implements OnInit {
     this.friends_=[];
     this.chat_users=[];
     this.load_messages=[];
+    this.users_images = new Map<User, any>();
   }
 
   async ngOnInit() {
@@ -43,9 +45,19 @@ export class ChatComponent implements OnInit {
     await this.webService.getFriends(this.currentUser).toPromise().then(friend => this.friends_=friend);
     for(let friend of this.friends_){
       if(friend.user_one==this.currentUser)
-        await this.service.getUser(friend.user_two).toPromise().then(user=>this.chat_users.push(user));
+        await this.service.getUser(friend.user_two).toPromise().then(user=> {
+          this.chat_users.push(user);
+          if (user.img!==null) {
+            this.users_images.set(user,'data:image/jpeg;base64,' + user.img.picByte);
+          }
+        });
       else
-        await this.service.getUser(friend.user_one).toPromise().then(user=>this.chat_users.push(user));
+        await this.service.getUser(friend.user_one).toPromise().then(user=> {
+          this.chat_users.push(user);
+          if (user.img!==null) {
+            this.users_images.set(user,'data:image/jpeg;base64,' + user.img.picByte);
+          }
+        });
     }
     this.user=this.chat_users[0];
     await this.openChat(this.chat_users[0].id);
