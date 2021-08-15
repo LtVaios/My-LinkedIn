@@ -25,7 +25,7 @@
 <body class="second_body" *ngIf="dataLoaded">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <div class="grid-container">
-  <label>Αιτήματα Φιλίας</label>
+  <label class="lab">Αιτήματα Φιλίας</label>
   <div class="grid-item" *ngIf="friend_requests_users.length>0">
     <span *ngFor="let fruser of friend_requests_users; index as i">
       <h1 style="padding:15px"><span style="text-decoration: underline">Όνομα:</span>
@@ -58,7 +58,7 @@
 <!--  <div class="grid-item" *ngIf="post_likes.length==0">-->
 <!--    <h1><span style="text-decoration: underline"></span><span style="color:darkgreen">Δεν έχετε ειδοποιήσεις</span></h1>-->
 <!--  </div>-->
-  <label>Ειδοποιήσεις</label>
+  <label class="lab">Ειδοποιήσεις</label>
   <div class="grid-item" *ngIf="notifications.length>0">
     <div *ngFor="let n of notifications" class="notification">
       <span class="date"> {{n.createdDate}}</span>
