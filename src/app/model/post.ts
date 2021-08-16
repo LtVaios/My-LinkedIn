@@ -6,4 +6,5 @@ export class Post {
   post_body: string;
   user: User;
   date_time: string;
+  images: any[];
 }

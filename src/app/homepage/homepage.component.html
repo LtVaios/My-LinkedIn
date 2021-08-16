@@ -28,6 +28,10 @@
           <textarea class="newpost" rows="7" type="text" placeholder="Write a new post" formControlName="post_text">
           </textarea>
         </div>
+        <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+        <div>
+          <img *ngFor='let preview of previews' [src]="preview" class="post-image">
+        </div>
         <button [disabled]="loading" class="button" type="submit" >
           Upload Post
         </button>
@@ -41,10 +45,15 @@
             Post uploaded successfully!
           </h5>
         </div>
+        <div *ngIf="message.length">
+          <div *ngFor="let msg of message; let i = index">
+            <p>{{ msg }}</p>
+          </div>
+        </div>
       </form>
     </div>
     <div class="posts" *ngFor="let post of posts">
-      <img *ngIf="post.user.img" src="{{post.user.img}}" class="image">
+      <img *ngIf="post.user.img" [src]="imagesrc(post.user.img)" class="profile-image">
       <a [routerLink]="['/'+post.user.username]" class="author">{{post.user.firstName}} {{post.user.lastName}}</a>
       <br>
       <span class="date">
@@ -54,6 +63,9 @@
       <p class="post_body">
         {{post.post_body}}
       </p >
+      <div *ngFor="let image of post.images">
+        <img [src] = imagesrc(image) class="post-image">
+      </div>
       <button *ngIf="liked_posts.get(post)" class="disabled">Ενδιαφέρον!</button>
       <button *ngIf="!liked_posts.get(post)" (click)="likePost(post)" class="like">Ενδιαφέρον!</button>
       <button (click)="goToPost(post.id)" class="comments_button">Σχόλια</button>

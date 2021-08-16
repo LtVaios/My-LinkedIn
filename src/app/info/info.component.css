@@ -183,7 +183,7 @@ load{
 
 .grid-container {
   display: grid;
-  grid-template-columns: 33.3% 33.3% 33.3%;
+  grid-template-columns: 1fr 2fr;
   padding: 10px;
   min-height: 350px;
 }
@@ -198,13 +198,13 @@ load{
 .grid-container .grid-item2 {
   padding: 15px;
   grid-column-start: 2;
-  grid-column-end: 4;
+  grid-column-end: 3;
 }
 
 .grid-container .grid-item3 {
   padding: 15px;
   grid-column-start: 1;
-  grid-column-end: 4;
+  grid-column-end: 3;
 }
 
 

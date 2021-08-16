@@ -100,5 +100,7 @@ export class JobsComponent implements OnInit {
     this.likedJobs.set(job,true);
   }
 
-
+  local(d: Date): string{
+    return new Date(d).toLocaleString();
+  }
 }
