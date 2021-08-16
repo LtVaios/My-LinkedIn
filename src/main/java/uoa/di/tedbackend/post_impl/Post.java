@@ -1,8 +1,11 @@
 package uoa.di.tedbackend.post_impl;
 
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Generated;
+import uoa.di.tedbackend.image.Image;
 import uoa.di.tedbackend.user_impl.User;
 
 import javax.persistence.*;
@@ -21,9 +24,18 @@ public class Post {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<User> likes = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id", referencedColumnName = "id")
+//    @JsonIgnoreProperties("post")
+    private Set<Image> images = new HashSet<>();
+
     public Post() {}
 
     public Post(String pb) {
         this.post_body=pb;
     }
+
+//    public void addImg(Image img) {
+//        this.img.add(img);
+//    }
 }

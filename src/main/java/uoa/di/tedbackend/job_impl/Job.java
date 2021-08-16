@@ -11,8 +11,7 @@ import java.util.Date;
 
 @Entity
 @Data
-@Indexed
-//@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
+//@Indexed
 public class Job {
 
     @Id
