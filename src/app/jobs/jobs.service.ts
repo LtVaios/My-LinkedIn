@@ -12,9 +12,9 @@ import {Likes} from "../model/likes";
   providedIn: 'root'
 })
 export class JobsService {
-  private jobsUrl = 'http://localhost:8080/jobs';
-  private usersUrl = 'http://localhost:8080/users';
-  private joblikesUrl = 'http://localhost:8080/joblikes';
+  private jobsUrl = 'https://localhost:8443/jobs';
+  private usersUrl = 'https://localhost:8443/users';
+  private joblikesUrl = 'https://localhost:8443/joblikes';
 
   constructor(private http: HttpClient) { }
 

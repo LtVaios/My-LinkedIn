@@ -11,12 +11,12 @@ import {Job} from "../model/job";
   providedIn: 'root'
 })
 export class AdminHomepageService {
-  private postsUrl = 'http://localhost:8080/posts';
-  private likesUrl = 'http://localhost:8080/likes';
-  private usersUrl = 'http://localhost:8080/users';
-  private friendsUrl = 'http://localhost:8080/friends';
-  private commentsUrl = 'http://localhost:8080/comments';
-  private jobsUrl = 'http://localhost:8080/jobs';
+  private postsUrl = 'https://localhost:8443/posts';
+  private likesUrl = 'https://localhost:8443/likes';
+  private usersUrl = 'https://localhost:8443/users';
+  private friendsUrl = 'https://localhost:8443/friends';
+  private commentsUrl = 'https://localhost:8443/comments';
+  private jobsUrl = 'https://localhost:8443/jobs';
   constructor( private http: HttpClient ) { }
 
   getUsers(): Observable<User[]> {

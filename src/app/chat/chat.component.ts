@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit {
 
   async ngOnInit() {
     this.dataLoaded=false;
-    this.sharedService.curr_user.subscribe(user => this.currentUser=user);
+    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
     await this.service.getMessages(this.currentUser).toPromise().then(response => this.all_messages=response);
     await this.webService.getFriends(this.currentUser).toPromise().then(friend => this.friends_=friend);
     for(let friend of this.friends_){

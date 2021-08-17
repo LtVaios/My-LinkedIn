@@ -13,7 +13,7 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class LoginService {
-  private usersUrl = 'http://localhost:8080/users';
+  private usersUrl = 'https://localhost:8443/users';
 
   constructor(private http: HttpClient,private router: Router) {
   }

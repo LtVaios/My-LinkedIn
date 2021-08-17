@@ -13,10 +13,9 @@ import {SharedService} from "../shared.service";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  model: any = {};
   currentuser: User
   returnUrl: string;
-  usercondition: boolean
-  passcondition: boolean
   loading = false;
 
   loginForm = this.formBuilder.group({
@@ -29,37 +28,36 @@ export class LoginComponent implements OnInit {
               private formBuilder: FormBuilder,
               private authenticationService: AuthenticationService,
               private route: ActivatedRoute,
-              private router: Router) {
-    this.usercondition = false;
-    this.passcondition = false;
-  }
+              private router: Router) { }
 
   ngOnInit(): void {
-    //this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-    //this.authenticationService.logout();
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
+    console.log(this.returnUrl)
+    if(this.returnUrl==="/login" || this.returnUrl==="/")
+      this.returnUrl="/home"
+    this.authenticationService.logout();
   }
 
-  onSubmit(): void {
-    //the function's code will only be executed after the subscribe get the results from the observable that came from the database
-    this.service.getUser(this.loginForm.value.email).subscribe(user => {
-      this.passcondition=false;
-      this.usercondition=false;
-      this.currentuser = user;
-      if(this.currentuser.username!="_EMPTY_") {
-        if (this.currentuser.password === this.loginForm.value.pass) {
-          this.shared_service.changeUser(this.currentuser.id);
-          if (this.currentuser.admin == true)
-            this.service.adminloggedin();
-          else
-            this.service.userloggedin();
+  async onSubmit() {
+    await this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.pass)
+      .toPromise().then(
+        response => {
+          localStorage.setItem('token', <string>response.headers.get('Authorization'));
+          this.userloggedin();
         }
-        else {
-          this.passcondition = true
-          this.loginForm.reset();
-        }
-      }
-      else
-        this.usercondition = true
-    }, error => this.loginForm.reset());
+      );
+    await this.service.getUser(this.loginForm.value.email).toPromise().then(user => this.currentuser = user);
+    localStorage.setItem('currentuser', String(this.currentuser.id))
+    console.log(localStorage.getItem('currentuser'))
+
   }
+
+  userloggedin():void {
+    this.router.navigate(['../home']);
+  }
+
+  adminloggedin(): void {
+    this.router.navigate(['../admin']);
+  }
+
 }

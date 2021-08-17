@@ -38,14 +38,11 @@ export class SettingsComponent implements OnInit {
 
   async ngOnInit() {
     this.loading=false;
-    this.sharedService.curr_user.subscribe(user => this.currentUser=user);
+    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
     //await new Promise(f => setTimeout(f, 5000));
-    // console.log(this.service.getUser(this.currentUser));
-    console.log(this.currentUser);
     this.passsaved = false;
     this.emailsaved=false;
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
-    console.log(this.user.username);
     // console.log("USER "+this.user.work_experience);
     this.loading=true;
   }
@@ -82,11 +79,9 @@ export class SettingsComponent implements OnInit {
     }
     else {
       this.user.username = this.EmailForm.value.new_email;
-      console.log(this.user.username);
-      console.log(this.currentUser);
-      this.service.updateUser(this.currentUser, this.user).subscribe();
+      this.service.updateUser(this.currentUser, this.user).subscribe(next => console.log("subscribed new email"));
       this.emailsaved = true;
-      this.PassForm.reset();
+      this.EmailForm.reset();
     }
   }
 }

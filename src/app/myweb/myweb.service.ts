@@ -9,8 +9,8 @@ import {User} from "../model/user";
 })
 export class MywebService {
 
-  private friendsUrl = 'http://localhost:8080/friends';
-  private usersUrl = 'http://localhost:8080/users';
+  private friendsUrl = 'https://localhost:8443/friends';
+  private usersUrl = 'https://localhost:8443/users';
   constructor( private http: HttpClient ) { }
 
   getFriends(id:number): Observable<Friends[]> {

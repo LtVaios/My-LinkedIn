@@ -32,7 +32,7 @@ export class PostsComponent implements OnInit {
               private formBuilder: FormBuilder) {this.post=[new Post(),false]; }
 
   async ngOnInit() {
-    this.sharedService.curr_user.subscribe(user => this.currentuser=user);
+    this.currentuser=parseInt(<string>localStorage.getItem('currentuser'))
     this.route.paramMap.subscribe( paramMap => {
       this.post_id = paramMap.get('id');
     });

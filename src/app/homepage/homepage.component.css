@@ -97,6 +97,7 @@ li a:hover:not(.active) {
   font-size: 14px;
   cursor: pointer;
   transition-duration: 0.3s;
+  margin: 5px;
 }
 
 .form button:hover {
@@ -295,7 +296,7 @@ h5 {
 .post-image {
     width: 50%;
     object-fit:cover;
-    margin: 0;
+    margin: 10px;
 }
 
 

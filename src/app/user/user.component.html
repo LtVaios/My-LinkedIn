@@ -1,9 +1,29 @@
-<h1> test</h1>
+<!--
+<div myDirective style="text-align:center">
+  <h1>
+    Welcome {{ user.username | uppercase}}!
+  </h1>
+</div>
+<div *ngIf="activeForm">
+    <label>username:
+     <input [(ngModel)]="user.username"
+  placeholder="username">
+    </label>
+    <button (click)="changeUser()">Change User </button>
+</div>
+<p>
+  <button (click)="addUser()">Add User </button>
+</p>
+<div *ngFor='let user of users'>
+  <h2>{{user.username}} details!</h2>
+  <div><label>first name: </label>{{user.firstName}}</div>
+  <div><label>last name: </label> {{user.lastName}}</div>
+</div>
+-->
+<h1> User List </h1>
 <ol>
-  <h1>123</h1>
-  <li *ngFor="let user of users">
-    <a [routerLink]="['/users', user.username]">{{user.firstName}}</a>
+  <li *ngFor='let user of users'>
+    <a  [routerLink]="['/users', user.username]">{{user.username}} </a>
   </li>
 </ol>
-
 <router-outlet></router-outlet>

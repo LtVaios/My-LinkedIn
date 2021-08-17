@@ -11,11 +11,11 @@ import {Comment} from "../model/comment";
   providedIn: 'root'
 })
 export class NotificationsService {
-  private friendsUrl = 'http://localhost:8080/friends';
-  private usersUrl = 'http://localhost:8080/users';
-  private postLikesUrl = 'http://localhost:8080/likes/touser';
-  private jobLikesUrl = 'http://localhost:8080/joblikes/touser';
-  private commentsUrl = 'http://localhost:8080/comments/touser';
+  private friendsUrl = 'https://localhost:8443/friends';
+  private usersUrl = 'https://localhost:8443/users';
+  private postLikesUrl = 'https://localhost:8443/likes/touser';
+  private jobLikesUrl = 'https://localhost:8443/joblikes/touser';
+  private commentsUrl = 'https://localhost:8443/comments/touser';
 
   constructor(private http: HttpClient) { }
 

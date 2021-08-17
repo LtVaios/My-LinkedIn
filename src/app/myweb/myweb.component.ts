@@ -14,8 +14,8 @@ import {ChatService} from "../chat/chat.service";
   styleUrls: ['./myweb.component.css']
 })
 export class MywebComponent implements OnInit {
-  private friendsUrl = 'http://localhost:8080/friends';
-  private usersUrl = 'http://localhost:8080/users';
+  private friendsUrl = 'https://localhost:8443/friends';
+  private usersUrl = 'https://localhost:8443/users';
   friends_: Friends[];
   users: User[];
   currentUser:number;
@@ -35,7 +35,7 @@ export class MywebComponent implements OnInit {
   async ngOnInit() {
     this.dataLoaded= false;
     //await new Promise(f => setTimeout(f, 5000));
-    this.sharedService.curr_user.subscribe(user => this.currentUser=user);
+    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
     await this.service.getFriends(this.currentUser).toPromise().then(friend => this.friends_=friend);
     for(let friend of this.friends_){
       if(friend.user_one==this.currentUser)

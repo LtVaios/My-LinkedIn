@@ -284,7 +284,7 @@ h5 {
 .post-image {
   width: 50%;
   object-fit:cover;
-  margin: 0;
+  margin: 10px;
 }
 
 

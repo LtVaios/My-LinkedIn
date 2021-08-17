@@ -41,20 +41,18 @@ export class JobsComponent implements OnInit {
   async ngOnInit() {
     this.posted=false;
     this.dataLoaded=false;
-    this.sharedService.curr_user.subscribe(user => this.currentUser=user);
+    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
 
     await this.service.getJobsBySkills(this.user.skills).toPromise().then(response => this.all_jobs=response);
-    console.log(this.user.skills);
     var flag: boolean;
     for (let job of this.all_jobs){
-      job.user.img = 'data:image/jpeg;base64,'+job.user.img.picByte;
+      if(job.user.img!=null)
+        job.user.img = 'data:image/jpeg;base64,'+job.user.img.picByte;
       flag = false;
-      console.log(job);
       var likes: JobLike[] = [];
       await this.service.getJobLikes(job.id).toPromise().then(response => likes=response);
       for (let like of likes) {
-        console.log(like.id);
         if (like.user.id == this.currentUser) {
           this.likedJobs.set(job, true);
           flag=true;

@@ -8,7 +8,7 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class SettingsService {
-  private usersUrl = 'http://localhost:8080/users';
+  private usersUrl = 'https://localhost:8443/users';
 
   constructor(private http: HttpClient,private router: Router) {
   }
@@ -18,6 +18,6 @@ export class SettingsService {
   }
 
   updateUser(id: number, user: User): Observable<User>{
-    return this.http.put<User>(this.usersUrl+"/"+id, user);
+    return this.http.post<User>(this.usersUrl, user);
   }
 }
