@@ -3,6 +3,7 @@ package uoa.di.tedbackend.job_impl;
 import org.springframework.web.bind.annotation.*;
 import uoa.di.tedbackend.joblike_impl.JobLikeRepository;
 import uoa.di.tedbackend.user_impl.User;
+import uoa.di.tedbackend.job_impl.JobNotFoundException;
 import uoa.di.tedbackend.user_impl.UserRepository;
 
 import java.io.File;
@@ -42,9 +43,27 @@ public class JobController {
 //    List<Job> all() {
 //        return repository.findAll();
 //    }
+    @CrossOrigin(origins = "*")
+    @GetMapping("/jobs/{id}")
+    Job all(@PathVariable(value = "id") int id) {
+        try {
+            Optional<Job> test_job;
+            test_job=repository.findById(id);
+            if(test_job!=null)
+                return test_job.get();
+            else{
+                Job failed_job=new Job();
+                failed_job.setId(-1);
+                return failed_job;
+            }
+        }
+        catch(Exception e){
+            throw new JobNotFoundException();
+        }
+    }
 
     @CrossOrigin(origins = "*")
-    @GetMapping("/jobs/{userId}")
+    @GetMapping("/jobs/ofuser/{userId}")
     List<Job> all(@PathVariable(value = "userId") User userid) {
         return repository.findJobByUser(userid);
     }
@@ -77,7 +96,7 @@ public class JobController {
     }
 
     @CrossOrigin(origins = "*")
-    @DeleteMapping("/jobs/{userId}")
+    @DeleteMapping("/jobs/ofuser/{userId}")
     void deleteMessages(@PathVariable (value = "userId") User userid) {
         List<Job> jobs=repository.findJobByUser(userid);
         for(Job j:jobs){
