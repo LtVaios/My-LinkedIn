@@ -33,11 +33,15 @@ export class JobsService {
   }
 
   getMyJobs(user:User): Observable<Job[]> {
-    return this.http.get<Job[]>(this.jobsUrl+"/"+user.id);
+    return this.http.get<Job[]>(this.jobsUrl+"/ofuser/"+user.id);
   }
 
   getAllJobs(): Observable<Job[]> {
     return this.http.get<Job[]>(this.jobsUrl);
+  }
+
+  getJob(job_id: number): Observable<Job> {
+    return this.http.get<Job>(this.jobsUrl+"/"+job_id);
   }
 
   getJobsBySkills(skills: string): Observable<Job[]> {

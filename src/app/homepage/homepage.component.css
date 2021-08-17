@@ -42,7 +42,7 @@ li a:hover:not(.active) {
   width:100%;
   margin:auto;
   background-position: center center;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
   padding:0;
 }
 

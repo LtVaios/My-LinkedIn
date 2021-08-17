@@ -1,0 +1,37 @@
+<html style="padding: 0; margin: -8px;">
+
+<body class="first_body">
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
+  <a href="#" id="web" [routerLink]="['/myweb']">Το δίκτυό μου</a>
+</div>
+<ul>
+  <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
+  <li><a [routerLink]="['/myweb']">Δίκτυο</a></li>
+  <li><a class="active" [routerLink]="['/jobs']">Αγγελίες</a></li>
+  <li><a [routerLink]="['/chat']">Συζητήσεις</a></li>
+  <li><a [routerLink]="['/notifications']">Ειδοποιήσεις</a></li>
+  <li><a [routerLink]="['/info']">Προσωπικά στοιχεία</a></li>
+  <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
+  <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
+</ul>
+<body class="second_body" *ngIf="dataLoaded">
+
+  <div  class="posts">
+    <img *ngIf="job.user.img" [src] = "imagesrc(job.user.img)" class="image">
+    <a [routerLink]="['/',job.user.username]"><div class="author"> {{job.user.firstName}} {{job.user.lastName}}</div> </a>
+    <br/><span class="date">{{local(job.createdDate)}}</span>
+    <br/>
+    <p> {{job.body}}  </p>
+    <br/>
+    <button *ngIf="liked" class="disabled">Ενδιαφέρον!</button>
+    <button *ngIf="!liked" (click)="likeJob(job)" class="like">Ενδιαφέρον!</button>
+  </div>
+
+</body>
+
+</body>
+</html>
+<router-outlet></router-outlet>
+

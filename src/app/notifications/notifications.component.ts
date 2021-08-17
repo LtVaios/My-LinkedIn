@@ -89,5 +89,9 @@ export class NotificationsComponent implements OnInit {
     return <JobLike>n;
   }
 
+  local(d: Date): string{
+    return new Date(d).toLocaleString();
+  }
+
 }
 
