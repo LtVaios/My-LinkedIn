@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @Slf4j
@@ -14,10 +15,11 @@ class LoadDatabase {
     CommandLineRunner initDatabase(UserRepository repository) {
         //repository.deleteAll();
         return args -> {
-            log.info("Preloading " + repository.save(new User(1,"bilbo@gmail.com","1234","Bilbo", "Baggins", "1234",false)));
-            log.info("Preloading " + repository.save(new User(4,"bob@gmail.com","1234","Bob", "Baggins", "1234",false)));
-            log.info("Preloading " + repository.save(new User(2,"sam@gmail.com","4321","Sam", "Baggins", "4321",false)));
-            log.info("Preloading " + repository.save(new User(3,"frodo@gmail.com","5678","Frodo", "Baggins", "5678",true)));
+            BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+            log.info("Preloading " + repository.save(new User(1,"bilbo@gmail.com",bCryptPasswordEncoder.encode("1234"),"Bilbo", "Baggins", "1234",false)));
+            log.info("Preloading " + repository.save(new User(4,"bob@gmail.com",bCryptPasswordEncoder.encode("1234"),"Bob", "Baggins", "1234",false)));
+            log.info("Preloading " + repository.save(new User(2,"sam@gmail.com",bCryptPasswordEncoder.encode("4321"),"Sam", "Baggins", "4321",false)));
+            log.info("Preloading " + repository.save(new User(3,"frodo@gmail.com",bCryptPasswordEncoder.encode("5678"),"Frodo", "Baggins", "5678",true)));
         };
     }
 }
