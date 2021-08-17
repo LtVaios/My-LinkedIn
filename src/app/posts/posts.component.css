@@ -272,6 +272,20 @@ h5 {
   text-decoration: underline;
 }
 
+.profile-image {
+  width:40px;
+  height:40px;
+  object-fit:cover;
+  margin: 0;
+  float: left;
+  border-radius: 50%;
+}
+
+.post-image {
+  width: 50%;
+  object-fit:cover;
+  margin: 0;
+}
 
 
 

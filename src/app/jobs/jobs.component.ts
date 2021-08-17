@@ -48,6 +48,7 @@ export class JobsComponent implements OnInit {
     console.log(this.user.skills);
     var flag: boolean;
     for (let job of this.all_jobs){
+      job.user.img = 'data:image/jpeg;base64,'+job.user.img.picByte;
       flag = false;
       console.log(job);
       var likes: JobLike[] = [];
@@ -99,5 +100,7 @@ export class JobsComponent implements OnInit {
     this.likedJobs.set(job,true);
   }
 
-
+  local(d: Date): string{
+    return new Date(d).toLocaleString();
+  }
 }

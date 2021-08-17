@@ -9,6 +9,9 @@ import {empty} from "rxjs/internal/Observer";
 import {Likes} from "../model/likes";
 import {Comment} from "../model/comment";
 import {Router} from "@angular/router";
+import {Observable} from "rxjs";
+import {MultiUploadService} from "./multi-upload/multi-upload.service";
+import {HttpEventType, HttpResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-homepage',
@@ -26,6 +29,8 @@ export class HomepageComponent implements OnInit {
   friends: Friends[];
   currentuser:number;
 
+  images: any[];
+
   postForm = this.formBuilder.group({
     post_text: ''
   });
@@ -33,7 +38,8 @@ export class HomepageComponent implements OnInit {
   constructor(private service: HomepageService,
               private sharedService: SharedService,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private uploadService: MultiUploadService) {
               this.requiredcondition = false;
               this.loading=false;
   }
@@ -134,10 +140,14 @@ export class HomepageComponent implements OnInit {
     if(this.postForm.value.post_text==="" || this.postForm.value.post_text===null) {
       this.requiredcondition = true;
       this.loading=false;
-      this.postForm.reset();
+      // this.postForm.reset();
     }
     else {
-      this.service.saveNewPost(this.postForm.value.post_text, this.currentuser).subscribe(data => console.log(data));
+      this.service.saveNewPost(this.postForm.value.post_text, this.currentuser).subscribe(data => {
+        console.log(data);
+        this.uploadFiles(data.id);
+      });
+      this.previews = [];
       await new Promise(f => setTimeout(f, 2000));
       this.postForm.reset();
       this.loading=false;
@@ -160,4 +170,69 @@ export class HomepageComponent implements OnInit {
     this.router.navigate(['../posts/'+id]);
   }
 
+
+  /* For pictures */
+  selectedFiles?: FileList;
+  progressInfos: any[] = [];
+  message: string[] = [];
+
+  previews: string[] = [];
+  imageInfos?: Observable<any>;
+
+  selectFiles(event: any): void {
+    this.message = [];
+    this.progressInfos = [];
+    this.selectedFiles = event.target.files;
+
+    this.previews = [];
+    if (this.selectedFiles && this.selectedFiles[0]) {
+      const numberOfFiles = this.selectedFiles.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+
+        reader.onload = (e: any) => {
+          console.log(e.target.result);
+          this.previews.push(e.target.result);
+        };
+
+        reader.readAsDataURL(this.selectedFiles[i]);
+      }
+    }
+  }
+
+  uploadFiles(post_id: number): void {
+    this.message = [];
+
+    if (this.selectedFiles) {
+      for (let i = 0; i < this.selectedFiles.length; i++) {
+        this.upload(i, this.selectedFiles[i], post_id);
+      }
+    }
+  }
+
+  upload(idx: number, file: File, post_id: number): void {
+    this.progressInfos[idx] = { value: 0, fileName: file.name };
+
+    if (file) {
+      this.uploadService.upload(file, post_id).subscribe(
+        (event: any) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+            const msg = 'Uploaded the file successfully: ' + file.name;
+            this.message.push(msg);
+            // this.imageInfos = this.uploadService.getFiles();
+          }
+        },
+        (err: any) => {
+          this.progressInfos[idx].value = 0;
+          const msg = 'Could not upload the file: ' + file.name;
+          this.message.push(msg);
+        });
+    }
+  }
+
+  imagesrc(img: any): string{
+    return 'data:image/jpeg;base64,'+img.picByte;
+  }
 }

@@ -20,7 +20,9 @@ export class MywebComponent implements OnInit {
   users: User[];
   currentUser:number;
   dataLoaded: boolean;
-  filledCondition:boolean
+  filledCondition:boolean;
+  users_images: Map<User,string>;
+
   searchForm = this.formBuilder.group({
     searchbar: ''
   });
@@ -28,7 +30,7 @@ export class MywebComponent implements OnInit {
               private service: MywebService,
               private sharedService: SharedService,
               private ChatService: ChatService,
-              private router: Router) { this.friends_=[]; this.users=[] }
+              private router: Router) { this.friends_=[]; this.users=[]; this.users_images=new Map<User, string>();}
 
   async ngOnInit() {
     this.dataLoaded= false;
@@ -37,9 +39,19 @@ export class MywebComponent implements OnInit {
     await this.service.getFriends(this.currentUser).toPromise().then(friend => this.friends_=friend);
     for(let friend of this.friends_){
       if(friend.user_one==this.currentUser)
-        await this.service.getUser(friend.user_two).toPromise().then(user=>this.users.push(user));
+        await this.service.getUser(friend.user_two).toPromise().then(user=> {
+          this.users.push(user);
+          if (user.img!==null) {
+            this.users_images.set(user,'data:image/jpeg;base64,' + user.img.picByte);
+          }
+        });
       else
-        await this.service.getUser(friend.user_one).toPromise().then(user=>this.users.push(user));
+        await this.service.getUser(friend.user_one).toPromise().then(user=> {
+          this.users.push(user);
+          if (user.img!==null) {
+            this.users_images.set(user,'data:image/jpeg;base64,' + user.img.picByte);
+          }
+        });
     }
     this.dataLoaded= true;
   }

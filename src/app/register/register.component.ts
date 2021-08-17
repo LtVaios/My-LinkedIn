@@ -61,29 +61,17 @@ export class RegisterComponent implements OnInit {
         this.RegisterForm.reset();
       }
       else {
-        this.service.userregister(this.RegisterForm.value.fname, this.RegisterForm.value.lname, this.RegisterForm.value.email, this.RegisterForm.value.pass, this.RegisterForm.value.phone).subscribe(user => this.user = user, error => console.log(error));
+        this.service.userregister(this.RegisterForm.value.fname, this.RegisterForm.value.lname,
+          this.RegisterForm.value.email, this.RegisterForm.value.pass, this.RegisterForm.value.phone).subscribe(
+            user => {
+              this.user = user;
+              this.service.postImage(this.selectedFile, this.user.id).subscribe((response) => console.log(response));
+            }, error => console.log(error));
         window.alert("You signed up successfully!")
         this.router.navigate(['../login']);
       }
     });
   }
-
-  // onUpload() {
-  //   // console.log(this.selectedFile);
-  //   //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
-  //   const uploadImageData = new FormData();
-  //   uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-  //   //Make a call to the Spring Boot Application to save the image
-  //   this.httpClient.post('http://localhost:8080/image/upload', uploadImageData, { observe: 'response' })
-  //     .subscribe((response) => {
-  //         if (response.status === 200) {
-  //           this.message = 'Image uploaded successfully';
-  //         } else {
-  //           this.message = 'Image not uploaded successfully';
-  //         }
-  //       }
-  //     );
-  // }
 
   public onFileChanged(event: any) {
     //Select File

@@ -13,7 +13,11 @@ export class SearchComponent implements OnInit {
   users: User[];
   dataLoaded:boolean;
   empty:boolean;
-  constructor(private sharedService: SharedService,private service: SearchService) { }
+  users_images: Map<User,string>;
+
+  constructor(private sharedService: SharedService,private service: SearchService) {
+    this.users_images = new Map<User, string>();
+  }
 
   async ngOnInit() {
     this.dataLoaded=false;
@@ -24,7 +28,13 @@ export class SearchComponent implements OnInit {
     console.log(this.users);
     if(this.users.length==0)
       this.empty=true;
-    this.dataLoaded=true;
+    this.dataLoaded=true
+
+    for (var user of this.users){
+      if (user.img!==null) {
+        this.users_images.set(user,'data:image/jpeg;base64,' + user.img.picByte);
+      }
+    }
   }
 
 }

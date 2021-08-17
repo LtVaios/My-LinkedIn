@@ -131,6 +131,7 @@ h5 {
   text-align: center;
   margin-left: 7px;
   margin-top: 1px;
+  position: relative;
 }
 
 .mess_container{
@@ -260,6 +261,15 @@ h5 {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.image {
+  width:65px;
+  height:65px;
+  object-fit:cover;
+  margin: 0;
+  float: left;
+  border-radius: 50%;
 }
 
 

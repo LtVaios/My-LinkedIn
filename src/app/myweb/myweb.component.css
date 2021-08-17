@@ -49,7 +49,7 @@ li a:hover:not(.active) {
 .second_body {
   text-align: center;
   margin:auto;
-  width:1500px;
+  width:auto;
   height:100%;
 }
 
@@ -193,6 +193,46 @@ h4 {
   color: red;
   background-color:white;
 }
+
+.grid-container-simple {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
+  min-height: 100px;
+}
+
+.grid-container-simple .grid-item-simple1 {
+  padding: 5px;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  position:relative;
+}
+
+.grid-container-simple .grid-item-simple2 {
+  padding: 5px;
+  grid-column-start: 2;
+  grid-column-end: 4;
+}
+
+.grid-container-simple .grid-item-simple3 {
+  padding: 5px;
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.image {
+  width:100px;
+  height:100px;
+  object-fit:cover;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%)
+}
+
 
 
 

@@ -29,12 +29,21 @@
 </form>
 <div class="grid-container">
   <div class="grid-item" *ngFor="let user of users">
-    <h1><span style="text-decoration: underline">Όνομα:</span><span style="color:darkgreen"> {{user.firstName}}</span></h1>
-    <h1><span style="text-decoration: underline">Επώνυμο:</span><span style="color:darkgreen"> {{user.lastName}}</span></h1>
-    <h1><span style="text-decoration: underline">Εμπειρία:</span><span style="color:darkgreen"> {{user.work_experience}}</span></h1>
-    <button [routerLink]="['/chat']" class="button">Στείλτε μήνυμα</button>
-    <span style="font-size: 25px"> ή </span>
-    <a [routerLink]="['/',user.username]" class="button">Μεταβείτε στην σελίδα του</a>
+    <div class="grid-container-simple">
+      <div class="grid-item-simple1">
+        <img *ngIf="user.img" src="{{users_images.get(user)}}" class="image">
+      </div>
+      <div class="grid-item-simple2">
+        <h1><span style="text-decoration: underline">Όνομα:</span><span style="color:darkgreen"> {{user.firstName}}</span></h1>
+        <h1><span style="text-decoration: underline">Επώνυμο:</span><span style="color:darkgreen"> {{user.lastName}}</span></h1>
+        <h1><span style="text-decoration: underline">Εμπειρία:</span><span style="color:darkgreen"> {{user.work_experience}}</span></h1>
+      </div>
+      <div class="grid-item-simple3">
+        <button [routerLink]="['/chat']" class="button">Στείλτε μήνυμα</button>
+        <span style="font-size: 25px"> ή </span>
+        <button [routerLink]="['/',user.username]" class="button">Μεταβείτε στην σελίδα του</button>
+      </div>
+    </div>
   </div>
 
 </div>

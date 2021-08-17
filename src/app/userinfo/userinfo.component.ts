@@ -19,6 +19,7 @@ export class UserinfoComponent implements OnInit {
   dataLoaded: Promise<boolean>
   friends_: Friends[]
   is_friends: boolean
+  other_userimage: any;
 
   constructor(private sharedService: SharedService,
               private service: UserinfoService,
@@ -43,6 +44,8 @@ export class UserinfoComponent implements OnInit {
           this.sent = true;
       }
     }
+    if (this.other_user.img!==null)
+      this.other_userimage = 'data:image/jpeg;base64,' + this.other_user.img.picByte;
     this.dataLoaded= Promise.resolve(true);
   }
 

@@ -29,6 +29,7 @@ import { JobsComponent } from './jobs/jobs.component';
 import { PostsComponent } from './posts/posts.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
+// import { MultiUploadComponent } from './homepage/multi-upload/multi-upload.component';
 
 
 const appRoutes: Routes = [

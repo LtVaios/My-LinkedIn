@@ -92,4 +92,7 @@ export class PostsComponent implements OnInit {
     }
   }
 
+  imagesrc(img: any): string{
+    return 'data:image/jpeg;base64,'+img.picByte;
+  }
 }
