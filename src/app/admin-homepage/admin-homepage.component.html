@@ -1,7 +1,9 @@
 <html style="padding: 0; margin: -8px;">
 
 <body class="first_body">
-
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="web" [routerLink]="['/login']">Log-out</a>
+</div>
 <html class="load" *ngIf="!dataLoaded">LOADING ...
 </html>
 <body class="second_body" *ngIf="dataLoaded">
