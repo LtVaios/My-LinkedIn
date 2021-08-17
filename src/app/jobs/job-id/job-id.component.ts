@@ -28,24 +28,19 @@ export class JobIdComponent implements OnInit {
 
   async ngOnInit() {
     this.dataLoaded=false;
-    this.sharedService.curr_user.subscribe(user => this.currentUser=user);
+    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
     var job_id: number;
     job_id =0;
-    console.log("here");
     await this.route.paramMap.subscribe( paramMap => {
       job_id = Number(paramMap.get('id'));
     });
-    console.log(job_id);
     await this.jobs_service.getJob(job_id).toPromise().then( response => this.job = response);
-    console.log(this.job);
     await this.jobs_service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
 
-    console.log(this.job);
     var likes: JobLike[] = [];
     this.liked = false;
-    await this.jobs_service.getJobLikes(this.job.id).toPromise().then(response => likes=response);
+    await this.jobs_service.getJobLikes(job_id).toPromise().then(response => likes=response);
     for (let like of likes) {
-      console.log(like.id);
       if (like.user.id == this.currentUser) {
           this.liked = true;
         break;
