@@ -29,6 +29,7 @@ import { JobsComponent } from './jobs/jobs.component';
 import { PostsComponent } from './posts/posts.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ImageUploadComponent } from './image-upload/image-upload.component';
+import { JobIdComponent } from './jobs/job-id/job-id.component';
 // import { MultiUploadComponent } from './homepage/multi-upload/multi-upload.component';
 
 
@@ -43,7 +44,7 @@ const appRoutes: Routes = [
   {path: 'admin', component: AdminHomepageComponent/**, canActivate: [AuthGuard]*/},
   {path: 'settings', component: SettingsComponent },
   {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}]},
-  {path: 'jobs', component: JobsComponent},
+  {path: 'jobs', children:[{path: '', component: JobsComponent},{path: ':id', component: JobIdComponent}]},
   {path: 'notifications', component:NotificationsComponent},
   {path: 'image-upload', component: ImageUploadComponent},
   {path: ':id', component: UserinfoComponent},
@@ -72,6 +73,7 @@ const appRoutes: Routes = [
     PostsComponent,
     NotificationsComponent,
     ImageUploadComponent,
+    JobIdComponent,
   ],
   imports: [
     BrowserModule,
