@@ -29,7 +29,6 @@ import { JobsComponent } from './jobs/jobs.component';
 import { PostsComponent } from './posts/posts.component';
 import { JobIdComponent } from './jobs/job-id/job-id.component';
 import { NotificationsComponent } from './notifications/notifications.component';
-import { MultiUploadComponent } from './homepage/multi-upload/multi-upload.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
