@@ -30,7 +30,7 @@ export class EditComponent implements OnInit {
 
   async ngOnInit() {
     //await new Promise(f => setTimeout(f, 5000));
-    this.sharedService.curr_user.subscribe(user => this.currentUser=user);
+    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
     // console.log(this.service.getUser(this.currentUser));
     console.log(this.currentUser);
     this.saved = false;

@@ -12,8 +12,6 @@
       <div><input type="text" placeholder="E-mail" formControlName="email"/></div>
       <div><input type="password" placeholder="Password" formControlName="pass"/></div>
       <button class="button" type="submit" >login</button>
-      <div *ngIf="usercondition"><h4>This user does not exist.</h4></div>
-      <div *ngIf="passcondition"><h5>Wrong password.</h5></div>
       <p class="message">Not registered? <a [routerLink]="['/register']">Register now!</a></p>
     </form>
   </div>

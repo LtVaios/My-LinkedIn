@@ -33,7 +33,7 @@ export class NotificationsComponent implements OnInit {
 
   async ngOnInit() {
     this.dataLoaded = false;
-    this.sharedService.curr_user.subscribe(user => this.currentUser = user);
+    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
     /* get friend requests */
     await this.service.getFriendRequests(this.currentUser).toPromise().then(response => this.friend_requests = response);
     /* get users */

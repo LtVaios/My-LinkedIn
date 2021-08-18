@@ -10,11 +10,11 @@ import {User} from "../model/user";
   providedIn: 'root'
 })
 export class PostsService {
-  private postsUrl = 'http://localhost:8080/posts';
-  private likesUrl = 'http://localhost:8080/likes';
-  private friendsUrl = 'http://localhost:8080/friends';
-  private usersUrl = 'http://localhost:8080/users';
-  private commentsUrl = 'http://localhost:8080/comments';
+  private postsUrl = 'https://localhost:8443/posts';
+  private likesUrl = 'https://localhost:8443/likes';
+  private friendsUrl = 'https://localhost:8443/friends';
+  private usersUrl = 'https://localhost:8443/users';
+  private commentsUrl = 'https://localhost:8443/comments';
 
   constructor(private http: HttpClient) { }
 

@@ -41,19 +41,16 @@ export class JobsComponent implements OnInit {
   async ngOnInit() {
     this.posted=false;
     this.dataLoaded=false;
-    this.sharedService.curr_user.subscribe(user => this.currentUser=user);
+    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
 
     await this.service.getJobsBySkills(this.user.skills).toPromise().then(response => this.all_jobs=response);
-    console.log(this.user.skills);
     var flag: boolean;
     for (let job of this.all_jobs){
       flag = false;
-      console.log(job);
       var likes: JobLike[] = [];
       await this.service.getJobLikes(job.id).toPromise().then(response => likes=response);
       for (let like of likes) {
-        console.log(like.id);
         if (like.user.id == this.currentUser) {
           this.likedJobs.set(job, true);
           flag=true;
@@ -64,15 +61,6 @@ export class JobsComponent implements OnInit {
         this.likedJobs.set(job, false);
       }
     }
-    // await this.webService.getFriends(this.currentUser).toPromise().then(friend => this.friends_=friend);
-    // for(let friend of this.friends_){
-    //   if(friend.user_one==this.currentUser)
-    //     await this.service.getUser(friend.user_two).toPromise().then(user=>this.chat_users.push(user));
-    //   else
-    //     await this.service.getUser(friend.user_one).toPromise().then(user=>this.chat_users.push(user));
-    // }
-    // this.user=this.chat_users[0];
-    // await this.openChat(this.chat_users[0].id);
 
     this.dataLoaded=true;
   }
@@ -94,7 +82,6 @@ export class JobsComponent implements OnInit {
     jl.job = job;
     jl.user = this.user;
     jl.createdDate = new Date();
-    console.log(jl);
     this.service.saveLike(jl).subscribe((data=>console.log(data)));
     this.likedJobs.set(job,true);
   }

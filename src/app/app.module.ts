@@ -27,30 +27,28 @@ import {SettingsComponent} from "./settings/settings.component";
 import { ChatComponent } from './chat/chat.component';
 import { JobsComponent } from './jobs/jobs.component';
 import { PostsComponent } from './posts/posts.component';
-import { NotificationsComponent } from './notifications/notifications.component';
-import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { JobIdComponent } from './jobs/job-id/job-id.component';
-// import { MultiUploadComponent } from './homepage/multi-upload/multi-upload.component';
+import { NotificationsComponent } from './notifications/notifications.component';
+import { MultiUploadComponent } from './homepage/multi-upload/multi-upload.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 const appRoutes: Routes = [
   {path: '', redirectTo: '/welcome', pathMatch: 'full'},
   {path: 'login', children: [{path: '', component: LoginComponent},{path: 'register', redirectTo: '/register', pathMatch: 'full'}]},
-  {path: 'home', component: HomepageComponent},
+  {path: 'home', component: HomepageComponent, canActivate: [AuthGuard]},
   {path: 'welcome', component: WelcomeComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'chat', component: ChatComponent},
-  {path: 'myweb', children:[{path: '', component: MywebComponent} , {path:'search',component: SearchComponent}]},
-  {path: 'admin', component: AdminHomepageComponent/**, canActivate: [AuthGuard]*/},
-  {path: 'settings', component: SettingsComponent },
-  {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}]},
-  {path: 'jobs', children:[{path: '', component: JobsComponent},{path: ':id', component: JobIdComponent}]},
-  {path: 'notifications', component:NotificationsComponent},
-  {path: 'image-upload', component: ImageUploadComponent},
-  {path: ':id', component: UserinfoComponent},
-  {path: 'users', component: UserComponent},
-  {path: 'posts', children:[{path:'',component: HomepageComponent},{path: ':id',component: PostsComponent}]}
+  {path: 'chat', component: ChatComponent, canActivate: [AuthGuard]},
+  {path: 'myweb', children:[{path: '', component: MywebComponent} , {path:'search',component: SearchComponent}], canActivate: [AuthGuard]},
+  {path: 'admin', component: AdminHomepageComponent, canActivate: [AuthGuard]},
+  {path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
+  {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}], canActivate: [AuthGuard]},
+  {path: 'jobs', children:[{path: '', component: JobsComponent},{path: ':id', component: JobIdComponent}], canActivate: [AuthGuard]},
+  {path: 'notifications', component:NotificationsComponent, canActivate: [AuthGuard]},
+  {path: ':id', component: UserinfoComponent, canActivate: [AuthGuard]},
+  {path: 'users', component: UserComponent, canActivate: [AuthGuard]},
+  {path: 'posts', children:[{path:'',component: HomepageComponent},{path: ':id',component: PostsComponent}], canActivate: [AuthGuard]}
 ]
 
 @NgModule({
@@ -71,10 +69,9 @@ const appRoutes: Routes = [
     SettingsComponent,
     ChatComponent,
     JobsComponent,
+    JobIdComponent,
     PostsComponent,
     NotificationsComponent,
-    ImageUploadComponent,
-    JobIdComponent,
   ],
   imports: [
     BrowserModule,
@@ -89,8 +86,8 @@ const appRoutes: Routes = [
     LoginService,
     RegisterService,
     HomepageService,
-/**{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }*/
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

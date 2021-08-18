@@ -45,7 +45,7 @@ export class HomepageComponent implements OnInit {
   }
 
   async ngOnInit(){
-    this.sharedService.curr_user.subscribe(user => this.currentuser=user);
+    this.currentuser=parseInt(<string>localStorage.getItem('currentuser'))
     this.loadPosts();
   }
 
@@ -191,7 +191,7 @@ export class HomepageComponent implements OnInit {
         const reader = new FileReader();
 
         reader.onload = (e: any) => {
-          console.log(e.target.result);
+          //console.log(e.target.result);
           this.previews.push(e.target.result);
         };
 

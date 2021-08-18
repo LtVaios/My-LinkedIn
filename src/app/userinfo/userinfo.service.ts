@@ -9,8 +9,8 @@ import {Friends} from "../model/friends";
   providedIn: 'root'
 })
 export class UserinfoService {
-  private usersUrl = 'http://localhost:8080/users';
-  private friendsUrl = 'http://localhost:8080/friends';
+  private usersUrl = 'https://localhost:8443/users';
+  private friendsUrl = 'https://localhost:8443/friends';
 
   constructor(private http: HttpClient,private router: Router) { }
 

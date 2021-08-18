@@ -44,8 +44,8 @@
   <img *ngIf="job.user.img" [src]="imagesrc(job.user.img)" class="image">
   <a [routerLink]="['/',job.user.username]"><div class="author"> {{job.user.firstName}} {{job.user.lastName}}</div> </a>
   <br/><span class="date">{{local(job.createdDate)}}</span>
-  <br/>
-  <p> {{job.body}}  </p>
+  <br/><br/>
+  <p class="job_body"> {{job.body}}  </p>
   <br/>
   <button *ngIf="likedJobs.get(job)" class="disabled">Ενδιαφέρον!</button>
   <button *ngIf="!likedJobs.get(job)" (click)="likeJob(job)" class="like">Ενδιαφέρον!</button>

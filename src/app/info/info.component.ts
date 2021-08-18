@@ -30,9 +30,7 @@ export class InfoComponent implements OnInit {
 
   async ngOnInit() {
     this.data_loaded=false;
-    this.sharedService.curr_user.subscribe(user => this.currentUser = user);
-    // console.log(this.service.getUser(this.currentUser));
-     console.log(this.currentUser);
+    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
     this.saved = false;
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
     this.work_experience = this.user.work_experience;

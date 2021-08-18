@@ -13,8 +13,8 @@ const httpOptions = {
 })
 
 export class RegisterService {
-  private usersUrl = 'http://localhost:8080/users';
-  private imagesUrl = 'http://localhost:8080/images/upload/user';
+  private usersUrl = 'https://localhost:8443/users';
+  private imagesUrl = 'https://localhost:8443/images/upload/user';
 
   newuser: User;
 

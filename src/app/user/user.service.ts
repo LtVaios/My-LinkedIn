@@ -1,27 +1,26 @@
 import { Injectable } from '@angular/core';
-import {User} from '../model/user';
-import { Observable} from 'rxjs';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-
+import { User } from '../model/user';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
-  headers: new HttpHeaders({'Accept': 'application/json', 'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', Accept: 'application/json' })
 };
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class UserService {
-  private usersUrl = 'http://localhost:8080/users';
-  constructor( private http: HttpClient ) { }
+
+  private usersUrl = 'https://localhost:8443/users';
 
   getUsers(): Observable<User[]> {
-    // return USERS;
     return this.http.get<User[]>(this.usersUrl);
   }
-  getUser(id:string): Observable<User> {
-    const url = this.usersUrl + '/' + id;
+
+  getUser(un: string): Observable<User> {
+    const url = this.usersUrl + '/' + un;
     return this.http.get<User>(url);
   }
+
+  constructor(private http: HttpClient) {}
 
 }

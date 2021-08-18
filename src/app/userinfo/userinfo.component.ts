@@ -34,7 +34,7 @@ export class UserinfoComponent implements OnInit {
     if (this.path_id != null ){
       this.is_friends = false;
       await this.service.getUser(this.path_id).toPromise().then((response) => this.other_user = response);
-      this.sharedService.curr_user.subscribe(user => this.current_user_id = user);
+      this.current_user_id=parseInt(<string>localStorage.getItem('currentuser'))
       await this.service.getFriendsAndRequests(this.current_user_id).toPromise().then(friend => this.friends_=friend);
       for(let friend of this.friends_){
         console.log(friend);

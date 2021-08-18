@@ -8,8 +8,8 @@ import {User} from "../model/user";
   providedIn: 'root'
 })
 export class ChatService {
-  private messagesUrl = 'http://localhost:8080/messages';
-  private usersUrl = 'http://localhost:8080/users';
+  private messagesUrl = 'https://localhost:8443/messages';
+  private usersUrl = 'https://localhost:8443/users';
   m:Message;
   constructor( private http: HttpClient ) { }
 
