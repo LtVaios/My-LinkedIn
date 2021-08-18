@@ -32,10 +32,8 @@ public class Image {
     @Column(name = "type")
     private String type;
 
-    //image bytes can have large lengths so we specify a value
-
-    //which is more than the default length for picByte column
-    @Column(name = "picByte", length = 1000)
+    @Lob //large object
+    @Column(name = "picByte")
     private byte[] picByte;
 
     @OneToOne(mappedBy = "img")
