@@ -64,7 +64,7 @@
         {{post.post_body}}
       </p >
       <div *ngFor="let image of post.images">
-        <img [src] = imagesrc(image) class="post-image">
+        <img [lazyLoad]="imagesrc(image)" [decode]="true"  class="post-image">
       </div>
       <button *ngIf="liked_posts.get(post)" class="disabled">Ενδιαφέρον!</button>
       <button *ngIf="!liked_posts.get(post)" (click)="likePost(post)" class="like">Ενδιαφέρον!</button>

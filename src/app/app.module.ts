@@ -31,6 +31,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ImageUploadComponent } from './image-upload/image-upload.component';
 import { JobIdComponent } from './jobs/job-id/job-id.component';
 // import { MultiUploadComponent } from './homepage/multi-upload/multi-upload.component';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 
 const appRoutes: Routes = [
@@ -80,7 +81,8 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(appRoutes),
-    HttpClientModule
+    HttpClientModule,
+    LazyLoadImageModule
   ],
   providers: [
     UserService,

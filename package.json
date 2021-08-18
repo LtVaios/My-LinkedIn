@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "~12.1.1",
     "@angular/router": "~12.1.1",
     "js2xmlparser": "^4.0.1",
+    "ng-lazyload-image": "^9.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
