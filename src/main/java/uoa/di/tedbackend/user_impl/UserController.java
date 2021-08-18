@@ -3,12 +3,13 @@ package uoa.di.tedbackend.user_impl;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
 class UserController {
-
+    BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
     private final UserRepository repository;
 
     UserController(UserRepository repository) {
@@ -26,6 +27,7 @@ class UserController {
     @CrossOrigin(origins = "*")
     @PostMapping("/users")
     User newUser(@RequestBody User newUser) {
+        newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
         return repository.save(newUser);
     }
 
@@ -56,8 +58,8 @@ class UserController {
         try {
             Optional<User> test_user;
             test_user=repository.findById(id);
-            if(!test_user.isEmpty())
-                return test_user.orElseThrow();
+            if(test_user.isPresent())
+                return test_user.get();
             else{
                 User failed_user=new User();
                 failed_user.setUsername("_EMPTY_");

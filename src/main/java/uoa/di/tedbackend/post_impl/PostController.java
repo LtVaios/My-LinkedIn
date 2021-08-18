@@ -56,8 +56,8 @@ class PostController {
         try {
             Optional<Post> post;
             post=repository.findById(id);
-            if(!post.isEmpty())
-                return post.orElseThrow();
+            if(post.isPresent())
+                return post.get();
             else{
                 throw new RuntimeException("Could not find a post by this id");
             }
