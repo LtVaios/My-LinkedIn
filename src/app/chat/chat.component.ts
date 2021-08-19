@@ -6,6 +6,7 @@ import {User} from "../model/user";
 import {FormBuilder} from "@angular/forms";
 import {MywebService} from "../myweb/myweb.service";
 import {Friends} from "../model/friends";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-chat',
@@ -31,7 +32,9 @@ export class ChatComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private sharedService: SharedService,
               private webService: MywebService,
-              private service: ChatService) {
+              private service: ChatService,
+              private route: ActivatedRoute,
+              private router: Router) {
     this.friends_=[];
     this.chat_users=[];
     this.load_messages=[];
@@ -60,7 +63,12 @@ export class ChatComponent implements OnInit {
         });
     }
     this.user=this.chat_users[0];
-    await this.openChat(this.chat_users[0].id);
+    if(!(this.chat_users.length==0))
+      await this.openChat(this.chat_users[0].id);
+    else{
+      window.alert("You have no friends")
+      this.router.navigate(['../home']);
+    }
     this.dataLoaded=true;
   }
 
