@@ -54,17 +54,23 @@ export class RegisterComponent implements OnInit {
       this.requiredcondition = true;
       this.RegisterForm.reset();
     }
-    //await this.service.getUser(this.RegisterForm.value.email).toPromise().then(user=> this.user=user);
-
-      this.service.userregister(this.RegisterForm.value.fname, this.RegisterForm.value.lname,
-        this.RegisterForm.value.email, this.RegisterForm.value.pass, this.RegisterForm.value.phone).subscribe(
+    else {
+      await this.service.getUser(this.RegisterForm.value.email).toPromise().then(user => this.user = user);
+      if (this.user.username != "_EMPTY_") {
+        this.usercondition = true;
+        this.RegisterForm.reset();
+      } else {
+        this.service.userregister(this.RegisterForm.value.fname, this.RegisterForm.value.lname,
+          this.RegisterForm.value.email, this.RegisterForm.value.pass, this.RegisterForm.value.phone).subscribe(
           user => {
             this.user = user;
-            this.service.postImage(this.selectedFile, this.user.id).subscribe((response) => console.log(response));
-            }, error => console.log(error));
-      window.alert("You signed up successfully!")
-      this.router.navigate(['../login']);
-
+            if (this.selectedFile)
+              this.service.postImage(this.selectedFile, this.user.id).subscribe((response) => console.log(response));
+          }, error => console.log(error));
+        window.alert("You signed up successfully!")
+        this.router.navigate(['../login']);
+      }
+    }
   }
 
   public onFileChanged(event: any) {

@@ -21,7 +21,6 @@ export class RegisterService {
   constructor(private http: HttpClient,private router: Router) { }
 
   getUser(id:string): Observable<User> {
-    console.log("fetching user");
     const url = this.usersUrl + '/' + id;
     return this.http.get<User>(url);
   }
@@ -40,10 +39,9 @@ export class RegisterService {
 
   postImage(selectedFile: File, userid: number): Observable<Object>{
     console.log(selectedFile);
-    //FormData API provides methods and properties to allow us easily prepare form data to be sent with POST HTTP requests.
     const uploadImageData = new FormData();
     uploadImageData.append('imageFile', selectedFile, selectedFile.name);
-    //Make a call to the Spring Boot Application to save the image
-    return this.http.post(this.imagesUrl+'/'+userid, uploadImageData);
+    //save the image to backend
+    return this.http.post<Object>(this.imagesUrl+'/'+userid, uploadImageData);
   }
 }
