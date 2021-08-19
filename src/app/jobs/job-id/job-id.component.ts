@@ -17,9 +17,9 @@ export class JobIdComponent implements OnInit {
 
   currentUser: number
   user: User
-  dataLoaded: boolean;
-  job: Job;
-  liked: boolean;
+  dataLoaded: boolean
+  job: Job
+  liked: boolean
 
   constructor(private sharedService: SharedService,
               private jobs_service: JobsService,
@@ -35,8 +35,7 @@ export class JobIdComponent implements OnInit {
       job_id = Number(paramMap.get('id'));
     });
     await this.jobs_service.getJob(job_id).toPromise().then( response => this.job = response);
-    await this.jobs_service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
-
+    await this.jobs_service.getUser(this.currentUser).toPromise().then(response => this.user = response);
     var likes: JobLike[] = [];
     this.liked = false;
     await this.jobs_service.getJobLikes(job_id).toPromise().then(response => likes=response);

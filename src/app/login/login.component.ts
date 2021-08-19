@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
-    console.log(this.returnUrl)
+    //console.log(this.returnUrl)
     if(this.returnUrl==="/login" || this.returnUrl==="/")
       this.returnUrl="/home"
     this.authenticationService.logout();
@@ -41,15 +41,19 @@ export class LoginComponent implements OnInit {
   async onSubmit() {
     await this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.pass)
       .toPromise().then(
-        response => {
+        async response => {
           localStorage.setItem('token', <string>response.headers.get('Authorization'));
-          this.userloggedin();
+          await this.service.getUser(this.loginForm.value.email).toPromise().then(user => {
+            this.currentuser = user
+            if(user.admin==true)
+              this.adminloggedin();
+            else
+              this.userloggedin();
+          });
+
         }
       );
-    await this.service.getUser(this.loginForm.value.email).toPromise().then(user => this.currentuser = user);
     localStorage.setItem('currentuser', String(this.currentuser.id))
-    console.log(localStorage.getItem('currentuser'))
-
   }
 
   userloggedin():void {

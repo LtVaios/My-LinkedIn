@@ -35,7 +35,6 @@ li a:hover:not(.active) {
 
 .first_body{
   background-image: url("/../assets/green-pattern-wallpaper-1.jpg");
-  background-size: cover;
   text-align: center;
   min-height: 100vh;
   height:100%;

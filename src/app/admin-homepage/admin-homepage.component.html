@@ -1,4 +1,11 @@
-<html style="padding: 0; margin: -8px;">
+<html *ngIf="!dataLoaded">
+<body class="load">
+<span style="margin-right: 23%">LOADING</span>
+<div class="loader"></div>
+</body>
+</html>
+
+<html style="padding: 0; margin: -8px;" *ngIf="dataLoaded">
 
 <body class="first_body">
 <div id="mySidenav" class="sidenav">

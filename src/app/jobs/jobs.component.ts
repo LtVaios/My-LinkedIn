@@ -39,9 +39,13 @@ export class JobsComponent implements OnInit {
   }
 
   async ngOnInit() {
+    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
+    await this.loadJobs()
+  }
+
+  async loadJobs(){
     this.posted=false;
     this.dataLoaded=false;
-    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
 
     await this.service.getJobsBySkills(this.user.skills).toPromise().then(response => this.all_jobs=response);
@@ -65,15 +69,18 @@ export class JobsComponent implements OnInit {
     this.dataLoaded=true;
   }
 
-  onSubmit(): void {
-    console.log('on submit ' + this.jobForm.value.job_text);
+  async onSubmit() {
+    this.loading=true
     if(this.jobForm.value.job_text==="" || this.jobForm.value.job_text===null) {
       this.requiredcondition = true;
     }
     else {
       this.service.saveNewJob(this.jobForm.value.job_text,this.user).subscribe(data=>this.uploadcondition=true);
+      await new Promise(f => setTimeout(f, 2000));
       this.jobForm.reset();
       this.posted=true;
+      this.loading=false
+      await this.loadJobs()
     }
   }
 

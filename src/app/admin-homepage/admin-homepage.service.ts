@@ -44,7 +44,7 @@ export class AdminHomepageService {
   }
 
   getJobs(user_id:number): Observable<Job[]> {
-    return this.http.get<Job[]>(this.jobsUrl+"/"+user_id);
+    return this.http.get<Job[]>(this.jobsUrl+"/ofuser/"+user_id);
   }
 
 }

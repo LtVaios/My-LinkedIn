@@ -7,6 +7,8 @@ import {Friends} from "../model/friends";
 import {Post} from "../model/post";
 import {Job} from "../model/job";
 import * as JsonToXML from "js2xmlparser";
+import {AuthenticationService} from "../authentication.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin-homepage',
@@ -15,6 +17,7 @@ import * as JsonToXML from "js2xmlparser";
 })
 export class AdminHomepageComponent implements OnInit {
   dataLoaded:boolean
+  currentuser: number
   downloadJsonHref:SafeUrl
   user: User
   likes: Likes[]
@@ -26,9 +29,22 @@ export class AdminHomepageComponent implements OnInit {
   jsons: Map<number,SafeUrl>
   xmls: Map<number,any>
 
-  constructor(private service: AdminHomepageService,private sanitizer: DomSanitizer) { }
+  constructor(private service: AdminHomepageService,
+              private authenticationService: AuthenticationService,
+              private sanitizer: DomSanitizer,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   async ngOnInit() {
+    this.dataLoaded = false
+    this.currentuser=parseInt(<string>localStorage.getItem('currentuser'))
+    await this.service.getUser(this.currentuser).toPromise().then(user=>{
+      if(user.admin==false) {
+        window.alert("Warning: You do not have access to this page!")
+        //this.authenticationService.logout()
+        this.router.navigate(['../home']);
+      }
+    })
     this.jsons=new Map<number,any>()
     this.xmls=new Map<number,any>()
     await this.loadUsers()

@@ -233,6 +233,6 @@ export class HomepageComponent implements OnInit {
   }
 
   imagesrc(img: any): string{
-    return 'data:image/'+ img.type+';base64,'+img.picByte;
+    return 'data:image/jpeg;base64,'+img.picByte;
   }
 }

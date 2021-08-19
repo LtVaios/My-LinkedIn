@@ -3,6 +3,7 @@ import {RegisterService} from "./register.service";
 import {FormBuilder} from "@angular/forms";
 import {Router} from "@angular/router";
 import {User} from "../model/user";
+import {AuthenticationService} from "../authentication.service";
 
 @Component({
   selector: 'app-register',
@@ -25,7 +26,7 @@ export class RegisterComponent implements OnInit {
   });
   selectedFile: File;
 
-  constructor(private service: RegisterService,private formBuilder: FormBuilder,private router: Router) {
+  constructor(private service: RegisterService,private formBuilder: FormBuilder,private router: Router,private authenticationService: AuthenticationService) {
     this.usercondition=false;
     this.passcondition=false;
     this.requiredcondition=false;
@@ -33,10 +34,11 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authenticationService.logout();
   }
 
 
-  onSubmit():void {
+  async onSubmit() {
     this.usercondition=false;
     this.requiredcondition = false;
     this.passcondition=false;
@@ -44,33 +46,25 @@ export class RegisterComponent implements OnInit {
       this.passcondition = true;
       return;
     }
-    this.service.getUser(this.RegisterForm.value.email).subscribe(user=> {
-      this.user=user;
-      //console.log("form email:" + this.RegisterForm.value.email)
-      if(this.RegisterForm.value.email==="" || this.RegisterForm.value.email===null
-        || this.RegisterForm.value.fname==="" || this.RegisterForm.value.fname===null
-        || this.RegisterForm.value.lname===""|| this.RegisterForm.value.lname===null
-        || this.RegisterForm.value.pass===""|| this.RegisterForm.value.pass===null
-        || this.RegisterForm.value.phone===""|| this.RegisterForm.value.phone===null)
-        {
-        this.requiredcondition = true;
-        this.RegisterForm.reset();
-      }
-      else if(this.user.username!="_EMPTY_") {
-        this.usercondition = true;
-        this.RegisterForm.reset();
-      }
-      else {
-        this.service.userregister(this.RegisterForm.value.fname, this.RegisterForm.value.lname,
-          this.RegisterForm.value.email, this.RegisterForm.value.pass, this.RegisterForm.value.phone).subscribe(
-            user => {
-              this.user = user;
-              this.service.postImage(this.selectedFile, this.user.id).subscribe((response) => console.log(response));
+    if(this.RegisterForm.value.email==="" || this.RegisterForm.value.email===null
+      || this.RegisterForm.value.fname==="" || this.RegisterForm.value.fname===null
+      || this.RegisterForm.value.lname===""|| this.RegisterForm.value.lname===null
+      || this.RegisterForm.value.pass===""|| this.RegisterForm.value.pass===null
+      || this.RegisterForm.value.phone===""|| this.RegisterForm.value.phone===null) {
+      this.requiredcondition = true;
+      this.RegisterForm.reset();
+    }
+    //await this.service.getUser(this.RegisterForm.value.email).toPromise().then(user=> this.user=user);
+
+      this.service.userregister(this.RegisterForm.value.fname, this.RegisterForm.value.lname,
+        this.RegisterForm.value.email, this.RegisterForm.value.pass, this.RegisterForm.value.phone).subscribe(
+          user => {
+            this.user = user;
+            this.service.postImage(this.selectedFile, this.user.id).subscribe((response) => console.log(response));
             }, error => console.log(error));
-        window.alert("You signed up successfully!")
-        this.router.navigate(['../login']);
-      }
-    });
+      window.alert("You signed up successfully!")
+      this.router.navigate(['../login']);
+
   }
 
   public onFileChanged(event: any) {
