@@ -19,7 +19,7 @@ export class InfoComponent implements OnInit {
   work_experience: String;
   education: String;
   skills: String;
-  userimage: any;
+  userimage: string;
   changeImage: boolean;
   selectedFile: File;
 

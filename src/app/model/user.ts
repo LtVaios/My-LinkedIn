@@ -1,3 +1,5 @@
+import {Image} from "./image";
+
 export class User {
   id: number;
   username: string;
@@ -12,5 +14,5 @@ export class User {
   education_public: boolean;
   skills: string;
   skills_public: boolean;
-  img: any;
+  img: Image;
 }

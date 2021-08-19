@@ -24,7 +24,7 @@
 <body class="second_body" *ngIf="!loading">
 
 <div class="posts">
-  <img *ngIf="post[0].user.img" [src]="imagesrc(post[0].user.img)" class="profile-image">
+  <img [src]="imagesrc(post[0].user.img) ? imagesrc(post[0].user.img): '../../assets/default-user-image.png'" class="profile-image">
   <a [routerLink]="['/'+post[0].user.username]" class="author">{{post[0].user.firstName}} {{post[0].user.lastName}}</a>
   <br>
   <span class="date">
@@ -44,8 +44,14 @@
     ---------------------------------------------------------------------------------------------------------<span class="comm_sep">COMMENTS</span>
   </span>
   <br>
-  <div *ngFor="let c of this.comms">
+  <div *ngFor="let c of this.comms" class="comment">
+    <img [src]="imagesrc(c.user.img) ? imagesrc(c.user.img): '../../assets/default-user-image.png'" class="profile-image">
     <a [routerLink]="['/'+c.user.username]" class="author">{{c.user.firstName}} {{c.user.lastName}}</a>
+    <br>
+    <span class="date">
+        {{post[0].date_time}}
+    </span>
+    <br><br>
     <p style="margin: 2px 0 5px 0;" class="post_body">{{c.comment_text}}</p>
   </div>
   <div class="form">

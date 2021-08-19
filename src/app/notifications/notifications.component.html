@@ -1,11 +1,5 @@
 <html style="padding: 0; margin: -8px;">
-<!--<head>-->
-<!--  <meta charset="utf-8">-->
-<!--  <meta name="viewport" content="width=device-width, initial-scale=1">-->
-<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">-->
-<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
-<!--  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>-->
-<!--</head>-->
+
 <body class="first_body">
 
 <div id="mySidenav" class="sidenav">
@@ -27,7 +21,8 @@
 <div class="grid-container">
   <label class="lab">Αιτήματα Φιλίας</label>
   <div class="grid-item" *ngIf="friend_requests_users.length>0">
-    <span *ngFor="let fruser of friend_requests_users; index as i">
+    <div class="notification" *ngFor="let fruser of friend_requests_users; index as i">
+      <img [src]="imagesrc(fruser.img) ? imagesrc(fruser.img): '../../assets/default-user-image.png'" class="image">
       <h1 style="padding:15px"><span style="text-decoration: underline">Όνομα:</span>
           <a href="#" style="color:darkgreen" [routerLink]="['/',fruser.username]"> {{fruser.firstName}} {{fruser.lastName}} </a>
         <span *ngIf="friend_requests[i].state=='pending'">
@@ -43,31 +38,23 @@
           Απορρίψατε το αίτημα
         </span>
       </h1>
-    </span>
+    </div>
   </div>
   <div class="grid-item" *ngIf="friend_requests_users.length==0">
     <h1 style="padding:15px"><span style="text-decoration: underline"></span><span style="color:darkgreen">Δεν έχετε αιτήματα φιλίας</span></h1>
   </div>
 
-<!--  <div class="grid-item" *ngIf="post_likes.length>0">-->
-<!--    <div *ngFor="let n of post_likes">-->
-<!--      {{n.createdDate}}-->
-<!--      <br> Ο χρήστης {{n.user.firstName}} {{n.user.lastName}} έδειξε ενδιαφέρον για την δημοσίευση σας: {{n.post.post_body}}-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <div class="grid-item" *ngIf="post_likes.length==0">-->
-<!--    <h1><span style="text-decoration: underline"></span><span style="color:darkgreen">Δεν έχετε ειδοποιήσεις</span></h1>-->
-<!--  </div>-->
   <label class="lab">Ειδοποιήσεις</label>
   <div class="grid-item" *ngIf="notifications.length>0">
     <div *ngFor="let n of notifications" class="notification">
       <span class="date"> {{local(n.createdDate)}}</span>
       <br>
+      <img [src]="imagesrc(n.user.img) ? imagesrc(n.user.img): '../../assets/default-user-image.png'" class="image">
       <p>
         Ο χρήστης <a [routerLink]="['/',n.user.username]" class="userlink"> {{n.user.firstName}} {{n.user.lastName}}</a>
-        <span *ngIf="isComment(n)"> σχολίασε στην <a [routerLink]="['/posts',getComment(n).post.id]">ανάρτηση</a> σας "{{getComment(n).comment_text}}" </span>
-        <span *ngIf="isJobLike(n)"> ενδιαφέρεται για την <a [routerLink]="['/jobs',getJobLike(n).job.id]">αγγελία</a> σας </span>
-        <span *ngIf="isPostLike(n)"> ενδιαφέρεται για την <a [routerLink]="['/posts',getPostLike(n).post.id]">ανάρτηση</a> σας </span>
+        <span *ngIf="isComment(n)"> σχολίασε στην <a [routerLink]="['/posts',getComment(n).post.id]">ανάρτηση</a> σας: "{{getComment(n).comment_text}}." </span>
+        <span *ngIf="isJobLike(n)"> ενδιαφέρεται για την <a [routerLink]="['/jobs',getJobLike(n).job.id]">αγγελία</a> σας. </span>
+        <span *ngIf="isPostLike(n)"> ενδιαφέρεται για την <a [routerLink]="['/posts',getPostLike(n).post.id]">ανάρτηση</a> σας. </span>
       </p>
       <br>
     </div>

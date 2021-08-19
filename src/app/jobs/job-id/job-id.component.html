@@ -19,7 +19,7 @@
 <body class="second_body" *ngIf="dataLoaded">
 
   <div  class="posts">
-    <img *ngIf="job.user.img" [src] = "imagesrc(job.user.img)" class="image">
+    <img [src] = "imagesrc(job.user.img) ? imagesrc(job.user.img): '../../assets/default-user-image.png'" class="image">
     <a [routerLink]="['/',job.user.username]"><div class="author"> {{job.user.firstName}} {{job.user.lastName}}</div> </a>
     <br/><span class="date">{{local(job.createdDate)}}</span>
     <br/><br/>

@@ -8,6 +8,7 @@ import {Likes} from "../model/likes";
 import {SharedService} from "../shared.service";
 import {FormBuilder} from "@angular/forms";
 import {User} from "../model/user";
+import {Image} from "../model/image";
 
 @Component({
   selector: 'app-posts',
@@ -92,7 +93,8 @@ export class PostsComponent implements OnInit {
     }
   }
 
-  imagesrc(img: any): string{
+  imagesrc(img: Image): string{
+    if (img == null) return "";
     return 'data:image/jpeg;base64,'+img.picByte;
   }
 }

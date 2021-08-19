@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {MultiUploadService} from "./multi-upload/multi-upload.service";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {Image} from "../model/image";
 
 @Component({
   selector: 'app-homepage',
@@ -232,7 +233,8 @@ export class HomepageComponent implements OnInit {
     }
   }
 
-  imagesrc(img: any): string{
-    return 'data:image/jpeg;base64,'+img.picByte;
+  imagesrc(img: Image): string{
+    if (img==null) return "";
+    else return 'data:image/jpeg;base64,'+img.picByte;
   }
 }

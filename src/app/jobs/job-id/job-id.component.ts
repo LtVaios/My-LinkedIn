@@ -65,6 +65,7 @@ export class JobIdComponent implements OnInit {
   }
 
   imagesrc(img: any): string{
+    if (img == null) return "";
     return 'data:image/jpeg;base64,'+img.picByte;
   }
 }

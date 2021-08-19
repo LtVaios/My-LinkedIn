@@ -197,6 +197,15 @@ label {
   text-underline: green;
 }
 
+.image {
+  width:40px;
+  height:40px;
+  object-fit:cover;
+  margin: 5px;
+  float: left;
+  border-radius: 50%;
+}
+
 .userlink:hover{
   text-decoration: underline;
   cursor: pointer;

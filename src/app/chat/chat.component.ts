@@ -7,6 +7,7 @@ import {FormBuilder} from "@angular/forms";
 import {MywebService} from "../myweb/myweb.service";
 import {Friends} from "../model/friends";
 import {ActivatedRoute, Router} from "@angular/router";
+import {Image} from "../model/image";
 
 @Component({
   selector: 'app-chat',
@@ -23,7 +24,7 @@ export class ChatComponent implements OnInit {
   load_messages: [string,boolean][];
   friends_: Friends[];
   chat_users:User[];
-  users_images: Map<User, any>;
+  users_images: Map<User, string>;
 
   messageForm = this.formBuilder.group({
     message_text: ''
@@ -120,4 +121,5 @@ export class ChatComponent implements OnInit {
       this.openChat(this.user.id);
     }
   }
+
 }

@@ -48,7 +48,7 @@
 
 <div class="grid-container">
   <div class="grid-item" *ngFor="let user of chat_users">
-    <img *ngIf="user.img" src="{{users_images.get(user)}}" class="image">
+    <img [src]="users_images.get(user) ? users_images.get(user): '../../assets/default-user-image.png'"  class="image">
     {{user.firstName}} {{user.lastName}}
     <div></div>
     <button (click)="openChat(user.id)">Open Chat</button>

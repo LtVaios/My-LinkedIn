@@ -93,5 +93,9 @@ export class NotificationsComponent implements OnInit {
     return new Date(d).toLocaleString();
   }
 
+  imagesrc(img: any): string{
+    if (img == null) return "";
+    return 'data:image/jpeg;base64,'+img.picByte;
+  }
 }
 

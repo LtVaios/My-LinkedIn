@@ -22,8 +22,8 @@
 <div class="grid-container">
   <div class="grid-item1">
     <div *ngIf="changeImage == false">
-      <img *ngIf="user.img" src="{{userimage}}" class="image">
-      <button (click)="changeImage=true">Change Image</button>
+        <img [src]="userimage? userimage:  '../../assets/default-user-image.png'" class="image">
+        <button class="change_image" (click)="changeImage=true">Change Image</button>
     </div>
     <div *ngIf="changeImage == true">
       <img id="pic" alt="your image" src="#" style="max-width:100%; max-height:100%;"/>

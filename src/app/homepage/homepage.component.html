@@ -53,7 +53,7 @@
       </form>
     </div>
     <div class="posts" *ngFor="let post of posts">
-      <img *ngIf="post.user.img" [src]="imagesrc(post.user.img)" class="profile-image">
+      <img [src]="imagesrc(post.user.img) ? imagesrc(post.user.img):  '../../assets/default-user-image.png'" class="profile-image">
       <a [routerLink]="['/'+post.user.username]" class="author">{{post.user.firstName}} {{post.user.lastName}}</a>
       <br>
       <span class="date">

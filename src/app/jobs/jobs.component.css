@@ -275,7 +275,7 @@ h5 {
   width:40px;
   height:40px;
   object-fit:cover;
-  margin: 0;
+  margin-right: 5px;
   float: left;
   border-radius: 50%;
 }

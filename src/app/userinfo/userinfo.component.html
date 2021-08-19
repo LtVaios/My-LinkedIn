@@ -27,7 +27,7 @@
 <div>
   <div class="grid-container">
     <div class="grid-item1">
-      <img *ngIf="other_user.img" src="{{other_userimage}}" class="image">
+      <img [src]="other_userimage ? other_userimage: '../../assets/default-user-image.png'" class="image">
     </div>
     <div class = "grid-item2">
       <h1>Όνομα</h1>
