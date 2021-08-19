@@ -14,6 +14,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.context.annotation.Bean;
+import uoa.di.tedbackend.user_impl.UserRepository;
 
 import javax.swing.*;
 import java.util.Arrays;
@@ -30,13 +31,19 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().authorizeRequests()
-                .anyRequest().authenticated()
+        http.cors().and().csrf().disable().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
                 .addFilter(new JWTAuthorizationFilter(authenticationManager()))
-                // this disables session creation on Spring Security
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .authorizeRequests()
+                //the following autorization requests are used by the register page to register a new user without the need of an authentication token
+                .antMatchers(HttpMethod.POST,"/users/**").authenticated()
+                .antMatchers(HttpMethod.POST ,"/users/**").permitAll()
+                .antMatchers(HttpMethod.POST,"/images/upload/**").authenticated()
+                .antMatchers(HttpMethod.POST ,"/images/upload/**").permitAll()
+                .antMatchers(HttpMethod.GET,"/users").authenticated()
+                .antMatchers(HttpMethod.GET ,"/users/**").permitAll()
+                .anyRequest().authenticated().and().httpBasic();
     }
 
     @Override
