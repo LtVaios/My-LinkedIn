@@ -66,6 +66,7 @@
       <div *ngFor="let image of post.images">
         <img [lazyLoad]="imagesrc(image)" [decode]="true"  class="post-image">
       </div>
+      <span class="like_count"> <img src="../../assets/thumbs-up.svg"> {{likes_count.get(post)}} </span>
       <button *ngIf="liked_posts.get(post)" class="disabled">Ενδιαφέρον!</button>
       <button *ngIf="!liked_posts.get(post)" (click)="likePost(post)" class="like">Ενδιαφέρον!</button>
       <button (click)="goToPost(post.id)" class="comments_button">Σχόλια</button>

@@ -1,5 +1,4 @@
 import {User} from "./user";
-import {JobLike} from "./joblike";
 
 export class Job {
   id: number;

@@ -295,10 +295,12 @@ h5 {
 .options button:hover {
   cursor: pointer;
   color: #4CAF50;
+  text-decoration: none;
 }
 
 .options .active {
   color: #4CAF50;
+  text-decoration: none;
 }
 
 

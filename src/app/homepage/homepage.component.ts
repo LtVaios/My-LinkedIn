@@ -28,18 +28,21 @@ export class HomepageComponent implements OnInit {
   liked_posts: Map<Post,boolean>;
   friends: Friends[];
   currentuser:number;
+  likes_count: Map<Post, number>;
 
   postForm = this.formBuilder.group({
     post_text: ''
   });
+  private ngZone: any;
 
   constructor(private service: HomepageService,
               private sharedService: SharedService,
               private formBuilder: FormBuilder,
               private router: Router,
               private uploadService: MultiUploadService) {
-              this.requiredcondition = false;
-              this.loading=false;
+    this.requiredcondition = false;
+    this.loading=false;
+    this.likes_count = new Map<Post, number>();
   }
 
   async ngOnInit(){
@@ -120,6 +123,7 @@ export class HomepageComponent implements OnInit {
       likes_id=[];
       likes=[];
       await this.service.getPostLikes(p.id).toPromise().then(response=>likes=response);
+      this.likes_count.set(p, likes.length);
       for(let l of likes)
         likes_id.push(l.user.id)
       if(likes_id.includes(this.currentuser))
@@ -162,6 +166,9 @@ export class HomepageComponent implements OnInit {
     l.createdDate = new Date();
     await this.service.saveLike(this.currentuser,l).toPromise().then(response=>console.log(response))
     this.liked_posts.set(p,true);
+    var count: number|undefined = this.likes_count.get(p);
+    if (count)
+      this.likes_count.set(p, count+1);
   }
 
   goToPost(id:number){
