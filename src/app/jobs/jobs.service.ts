@@ -44,6 +44,10 @@ export class JobsService {
     return this.http.get<Job>(this.jobsUrl+"/"+job_id);
   }
 
+  // getFriendsJobs(user_id: number): Observable<Job[]> { {
+  //   return this.http.get<Job>(this.jobsUrl+"/"+job_id);
+  // }
+
   getJobsBySkills(skills: string): Observable<Job[]> {
     if (skills == null || skills == '')
       return this.http.get<Job[]>(this.jobsUrl);
@@ -60,4 +64,5 @@ export class JobsService {
   getJobLikes(job_id:number): Observable<JobLike[]>{
     return this.http.get<JobLike[]>(this.joblikesUrl+"/ofpost/"+job_id);
   }
+
 }

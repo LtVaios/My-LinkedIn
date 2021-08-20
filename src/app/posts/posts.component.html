@@ -24,21 +24,21 @@
 <body class="second_body" *ngIf="!loading">
 
 <div class="posts">
-  <img [src]="imagesrc(post[0].user.img) ? imagesrc(post[0].user.img): '../../assets/default-user-image.png'" class="profile-image">
-  <a [routerLink]="['/'+post[0].user.username]" class="author">{{post[0].user.firstName}} {{post[0].user.lastName}}</a>
+  <img [src]="imagesrc(post.user.img) ? imagesrc(post.user.img): '../../assets/default-user-image.png'" class="profile-image">
+  <a [routerLink]="['/'+post.user.username]" class="author">{{post.user.firstName}} {{post.user.lastName}}</a>
   <br>
   <span class="date">
-        {{post[0].date_time}}
+        {{post.date_time}}
   </span>
   <br><br>
   <p class="post_body">
-    {{post[0].post_body}}
+    {{post.post_body}}
   </p>
-  <div *ngFor="let image of post[0].images">
+  <div *ngFor="let image of post.images">
     <img [src] = imagesrc(image) class="post-image">
   </div>
-  <button *ngIf="post[1]" class="disabled">Ενδιαφέρον!</button>
-  <button *ngIf="!post[1]" (click)="likePost(post[0])" class="like">Ενδιαφέρον!</button>
+  <button *ngIf="isLiked" class="disabled">Ενδιαφέρον!</button>
+  <button *ngIf="!isLiked" (click)="likePost(post)" class="like">Ενδιαφέρον!</button>
   <br><br>
   <span class="separator">
     ---------------------------------------------------------------------------------------------------------<span class="comm_sep">COMMENTS</span>
@@ -49,7 +49,7 @@
     <a [routerLink]="['/'+c.user.username]" class="author">{{c.user.firstName}} {{c.user.lastName}}</a>
     <br>
     <span class="date">
-        {{post[0].date_time}}
+        {{c.createdDate}}
     </span>
     <br><br>
     <p style="margin: 2px 0 5px 0;" class="post_body">{{c.comment_text}}</p>

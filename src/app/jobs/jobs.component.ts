@@ -24,7 +24,9 @@ export class JobsComponent implements OnInit {
   uploadcondition: boolean;
   dataLoaded: boolean;
   all_jobs: Job[];
+  temp_jobs: Job[];
   likedJobs: Map<Job, boolean>;
+  tab: number;
 
   jobForm = this.formBuilder.group({
     job_text: ''
@@ -48,23 +50,7 @@ export class JobsComponent implements OnInit {
     this.dataLoaded=false;
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
 
-    await this.service.getJobsBySkills(this.user.skills).toPromise().then(response => this.all_jobs=response);
-    var flag: boolean;
-    for (let job of this.all_jobs){
-      flag = false;
-      var likes: JobLike[] = [];
-      await this.service.getJobLikes(job.id).toPromise().then(response => likes=response);
-      for (let like of likes) {
-        if (like.user.id == this.currentUser) {
-          this.likedJobs.set(job, true);
-          flag=true;
-          break;
-        }
-      }
-      if (flag==false){
-        this.likedJobs.set(job, false);
-      }
-    }
+    this.default();
 
     this.dataLoaded=true;
   }
@@ -101,4 +87,108 @@ export class JobsComponent implements OnInit {
     if (img == null) return "";
     return 'data:image/jpeg;base64,'+img.picByte;
   }
+
+  async default() {
+    this.tab = 0;
+    localStorage.setItem('tab', JSON.stringify(this.tab));
+    await this.service.getJobsBySkills(this.user.skills).toPromise().then(response => this.all_jobs=response);
+    var flag: boolean;
+    for (let job of this.all_jobs){
+      flag = false;
+      var likes: JobLike[] = [];
+      await this.service.getJobLikes(job.id).toPromise().then(response => likes=response);
+      for (let like of likes) {
+        if (like.user.id == this.currentUser) {
+          this.likedJobs.set(job, true);
+          flag=true;
+          break;
+        }
+      }
+      if (flag==false){
+        this.likedJobs.set(job, false);
+      }
+    }
+  }
+
+  async most_recent() {
+    this.tab = 1;
+    localStorage.setItem('tab', JSON.stringify(this.tab));
+    var flag: boolean;
+
+    await this.service.getAllJobs().toPromise().then(response => this.temp_jobs = response);
+
+    for (let job of this.temp_jobs) {
+      flag = false;
+      var likes: JobLike[] = [];
+      await this.service.getJobLikes(job.id).toPromise().then(response => likes = response);
+      for (let like of likes) {
+        if (like.user.id == this.currentUser) {
+          this.likedJobs.set(job, true);
+          flag = true;
+          break;
+        }
+      }
+      if (flag == false) {
+        this.likedJobs.set(job, false);
+      }
+    }
+    this.temp_jobs.sort((a, b) =>
+      (new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime())
+    );
+    this.all_jobs = this.temp_jobs;
+  }
+
+  async my_jobs() {
+    this.tab = 2;
+    localStorage.setItem('tab', JSON.stringify(this.tab));
+
+    await this.service.getMyJobs(this.user).toPromise().then(response => this.temp_jobs = response);
+    var flag: boolean;
+    for (let job of this.temp_jobs) {
+      flag = false;
+      var likes: JobLike[] = [];
+      await this.service.getJobLikes(job.id).toPromise().then(response => likes = response);
+      for (let like of likes) {
+        if (like.user.id == this.currentUser) {
+          this.likedJobs.set(job, true);
+          flag = true;
+          break;
+        }
+      }
+      if (flag == false) {
+        this.likedJobs.set(job, false);
+      }
+    }
+    this.temp_jobs.sort((a, b) =>
+      (new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime())
+    );
+    this.all_jobs = this.temp_jobs;
+  }
+
+  // async connected_jobs() {
+  //   this.tab = 3;
+  //   localStorage.setItem('tab', JSON.stringify(this.tab));
+  //
+  //   await this.service.getFriendsJobs(this.user).toPromise().then(response => this.temp_jobs = response);
+  //   var flag: boolean;
+  //   for (let job of this.temp_jobs) {
+  //     flag = false;
+  //     var likes: JobLike[] = [];
+  //     await this.service.getJobLikes(job.id).toPromise().then(response => likes = response);
+  //     for (let like of likes) {
+  //       if (like.user.id == this.currentUser) {
+  //         this.likedJobs.set(job, true);
+  //         flag = true;
+  //         break;
+  //       }
+  //     }
+  //     if (flag == false) {
+  //       this.likedJobs.set(job, false);
+  //     }
+  //   }
+  //   this.temp_jobs.sort((a, b) =>
+  //     (new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime())
+  //   );
+  //   this.all_jobs = this.temp_jobs;
+  // }
 }

@@ -23,14 +23,11 @@ import {Image} from "../model/image";
 export class HomepageComponent implements OnInit {
   requiredcondition:boolean;
   loading:boolean;
-  comments_loaded:boolean;
   uploaded:boolean;
   posts: Post[];
   liked_posts: Map<Post,boolean>;
   friends: Friends[];
   currentuser:number;
-
-  images: any[];
 
   postForm = this.formBuilder.group({
     post_text: ''

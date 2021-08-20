@@ -284,7 +284,22 @@ h5 {
   margin: 5px;
 }
 
+.options button {
+  border: none;
+  background-color: inherit;
+  font-family: sans-serif;
+  color: green;
+  text-decoration: underline;
+}
 
+.options button:hover {
+  cursor: pointer;
+  color: #4CAF50;
+}
+
+.options .active {
+  color: #4CAF50;
+}
 
 
 

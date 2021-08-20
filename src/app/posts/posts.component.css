@@ -276,7 +276,7 @@ h5 {
   width:40px;
   height:40px;
   object-fit:cover;
-  margin: 0;
+  margin: 5px;
   float: left;
   border-radius: 50%;
 }
@@ -285,6 +285,10 @@ h5 {
   width: 50%;
   object-fit:cover;
   margin: 10px;
+}
+
+.comment {
+  margin-top: 15px;
 }
 
 

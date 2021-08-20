@@ -41,10 +41,12 @@
     </div>
   </form>
 </div>
+
 <div class="options">
-  <a [routerLink]="['/jobs/mostrecent']">Πιο πρόσφατα</a> |
-  <a [routerLink]="[]">Οι αγγελίες μου</a> |
-  <a [routerLink]="[]">Αγγελίες Συνδεδεμένων</a>
+  <button (click)="default()" [ngClass]="{'active': tab === 0}">Προκαθορισμένες</button> |
+  <button (click)="most_recent()" [ngClass]="{'active': tab === 1}">Πιο πρόσφατα</button> |
+  <button (click)="my_jobs()" [ngClass]="{'active': tab === 2}">Οι αγγελίες μου</button> |
+<!--  <button (click)="connected_jobs()" >Αγγελίες Συνδεδεμένων</button>-->
 </div>
 <div *ngIf="dataLoaded">
 <div  class="posts" *ngFor="let job of all_jobs">
