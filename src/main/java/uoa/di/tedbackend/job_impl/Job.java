@@ -11,7 +11,7 @@ import java.util.Date;
 
 @Entity
 @Data
-//@Indexed
+@Indexed
 public class Job {
 
     @Id
