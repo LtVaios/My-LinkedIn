@@ -15,11 +15,12 @@ import {colors} from "@angular/cli/utilities/color";
 })
 export class JobIdComponent implements OnInit {
 
-  currentUser: number
-  user: User
-  dataLoaded: boolean
-  job: Job
-  liked: boolean
+  currentUser: number;
+  user: User;
+  dataLoaded: boolean;
+  job: Job;
+  liked: boolean;
+  likes_count: number;
 
   constructor(private sharedService: SharedService,
               private jobs_service: JobsService,
@@ -39,6 +40,7 @@ export class JobIdComponent implements OnInit {
     var likes: JobLike[] = [];
     this.liked = false;
     await this.jobs_service.getJobLikes(job_id).toPromise().then(response => likes=response);
+    this.likes_count = likes.length;
     for (let like of likes) {
       if (like.user.id == this.currentUser) {
           this.liked = true;
@@ -51,13 +53,14 @@ export class JobIdComponent implements OnInit {
 
 
   likeJob(job: Job): void{
+    this.liked=true;
+    this.likes_count += 1;
     var jl = new JobLike();
     jl.job = job;
     jl.user = this.user;
     jl.createdDate = new Date();
     console.log(jl);
     this.jobs_service.saveLike(jl).subscribe((data=>console.log(data)));
-    this.liked=true;
   }
 
   local(d: Date): string{

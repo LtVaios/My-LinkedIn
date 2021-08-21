@@ -24,6 +24,7 @@ export class PostsComponent implements OnInit {
   likes: Likes[];
   post: Post;
   isLiked: boolean;
+  likes_count: number;
   commentForm = this.formBuilder.group({
     comm_text: ''
   });
@@ -50,7 +51,7 @@ export class PostsComponent implements OnInit {
     await this.service.getPost(Number(this.post_id)).toPromise().then(response => this.post=response)
     await this.service.getPostComments(Number(this.post_id)).toPromise().then(response=>this.comms=response)
     await this.service.getPostLikes(Number(this.post_id)).toPromise().then(response=>this.likes=response);
-
+    this.likes_count = this.likes.length;
     this.isLiked = false;
     for(let l of this.likes)
       if(l.user.id==this.currentuser){
@@ -64,7 +65,7 @@ export class PostsComponent implements OnInit {
 
   async likePost(p:Post){
     this.isLiked = true;
-
+    this.likes_count += 1;
     let l:Likes;
     l=new Likes();
     await this.service.getUser(this.currentuser).toPromise().then(response=>l.user=response)

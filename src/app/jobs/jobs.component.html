@@ -56,6 +56,7 @@
   <br/><br/>
   <p class="job_body"> {{job.body}}  </p>
   <br/>
+  <span class="like_count"> <img src="../../assets/thumbs-up.svg"> {{likes_count.get(job)}} </span>
   <button *ngIf="likedJobs.get(job)" class="disabled">Ενδιαφέρον!</button>
   <button *ngIf="!likedJobs.get(job)" (click)="likeJob(job)" class="like">Ενδιαφέρον!</button>
 </div>

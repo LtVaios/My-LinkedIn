@@ -303,6 +303,27 @@ h5 {
   text-decoration: none;
 }
 
+.like_count {
+  color: green;
+  float:left;
+  border: none;
+  padding: 1px;
+  text-align: center;
+  display: inline-block;
+  font-size: 19px;
+  margin: 5px 5px 5px 0px;
+}
+
+.like_count img{
+  padding: 1px;
+  height:19px;
+  float:left;
+  width:19px;
+  color: green;
+  text-align: center;
+}
+
+
 
 
 

@@ -16,16 +16,17 @@ import {flatMap} from "rxjs/internal/operators";
   styleUrls: ['./jobs.component.css']
 })
 export class JobsComponent implements OnInit {
-  loading:boolean
-  currentUser: number
-  posted: boolean
-  user: User
+  loading:boolean;
+  currentUser: number;
+  posted: boolean;
+  user: User;
   requiredcondition:boolean;
   uploadcondition: boolean;
   dataLoaded: boolean;
   all_jobs: Job[];
   temp_jobs: Job[];
   likedJobs: Map<Job, boolean>;
+  likes_count: Map<Job, number>;
   tab: number;
 
   jobForm = this.formBuilder.group({
@@ -38,6 +39,7 @@ export class JobsComponent implements OnInit {
     this.requiredcondition = false;
     this.posted = false;
     this.likedJobs = new Map();
+    this.likes_count = new Map<Job, number>();
   }
 
   async ngOnInit() {
@@ -97,6 +99,7 @@ export class JobsComponent implements OnInit {
       flag = false;
       var likes: JobLike[] = [];
       await this.service.getJobLikes(job.id).toPromise().then(response => likes=response);
+      this.likes_count.set(job, likes.length);
       for (let like of likes) {
         if (like.user.id == this.currentUser) {
           this.likedJobs.set(job, true);
@@ -121,6 +124,7 @@ export class JobsComponent implements OnInit {
       flag = false;
       var likes: JobLike[] = [];
       await this.service.getJobLikes(job.id).toPromise().then(response => likes = response);
+      this.likes_count.set(job, likes.length);
       for (let like of likes) {
         if (like.user.id == this.currentUser) {
           this.likedJobs.set(job, true);
@@ -148,6 +152,7 @@ export class JobsComponent implements OnInit {
       flag = false;
       var likes: JobLike[] = [];
       await this.service.getJobLikes(job.id).toPromise().then(response => likes = response);
+      this.likes_count.set(job, likes.length);
       for (let like of likes) {
         if (like.user.id == this.currentUser) {
           this.likedJobs.set(job, true);
