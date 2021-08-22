@@ -13,6 +13,7 @@ import {Observable} from "rxjs";
 import {MultiUploadService} from "./multi-upload/multi-upload.service";
 import {HttpEventType, HttpResponse} from "@angular/common/http";
 import {Image} from "../model/image";
+import {Audio_} from "../model/audio";
 
 @Component({
   selector: 'app-homepage',
@@ -24,6 +25,7 @@ export class HomepageComponent implements OnInit {
   requiredcondition:boolean;
   loading:boolean;
   uploaded:boolean;
+  aud:boolean;
   posts: Post[];
   liked_posts: Map<Post,boolean>;
   friends: Friends[];
@@ -135,6 +137,7 @@ export class HomepageComponent implements OnInit {
   }
 
   async submitPost() {
+    this.previews = [];
     this.loading=true;
     this.requiredcondition=false;
     this.uploaded=false;
@@ -152,6 +155,7 @@ export class HomepageComponent implements OnInit {
       this.previews = [];
       await new Promise(f => setTimeout(f, 2000));
       this.postForm.reset();
+      this.previews = [];
       this.loading=false;
       this.uploaded=true;
     }
@@ -176,41 +180,67 @@ export class HomepageComponent implements OnInit {
   }
 
 
-  /* For pictures */
-  selectedFiles?: FileList;
+  /* For pictures and audio files*/
+  selectedImageFiles?: FileList;
+  selectedAudioFiles?: FileList;
   progressInfos: any[] = [];
   message: string[] = [];
-
   previews: string[] = [];
-  imageInfos?: Observable<any>;
 
-  selectFiles(event: any): void {
+  selectImageFiles(event: any,aud:boolean): void {
     this.message = [];
     this.progressInfos = [];
-    this.selectedFiles = event.target.files;
+    this.selectedImageFiles = event.target.files;
+    this.aud=aud
 
     this.previews = [];
-    if (this.selectedFiles && this.selectedFiles[0]) {
-      const numberOfFiles = this.selectedFiles.length;
+    if (this.selectedImageFiles && this.selectedImageFiles[0]) {
+      const numberOfFiles = this.selectedImageFiles.length;
       for (let i = 0; i < numberOfFiles; i++) {
         const reader = new FileReader();
 
         reader.onload = (e: any) => {
           //console.log(e.target.result);
-          this.previews.push(e.target.result);
+          if(!this.aud)
+            this.previews.push(e.target.result);
         };
 
-        reader.readAsDataURL(this.selectedFiles[i]);
+        reader.readAsDataURL(this.selectedImageFiles[i]);
+      }
+    }
+  }
+
+  selectAudioFiles(event: any,aud:boolean): void {
+    this.message = [];
+    this.progressInfos = [];
+    this.selectedAudioFiles = event.target.files;
+    this.aud=aud
+    if (this.selectedAudioFiles && this.selectedAudioFiles[0]) {
+      const numberOfFiles = this.selectedAudioFiles.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+
+        reader.onload = (e: any) => {
+          //console.log(e.target.result);
+          if(!this.aud)
+            this.previews.push(e.target.result);
+        };
+
+        reader.readAsDataURL(this.selectedAudioFiles[i]);
       }
     }
   }
 
   uploadFiles(post_id: number): void {
     this.message = [];
-
-    if (this.selectedFiles) {
-      for (let i = 0; i < this.selectedFiles.length; i++) {
-        this.upload(i, this.selectedFiles[i], post_id);
+    if (this.selectedImageFiles) {
+      for (let i = 0; i < this.selectedImageFiles.length; i++) {
+        this.upload(i, this.selectedImageFiles[i], post_id);
+      }
+    }
+    if (this.selectedAudioFiles) {
+      for (let i = 0; i < this.selectedAudioFiles.length; i++) {
+        this.uploadAudio(i, this.selectedAudioFiles[i], post_id);
       }
     }
   }
@@ -237,8 +267,35 @@ export class HomepageComponent implements OnInit {
     }
   }
 
+  uploadAudio(idx: number, file: File, post_id: number): void {
+    this.progressInfos[idx] = { value: 0, fileName: file.name };
+
+    if (file) {
+      this.uploadService.uploadAudio(file, post_id).subscribe(
+        (event: any) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+            const msg = 'Uploaded the file successfully: ' + file.name;
+            this.message.push(msg);
+            // this.imageInfos = this.uploadService.getFiles();
+          }
+        },
+        (err: any) => {
+          this.progressInfos[idx].value = 0;
+          const msg = 'Could not upload the file: ' + file.name;
+          this.message.push(msg);
+        });
+    }
+  }
+
   imagesrc(img: Image): string{
     if (img==null) return "";
     else return 'data:image/jpeg;base64,'+img.picByte;
+  }
+
+  audiosrc(aud: Audio_): string{
+    if (aud==null) return "";
+    else return 'data:audio/mp3;base64,'+aud.audByte;
   }
 }

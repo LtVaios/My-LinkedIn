@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class MultiUploadService {
   private baseUrl = 'https://localhost:8443/images';
+  private audUrl = 'https://localhost:8443/audio';
 
   constructor(private http: HttpClient) { }
 
@@ -16,6 +17,18 @@ export class MultiUploadService {
     formData.append('imageFile', file, file.name);
 
     const req = new HttpRequest('POST', `${this.baseUrl}/upload/post/`+post_id, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
+  uploadAudio(file: File, post_id:number): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('audioFile', file, file.name);
+    const req = new HttpRequest('POST', `${this.audUrl}/upload/post/`+post_id, formData, {
       reportProgress: true,
       responseType: 'json'
     });
