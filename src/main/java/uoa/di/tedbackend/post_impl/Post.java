@@ -5,6 +5,7 @@ import java.util.*;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.Generated;
+import uoa.di.tedbackend.audio_files.Audio;
 import uoa.di.tedbackend.image.Image;
 import uoa.di.tedbackend.user_impl.User;
 
@@ -26,8 +27,11 @@ public class Post {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id", referencedColumnName = "id")
-//    @JsonIgnoreProperties("post")
     private Set<Image> images = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id", referencedColumnName = "id")
+    private Set<Audio> audios = new HashSet<>();
 
     public Post() {}
 
