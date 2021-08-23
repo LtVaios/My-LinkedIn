@@ -332,5 +332,33 @@ h5 {
 }
 
 
+.img-upload {
+  background-color: palegreen;
+  color: black;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 3px;
+  margin: 15px;
+}
 
+.aud-upload {
+  background-color: palegreen;
+  color: black;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 3px;
+  margin: 15px;
+}
 
+.vid-upload {
+  background-color: palegreen;
+  color: black;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 3px;
+  margin: 15px;
+}
+
+input[type="file"] {
+  display: none;
+}

@@ -28,17 +28,20 @@
           <textarea class="newpost" rows="7" type="text" placeholder="Write a new post" formControlName="post_text">
           </textarea>
         </div>
-        <span class="label_">Select images: </span><input type="file" id="img_file" accept="image/*" multiple (change)="selectImageFiles($event,false)" class="image_input"/>
+<!--upload buttons-->
+        <label for="img_file" class="img-upload">  Image Upload</label>
+        <input type="file" id="img_file" accept="image/*" multiple (change)="selectImageFiles($event,false)" class="image_input"/>
+
+        <label for="aud_file" class="aud-upload">Audio Upload</label>
+        <input type="file" id="aud_file" accept="audio/*" multiple (change)="selectAudioFiles($event,true)" class="audio_input"/>
+
+
+        <label for="vid_file" class="vid-upload">Video Upload</label>
+        <input type="file" accept="video/mp4" id="vid_file" multiple (change)="selectFilesV($event)" />
+<!--previews-->
         <div>
-          <br>
-        </div>
-        <span class="label_">Select audio files: </span><input type="file" id="aud_file" accept="audio/*" multiple (change)="selectAudioFiles($event,true)" class="audio_input"/>
-        <div>
-          <br>
           <img *ngFor='let preview of previews' [src]="preview" class="post-image">
         </div>
-
-        <input type="file" accept="video/mp4" multiple (change)="selectFilesV($event)" />
         <div>
         <span *ngFor='let previewV of previewsV' >
           <video width="320" height="240" controls>
