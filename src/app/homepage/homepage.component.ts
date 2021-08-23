@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from "../model/user";
 import {Post} from "../model/post";
 import {HomepageService} from "./homepage.service";
 import {FormBuilder} from "@angular/forms";
 import {SharedService} from "../shared.service";
 import {Friends} from "../model/friends";
-import {empty} from "rxjs/internal/Observer";
 import {Likes} from "../model/likes";
-import {Comment} from "../model/comment";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {MultiUploadService} from "./multi-upload/multi-upload.service";
-import {HttpEventType, HttpResponse} from "@angular/common/http";
+import {HttpErrorResponse, HttpEventType, HttpResponse} from "@angular/common/http";
 import {Image} from "../model/image";
+import {Video} from "../model/video";
+import {DomSanitizer, SafeResourceUrl, SafeUrl} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-homepage',
@@ -29,20 +28,24 @@ export class HomepageComponent implements OnInit {
   friends: Friends[];
   currentuser:number;
   likes_count: Map<Post, number>;
-
+  videos: Map<number, SafeUrl>;
+  urllist: string[];
+  url: any;
   postForm = this.formBuilder.group({
     post_text: ''
   });
-  private ngZone: any;
+  fileUrl: SafeResourceUrl;
 
   constructor(private service: HomepageService,
               private sharedService: SharedService,
               private formBuilder: FormBuilder,
               private router: Router,
-              private uploadService: MultiUploadService) {
+              private uploadService: MultiUploadService,
+              private sanitizer : DomSanitizer) {
     this.requiredcondition = false;
     this.loading=false;
     this.likes_count = new Map<Post, number>();
+    this.videos = new Map<number, SafeUrl>();
   }
 
   async ngOnInit(){
@@ -130,6 +133,28 @@ export class HomepageComponent implements OnInit {
         this.liked_posts.set(p, true);
       else
         this.liked_posts.set(p, false);
+
+      for (let vid of p.videos) {
+        this.uploadService.downloadVideo(vid).subscribe(
+          event => {
+            console.log(event);
+            if (event.type === HttpEventType.UploadProgress) {
+              // this.progressInfosV[idx].value = Math.round(100 * event.loaded / event.total);
+            } else if (event instanceof HttpResponse) {
+              console.log(event.body);
+              this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(event.body));
+              const reader = new FileReader();
+              reader.onload = (e: any) => {
+                this.videos.set(vid.id, e.target.result);
+              };
+              reader.readAsDataURL(event.body);
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error)
+          }
+        );
+      }
     }
     this.loading=false;
   }
@@ -148,6 +173,7 @@ export class HomepageComponent implements OnInit {
       this.service.saveNewPost(this.postForm.value.post_text, this.currentuser).subscribe(data => {
         console.log(data);
         this.uploadFiles(data.id);
+        this.uploadFilesV(data.id);
       });
       this.previews = [];
       await new Promise(f => setTimeout(f, 2000));
@@ -219,7 +245,7 @@ export class HomepageComponent implements OnInit {
     this.progressInfos[idx] = { value: 0, fileName: file.name };
 
     if (file) {
-      this.uploadService.upload(file, post_id).subscribe(
+      this.uploadService.uploadImage(file, post_id).subscribe(
         (event: any) => {
           if (event.type === HttpEventType.UploadProgress) {
             this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
@@ -241,4 +267,70 @@ export class HomepageComponent implements OnInit {
     if (img==null) return "";
     else return 'data:image/jpeg;base64,'+img.picByte;
   }
+
+  /* For videos */
+  selectedFilesV?: FileList;
+  progressInfosV: any[] = [];
+  messageV: string[] = [];
+
+  previewsV: string[] = [];
+  imageInfosV?: Observable<any>;
+
+  selectFilesV(event: any): void {
+    this.messageV = [];
+    this.progressInfosV = [];
+    this.selectedFilesV = event.target.files;
+
+    this.previewsV = [];
+    if (this.selectedFilesV && this.selectedFilesV[0]) {
+      const numberOfFiles = this.selectedFilesV.length;
+      for (let i = 0; i < numberOfFiles; i++) {
+        const reader = new FileReader();
+
+        reader.onload = (e: any) => {
+          //console.log(e.target.result);
+          this.previewsV.push(e.target.result);
+        };
+
+        reader.readAsDataURL(this.selectedFilesV[i]);
+      }
+    }
+  }
+
+  uploadFilesV(post_id: number): void {
+    this.messageV = [];
+
+    if (this.selectedFilesV) {
+      for (let i = 0; i < this.selectedFilesV.length; i++) {
+        this.uploadV(i, this.selectedFilesV[i], post_id);
+      }
+    }
+  }
+
+  uploadV(idx: number, file: File, post_id: number): void {
+    this.progressInfosV[idx] = { value: 0, fileName: file.name };
+
+    if (file) {
+      this.uploadService.uploadVideo(file, post_id).subscribe(
+        (event: any) => {
+          if (event.type === HttpEventType.UploadProgress) {
+            this.progressInfosV[idx].value = Math.round(100 * event.loaded / event.total);
+          } else if (event instanceof HttpResponse) {
+            const msg = 'Uploaded the file successfully: ' + file.name;
+            this.messageV.push(msg);
+            // this.imageInfos = this.uploadService.getFiles();
+          }
+        },
+        (err: any) => {
+          this.progressInfosV[idx].value = 0;
+          const msg = 'Could not upload the file: ' + file.name;
+          this.messageV.push(msg);
+        });
+    }
+  }
+
+  videosrc(vid: Video){
+    return this.uploadService.downloadVideo(vid);
+  }
+
 }

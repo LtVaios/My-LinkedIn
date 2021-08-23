@@ -9,7 +9,7 @@ import {User} from "../model/user";
 })
 export class InfoService {
   private usersUrl = 'https://localhost:8443/users';
-  private imagesUrl = 'https://localhost:8443/images/upload/user';
+  private imagesUrl = 'https://localhost:8443/files/user';
   constructor(private http: HttpClient,private router: Router) { }
 
   getUser(user: number): Observable<User>{

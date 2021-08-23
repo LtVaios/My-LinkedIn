@@ -32,6 +32,17 @@
         <div>
           <img *ngFor='let preview of previews' [src]="preview" class="post-image">
         </div>
+
+        <input type="file" accept="video/mp4" multiple (change)="selectFilesV($event)" />
+        <div>
+        <span *ngFor='let previewV of previewsV' >
+          <video width="320" height="240" controls>
+            <source [src]="previewV" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </span>
+        </div>
+
         <button [disabled]="loading" class="button" type="submit" >
           Upload Post
         </button>
@@ -65,6 +76,17 @@
       </p >
       <div *ngFor="let image of post.images">
         <img [lazyLoad]="imagesrc(image)" [decode]="true"  class="post-image">
+      </div>
+      <div *ngFor="let video of post.videos">
+        <video width="320" height="240" controls preload="metadata">
+          <source *ngIf="videos.get(video.id)" [src]="videos.get(video.id)"   type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+<!--<a href="{{url}}"> vid link</a>-->
+<!--        <video width="320" height="240" controls>-->
+<!--          <source [src]="videosrc(video.id)" type="video/mp4">-->
+<!--          Your browser does not support the video tag.-->
+<!--        </video>-->
       </div>
       <span class="like_count"> <img src="../../assets/thumbs-up.svg"> {{likes_count.get(post)}} </span>
       <button *ngIf="liked_posts.get(post)" class="disabled">Ενδιαφέρον!</button>
