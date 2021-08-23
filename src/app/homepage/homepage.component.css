@@ -318,5 +318,19 @@ h5 {
   text-align: center;
 }
 
+.audios{
+  margin: 10px;
+}
+
+.label_{
+  background-color: palegreen;
+  color: black;
+  border-radius: 5px;
+  border: 1px solid black;
+  padding: 3px;
+  margin-right: 3px;
+}
+
+
 
 

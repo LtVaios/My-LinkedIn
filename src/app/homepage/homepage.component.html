@@ -28,8 +28,13 @@
           <textarea class="newpost" rows="7" type="text" placeholder="Write a new post" formControlName="post_text">
           </textarea>
         </div>
-        <input type="file" accept="image/*" multiple (change)="selectFiles($event)" />
+        <span class="label_">Select images: </span><input type="file" id="img_file" accept="image/*" multiple (change)="selectImageFiles($event,false)" class="image_input"/>
         <div>
+          <br>
+        </div>
+        <span class="label_">Select audio files: </span><input type="file" id="aud_file" accept="audio/*" multiple (change)="selectAudioFiles($event,true)" class="audio_input"/>
+        <div>
+          <br>
           <img *ngFor='let preview of previews' [src]="preview" class="post-image">
         </div>
 
@@ -74,6 +79,10 @@
       <p class="post_body">
         {{post.post_body}}
       </p >
+      <div *ngFor="let aud of post.audios" class="audios">
+        <audio controls [src]="audiosrc(aud)">
+        </audio>
+      </div>
       <div *ngFor="let image of post.images">
         <img [lazyLoad]="imagesrc(image)" [decode]="true"  class="post-image">
       </div>

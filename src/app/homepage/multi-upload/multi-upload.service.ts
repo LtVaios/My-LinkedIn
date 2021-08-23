@@ -7,8 +7,9 @@ import {Video} from "../../model/video";
   providedIn: 'root'
 })
 export class MultiUploadService {
-  private baseUrl = 'https://localhost:8443/files';
   private videoUrl = 'https://localhost:8443/videos'
+  private baseUrl = 'https://localhost:8443/images';
+  private audUrl = 'https://localhost:8443/audio';
 
   constructor(private http: HttpClient) { }
 
@@ -17,7 +18,19 @@ export class MultiUploadService {
 
     formData.append('imageFile', file, file.name);
 
-    const req = new HttpRequest('POST', `${this.baseUrl}/post/image/`+post_id, formData, {
+    const req = new HttpRequest('POST', `${this.baseUrl}/upload/post/`+post_id, formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+
+    return this.http.request(req);
+  }
+
+  uploadAudio(file: File, post_id:number): Observable<HttpEvent<any>> {
+    const formData: FormData = new FormData();
+
+    formData.append('audioFile', file, file.name);
+    const req = new HttpRequest('POST', `${this.audUrl}/upload/post/`+post_id, formData, {
       reportProgress: true,
       responseType: 'json'
     });
@@ -39,11 +52,6 @@ export class MultiUploadService {
   }
 
   downloadVideo(vid: Video): Observable<any> {
-
-    // const req = new HttpRequest('GET', `${this.videoUrl}/download/`+vid.id, {
-    //   reportProgress: true,
-    //   responseType: 'video/mp4'
-    // });
     return this.http.get(`${this.videoUrl}/download/`+vid.id , {
       reportProgress:true,
       observe: 'events',
