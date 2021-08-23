@@ -37,5 +37,5 @@ public class Image {
     private byte[] picByte;
 
     @OneToOne(mappedBy = "img")
-    private User user;
+    private User user; /* FIXME maybe delete this. We don't use this side of the relationship */
 }

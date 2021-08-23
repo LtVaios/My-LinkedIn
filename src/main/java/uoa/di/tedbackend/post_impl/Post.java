@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.Generated;
 import uoa.di.tedbackend.image.Image;
 import uoa.di.tedbackend.user_impl.User;
+import uoa.di.tedbackend.video_impl.Video;
 
 import javax.persistence.*;
 
@@ -28,6 +29,11 @@ public class Post {
     @JoinColumn(name = "post_id", referencedColumnName = "id")
 //    @JsonIgnoreProperties("post")
     private Set<Image> images = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "post_id", referencedColumnName = "id")
+//    @JsonIgnoreProperties("post")
+    private Set<Video> videos = new HashSet<>();
 
     public Post() {}
 

@@ -57,16 +57,16 @@ class ImageController {
 
     @PostMapping("/upload/user/{id}")
     @CrossOrigin(origins = "*")
-    public Image uploadUserImage(@RequestParam("imageFile") MultipartFile file, @PathVariable("id") int userid) throws IOException {
-        //upload one picture for user profil
+    public Image uploadUserImage(@RequestParam("imageFile") MultipartFile file, @PathVariable("id") int userid)
+            throws IOException {
+        //upload one picture for user profile
         System.out.println("in upload");
         System.out.println("Original Image Byte Size - " + file.getBytes().length);
 
         User user = urepository.findById(userid).get();
         Image img = null;
         try {
-            img = new Image(file.getOriginalFilename(), file.getContentType(),
-                    file.getBytes());
+            img = new Image(file.getOriginalFilename(), file.getContentType(), file.getBytes());
             user.setImg(img);
             urepository.save(user);
         } catch (IOException e) {
@@ -76,33 +76,10 @@ class ImageController {
 
     }
 
-//    @PostMapping("/upload/post/{id}")
-//    @CrossOrigin(origins = "*")
-//    public String uploadPostImages(@RequestParam("imageFile") List<MultipartFile> files, @PathVariable("id") int postid) throws IOException {
-//        //upload multiple pictures for one post
-//        System.out.println("in upload");
-//        Post post = prepository.findById(postid).get();
-//
-//        for (MultipartFile file: files) {
-//            System.out.println("Original Image Byte Size - " + file.getBytes().length);
-//            Image img = null;
-//            try {
-//                img = new Image(file.getOriginalFilename(), file.getContentType(),
-//                        file.getBytes());
-//                post.getImg().add(img);
-//                prepository.save(post);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//            repository.save(img);
-//        }
-//        return "success";
-//    }
-
     @PostMapping("/upload/post/{id}")
     @CrossOrigin(origins = "*")
     public Image uploadPostImage(@RequestParam("imageFile") MultipartFile file, @PathVariable("id") int postid) throws IOException {
-        //upload multiple pictures for one post
+
         System.out.println("in upload");
         Post post = prepository.findById(postid).get();
 
@@ -123,12 +100,35 @@ class ImageController {
         return newimg;
     }
 
-    @GetMapping("/post/{id}")
-    @CrossOrigin(origins = "*")
-    public List<Image> getPostImage(@PathVariable("id") int post_id) {
-        //return pictures for one post
-        return repository.findPostImages(post_id);
-    }
+//    @PostMapping("/post/video/{id}")
+//    @CrossOrigin(origins = "*")
+//    public Image uploadPostVideo(@RequestParam("imageFile") MultipartFile file, @PathVariable("id") int postid) throws IOException {
+//
+//        System.out.println("in upload");
+//        Post post = prepository.findById(postid).get();
+//
+//        System.out.println("Original Image Byte Size - " + file.getBytes().length);
+//        Image img = null;
+//        Image newimg = null;
+//        try {
+//            img = new Image(file.getOriginalFilename(), file.getContentType(),
+//                    file.getBytes());
+//            newimg = repository.save(img);
+//            Set<Image> videoslist = post.getVideos();
+//            videoslist.add(newimg);
+//            post.setVideos(videoslist);
+//            prepository.save(post);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return newimg;
+//    }
+//    @GetMapping("/post/{id}")
+//    @CrossOrigin(origins = "*")
+//    public List<Image> getPostImage(@PathVariable("id") int post_id) {
+//        //return pictures for one post
+//        return repository.findPostImages(post_id);
+//    }
 
     @PutMapping("/upload/user/{id}")
     @CrossOrigin(origins = "*")
@@ -167,7 +167,7 @@ class ImageController {
     }
 
 
-    @DeleteMapping("/images/{id}")
+    @DeleteMapping("/{id}")
     void deleteImage(@PathVariable Long id) {
         repository.deleteById(id);
     }
