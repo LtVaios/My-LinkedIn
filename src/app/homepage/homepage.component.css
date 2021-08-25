@@ -5,6 +5,7 @@ ul {
   overflow: hidden;
   background-color: #333;
   width:100%;
+  position: sticky;
 }
 
 li {
@@ -119,7 +120,7 @@ li a:hover:not(.active) {
   outline: 0;
   background: #f2f2f2;
   width: 100%;
-  margin: 0 0 15px;
+  margin: 0 0;
   padding-top: 3px;
   box-sizing: border-box;
   font-size: 14px;
@@ -322,6 +323,13 @@ h5 {
   margin: 10px;
 }
 
+.file-upload-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .label_{
   background-color: palegreen;
   color: black;
@@ -332,32 +340,27 @@ h5 {
 }
 
 
-.img-upload {
-  background-color: palegreen;
-  color: black;
-  border-radius: 5px;
-  border: 1px solid black;
-  padding: 3px;
-  margin: 15px;
+.file-upload {
+  /*background-color: palegreen;*/
+  /*color: black;*/
+  /*border-radius: 5px;*/
+  /*border: 1px solid black;*/
+  /*padding: 3px;*/
+  /*margin: 15px;*/
+  font-size: 20px;
+  /*height:26px;*/
+  /*width:26px;*/
+  color: green;
+  padding: 15px;
+  border-radius: 10px;
 }
 
-.aud-upload {
-  background-color: palegreen;
-  color: black;
-  border-radius: 5px;
-  border: 1px solid black;
-  padding: 3px;
-  margin: 15px;
+.file-upload:hover {
+  /*color: white;*/
+  background-color: lightgray;
+  cursor: pointer;
 }
 
-.vid-upload {
-  background-color: palegreen;
-  color: black;
-  border-radius: 5px;
-  border: 1px solid black;
-  padding: 3px;
-  margin: 15px;
-}
 
 input[type="file"] {
   display: none;

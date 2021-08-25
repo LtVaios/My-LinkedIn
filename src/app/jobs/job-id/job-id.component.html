@@ -25,7 +25,7 @@
     <br/><br/>
     <p> {{job.body}}  </p>
     <br/>
-    <span class="like_count"> <img src="../../assets/thumbs-up.svg"> {{likes_count}} </span>
+    <span class="like_count"><i class="fa fa-thumbs-up"></i>  {{likes_count}} </span>
     <button *ngIf="liked" class="disabled">Ενδιαφέρον!</button>
     <button *ngIf="!liked" (click)="likeJob(job)" class="like">Ενδιαφέρον!</button>
   </div>

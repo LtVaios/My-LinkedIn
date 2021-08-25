@@ -38,7 +38,7 @@
     <img [src] = imagesrc(image) class="post-image">
   </div>
 
-  <span class="like_count"> <img src="../../assets/thumbs-up.svg"> {{likes_count}} </span>
+  <span class="like_count"><i class="fa fa-thumbs-up"></i>  {{likes_count}} </span>
   <button *ngIf="isLiked" class="disabled">Ενδιαφέρον!</button>
   <button *ngIf="!isLiked" (click)="likePost(post)" class="like">Ενδιαφέρον!</button>
   <br><br>

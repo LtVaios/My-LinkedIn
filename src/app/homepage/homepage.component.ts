@@ -212,6 +212,7 @@ export class HomepageComponent implements OnInit {
   progressInfos: any[] = [];
   message: string[] = [];
   previews: string[] = [];
+  previewsA: string[] = [];
 
   selectImageFiles(event: any,aud:boolean): void {
     this.message = [];
@@ -229,6 +230,8 @@ export class HomepageComponent implements OnInit {
           //console.log(e.target.result);
           if(!this.aud)
             this.previews.push(e.target.result);
+          else
+            this.previewsA.push(e.target.result);
         };
 
         reader.readAsDataURL(this.selectedImageFiles[i]);
@@ -241,6 +244,7 @@ export class HomepageComponent implements OnInit {
     this.progressInfos = [];
     this.selectedAudioFiles = event.target.files;
     this.aud=aud
+    this.previewsA=[];
     if (this.selectedAudioFiles && this.selectedAudioFiles[0]) {
       const numberOfFiles = this.selectedAudioFiles.length;
       for (let i = 0; i < numberOfFiles; i++) {
@@ -250,6 +254,8 @@ export class HomepageComponent implements OnInit {
           //console.log(e.target.result);
           if(!this.aud)
             this.previews.push(e.target.result);
+          else
+            this.previewsA.push(e.target.result);
         };
 
         reader.readAsDataURL(this.selectedAudioFiles[i]);

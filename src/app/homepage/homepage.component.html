@@ -1,4 +1,8 @@
 <html *ngIf="loading">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 <body class="load">
 <span style="margin-right: 23%">LOADING</span>
 <div class="loader"></div>
@@ -29,15 +33,17 @@
           </textarea>
         </div>
 <!--upload buttons-->
-        <label for="img_file" class="img-upload">  Image Upload</label>
+        <div class="file-upload-container">
+        <label for="img_file" class="file-upload" title="Image Upload"><i class="fa fa-image"></i> Images </label>
         <input type="file" id="img_file" accept="image/*" multiple (change)="selectImageFiles($event,false)" class="image_input"/>
 
-        <label for="aud_file" class="aud-upload">Audio Upload</label>
+        <label for="aud_file" class="file-upload" title="Audio Upload"><i class="fa fa-file-audio-o"></i> Audio </label>
         <input type="file" id="aud_file" accept="audio/*" multiple (change)="selectAudioFiles($event,true)" class="audio_input"/>
 
 
-        <label for="vid_file" class="vid-upload">Video Upload</label>
+        <label for="vid_file" class="file-upload" title="Video Upload"><i class="fa fa-video-camera"> Videos </i></label>
         <input type="file" accept="video/mp4" id="vid_file" multiple (change)="selectFilesV($event)" />
+        </div>
 <!--previews-->
         <div>
           <img *ngFor='let preview of previews' [src]="preview" class="post-image">
@@ -48,6 +54,14 @@
             <source [src]="previewV" type="video/mp4">
             Your browser does not support the video tag.
           </video>
+        </span>
+        </div>
+        <div>
+        <span *ngFor='let previewA of previewsA' >
+          <audio width="320" height="240" controls>
+            <source [src]="previewA" type="audio/mp3">
+            Your browser does not support the audio tag.
+          </audio>
         </span>
         </div>
 
@@ -100,7 +114,7 @@
 <!--          Your browser does not support the video tag.-->
 <!--        </video>-->
       </div>
-      <span class="like_count"> <img src="../../assets/thumbs-up.svg"> {{likes_count.get(post)}} </span>
+      <span class="like_count"><i class="fa fa-thumbs-up"></i> {{likes_count.get(post)}} </span>
       <button *ngIf="liked_posts.get(post)" class="disabled">Ενδιαφέρον!</button>
       <button *ngIf="!liked_posts.get(post)" (click)="likePost(post)" class="like">Ενδιαφέρον!</button>
       <button (click)="goToPost(post.id)" class="comments_button">Σχόλια</button>
