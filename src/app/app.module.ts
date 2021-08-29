@@ -30,6 +30,7 @@ import { PostsComponent } from './posts/posts.component';
 import { JobIdComponent } from './jobs/job-id/job-id.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 
 const appRoutes: Routes = [
@@ -71,6 +72,7 @@ const appRoutes: Routes = [
     JobIdComponent,
     PostsComponent,
     NotificationsComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,

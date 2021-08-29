@@ -1,0 +1,110 @@
+.sidebar {
+  height: 80%; /* Full-height: remove this if you want "auto" height */
+  vertical-align: center;
+  width: 210px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 10%; /* Stay at the top */
+  left: 55px;
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 20px;
+  color: white;
+}
+
+.sidebar > div {
+  padding: 15px;
+  background-color: #333; /* Black */
+  border-radius: 10px;
+}
+
+/* The navigation menu links */
+.sidebar a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  color: green;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Style page content */
+.main {
+  margin-left: 160px; /* Same as the width of the sidebar */
+  padding: 0px 10px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
+.myprofile{
+  margin-bottom: 10px;
+}
+
+.myprofile:hover{
+  cursor: pointer;
+}
+
+
+.myprofile > div{
+  margin-bottom: 10px ;
+}
+
+.myprofile .profile-image{
+  height:150px;
+  width:150px;
+  border-radius: 50%;
+}
+
+.myprofile .name {
+  color: green;
+  font-size: 20px;
+}
+
+/*.myprofile .name:hover {*/
+/*  color: #4CAF50;*/
+/*  text-decoration: underline;*/
+/*  cursor: pointer;*/
+/*}*/
+
+.myprofile .text {
+  color: #b3b3b3;
+}
+
+
+.myweb {
+  /*height:70%;*/
+  /*margin-bottom: 10px;*/
+  display: grid;
+}
+
+.myweb .profile-image {
+  width:40px;
+  height:40px;
+  object-fit:cover;
+  margin-right: 5px;
+  float: left;
+  border-radius: 50%;
+}
+
+.myweb .friend {
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 7px;
+  /*min-height: 55px;*/
+}
+
+.myweb .friend:hover {
+  background-color: gray;
+  cursor:pointer;
+
+}
+
+.myweb .name {
+  color: green;
+  text-decoration: none;
+}

@@ -11,10 +11,6 @@
 
 <html style="padding: 0; margin: -8px;" *ngIf="!loading">
     <body class="first_body">
-    <div id="mySidenav" class="sidenav">
-      <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
-      <a href="#" id="web" [routerLink]="['/myweb']">Το δίκτυό μου</a>
-    </div>
     <ul>
       <li><a class="active" [routerLink]="['/home']">Αρχική σελίδα</a></li>
       <li><a [routerLink]="['/myweb']">Δίκτυο</a></li>
@@ -25,6 +21,7 @@
       <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
       <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
     </ul>
+    <app-sidebar></app-sidebar>
     <body class="second_body" *ngIf="!loading">
     <div class="form">
       <form [formGroup]="postForm" (ngSubmit)="submitPost()">

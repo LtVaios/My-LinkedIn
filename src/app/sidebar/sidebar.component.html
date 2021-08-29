@@ -1,0 +1,23 @@
+<!-- Side navigation -->
+<div class="sidebar">
+  <div class="myprofile" *ngIf="user" [routerLink]="['/info']"> <!-- picture, name, email, current position, bio -->
+    <img class="profile-image"
+         [src]="imagesrc(user.img)?
+          imagesrc(user.img):  '../../assets/default-user-image.png'">
+    <div class="name"><strong>{{user.firstName}} {{user.lastName}}</strong></div>
+    <div class="info">{{user.username}}</div>
+    <div class="info">My Job</div>
+    <div class="text">{{user.skills}}</div>
+  </div>
+  <div class="myweb" id="myweb"> <!-- list of friends -->
+    <label for="myweb">Web</label>
+    <small>{{web.length}} connections</small>
+    <div *ngFor="let user of web" class="friend" [routerLink]="['/',user.username]">
+        <img [src]="imagesrc(user.img) ? imagesrc(user.img):  '../../assets/default-user-image.png'" class="profile-image">
+        <strong class="name">{{user.firstName}} {{user.lastName}}</strong>
+        <br>
+        job position
+    </div>
+  </div>
+</div>
+
