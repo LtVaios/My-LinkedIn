@@ -6,6 +6,7 @@ import {User} from "../model/user";
 import {Friends} from "../model/friends";
 import {Likes} from "../model/likes";
 import {Comment} from "../model/comment";
+import {PostView} from "../model/postview";
 
 const httpOptions = {
   headers: new HttpHeaders({'Accept': 'application/json', 'Content-Type': 'application/json'})
@@ -21,6 +22,8 @@ export class HomepageService {
   private friendsUrl = 'https://localhost:8443/friends';
   private usersUrl = 'https://localhost:8443/users';
   private commentsUrl = 'https://localhost:8443/comments';
+  private viewsUrl = 'https://localhost:8443/postviews/addview';
+  private recommendedUrl = 'https://localhost:8443/recommend/posts';
   newpost:Post
   constructor(private http: HttpClient) { }
 
@@ -36,6 +39,16 @@ export class HomepageService {
 
   getPosts(uid:number): Observable<Post[]> {
     return this.http.get<Post[]>(this.postsUrl+"/ofuser/"+uid);
+  }
+
+  postViews(posts:Post[], user:User): void {
+    let view:PostView = new PostView();
+    console.log("in post vies");
+    for (let post of posts)
+      view.post = post;
+      view.user = user;
+      view.createdDate= new Date();
+      this.http.post<PostView>(this.viewsUrl, view).subscribe(); //TODO maybe change to put instead of post
   }
 
   getFriends(id:number): Observable<Friends[]> {
@@ -56,6 +69,10 @@ export class HomepageService {
 
   getUser(user: number): Observable<User>{
     return this.http.get<User>(this.usersUrl+"/getbyid/"+user);
+  }
+
+  getRecommendedPosts(user_id: number): Observable<Post[]>{
+    return this.http.get<Post[]>(this.recommendedUrl+"/"+user_id);
   }
 
 }
