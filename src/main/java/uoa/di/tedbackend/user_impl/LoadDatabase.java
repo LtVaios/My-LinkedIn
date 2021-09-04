@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Random;
+import uoa.di.tedbackend.matrix_factorization.matrix_factorization;
 
 @Configuration
 @Slf4j
@@ -18,7 +19,6 @@ class LoadDatabase {
     @Bean
     CommandLineRunner initDatabase(UserRepository repository) {
         //repository.deleteAll();
-//        this.MF();
         return args -> {
             BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
             log.info("Preloading " + repository.save(new User(1,"bilbo@gmail.com",bCryptPasswordEncoder.encode("1234"),"Bilbo", "Baggins", "1234",false)));
