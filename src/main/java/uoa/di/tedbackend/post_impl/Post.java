@@ -1,10 +1,16 @@
 package uoa.di.tedbackend.post_impl;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import lombok.Generated;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.CommandLineRunner;
+import uoa.di.tedbackend.user_impl.UserRepository;
 import uoa.di.tedbackend.audio_files.Audio;
 import uoa.di.tedbackend.image.Image;
 import uoa.di.tedbackend.user_impl.User;
@@ -15,7 +21,9 @@ import javax.persistence.*;
 @Data
 @Entity
 public class Post {
-    private @Id @GeneratedValue int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private String post_body;
     private String date_time;
 
@@ -41,11 +49,14 @@ public class Post {
 
     public Post() {}
 
-    public Post(String pb) {
+    public Post(UserRepository urepository,String pb,int uid,int id) {
+        this.id=id;
+        this.user=urepository.findById(uid).get();
         this.post_body=pb;
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        Date date = new Date();
+        this.date_time=formatter.format(date);
     }
 
-//    public void addImg(Image img) {
-//        this.img.add(img);
-//    }
 }
+

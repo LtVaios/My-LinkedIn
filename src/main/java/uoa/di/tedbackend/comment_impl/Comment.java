@@ -2,7 +2,9 @@ package uoa.di.tedbackend.comment_impl;
 
 import lombok.Data;
 import uoa.di.tedbackend.post_impl.Post;
+import uoa.di.tedbackend.post_impl.PostRepository;
 import uoa.di.tedbackend.user_impl.User;
+import uoa.di.tedbackend.user_impl.UserRepository;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -26,4 +28,11 @@ public class Comment {
     private Date createdDate;
 
     public Comment() {}
+
+    public Comment(PostRepository prepo, UserRepository urepo, String ct, int uid, int pid) {
+        this.createdDate=new Date();
+        this.user=urepo.findById(uid).get();
+        this.post=prepo.findById(pid).get();
+        this.comment_text=ct;
+    }
 }
