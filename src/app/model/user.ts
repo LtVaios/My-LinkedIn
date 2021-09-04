@@ -7,6 +7,7 @@ export class User {
   firstName: string;
   lastName: string;
   phone: string;
+  job_pos: string;
   admin: boolean;
   work_experience: string;
   work_experience_public: boolean;

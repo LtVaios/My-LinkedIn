@@ -22,6 +22,7 @@ export class EditComponent implements OnInit {
     education_public: false,
     skills: '',
     skills_public: false,
+    job_pos: '',
   });
 
   constructor(private sharedService: SharedService,
@@ -32,10 +33,9 @@ export class EditComponent implements OnInit {
     //await new Promise(f => setTimeout(f, 5000));
     this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
     // console.log(this.service.getUser(this.currentUser));
-    console.log(this.currentUser);
+    //console.log(this.currentUser);
     this.saved = false;
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
-    // console.log("USER "+this.user.work_experience);
     this.InfoForm.patchValue(this.user);
   }
 
@@ -50,7 +50,7 @@ export class EditComponent implements OnInit {
 
     this.user.work_experience = this.InfoForm.value.work_experience;
     this.user.work_experience_public = this.InfoForm.value.work_experience_public;
-
+    this.user.job_pos=this.InfoForm.value.job_pos;
     console.log(this.InfoForm.value.skills_public);
     this.service.updateUser(this.currentUser, this.user).subscribe();
     this.saved = true;

@@ -51,7 +51,7 @@
     <a [routerLink]="['/'+c.user.username]" class="author">{{c.user.firstName}} {{c.user.lastName}}</a>
     <br>
     <span class="date">
-        {{c.createdDate}}
+        {{local(c.createdDate)}}
     </span>
     <br><br>
     <p style="margin: 2px 0 5px 0;" class="post_body">{{c.comment_text}}</p>

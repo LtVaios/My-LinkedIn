@@ -34,7 +34,7 @@ export class SidebarComponent implements OnInit {
     await this.info_service.getUser(this.currentUser).toPromise().then(
       data=> {
         this.user = data;
-        console.log(this.user);
+        //console.log(this.user);
       }
     );
   }

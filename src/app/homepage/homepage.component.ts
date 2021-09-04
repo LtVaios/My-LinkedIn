@@ -94,11 +94,19 @@ export class HomepageComponent implements OnInit {
     for(let p of this.posts)
       temp.add(p)
 
-    //removing duplicates from temp post list and we keep only 1
+
+    //This is an algorithm that removes duplicate posts from temp post list so we keep only 1 copy of each post to show at the user
     let dupl:number[]=[];
     let deleted:[number,number][]=[];
     let i:number;
+    let flag:boolean;
     for(let p of temp){
+      flag=false
+      for (let d of deleted)
+        if(d[0]==p.id)
+          flag=true
+      if(flag==true)
+        continue
       if(!dupl.includes(p.id))
         dupl.push(p.id)
       else {
@@ -112,7 +120,7 @@ export class HomepageComponent implements OnInit {
     for(let d of deleted)
       for(let p of temp)
         if(d[0]==p.id){
-          if(d[1]!=0) {
+          if(d[1]>0) {
             temp.delete(p)
             d[1]--
           }
@@ -197,7 +205,7 @@ export class HomepageComponent implements OnInit {
     await this.service.saveLike(this.currentuser,l).toPromise().then(response=>console.log(response))
     this.liked_posts.set(p,true);
     var count: number|undefined = this.likes_count.get(p);
-    if (count)
+    if (count!=undefined)
       this.likes_count.set(p, count+1);
   }
 
