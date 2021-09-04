@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   model: any = {};
   currentuser: User
   returnUrl: string;
+  wrong_credentials:boolean;
   loading = false;
 
   loginForm = this.formBuilder.group({
@@ -39,6 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   async onSubmit() {
+    this.wrong_credentials=false
     await this.authenticationService.login(this.loginForm.value.email, this.loginForm.value.pass)
       .toPromise().then(
         async response => {
@@ -50,8 +52,7 @@ export class LoginComponent implements OnInit {
             else
               this.userloggedin();
           });
-
-        }
+        },error=>this.wrong_credentials=true
       );
     localStorage.setItem('currentuser', String(this.currentuser.id))
   }

@@ -1,14 +1,16 @@
 .sidebar {
-  height: 80%; /* Full-height: remove this if you want "auto" height */
+  height: 80%;
   vertical-align: center;
-  width: 210px; /* Set the width of the sidebar */
-  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
-  z-index: 1; /* Stay on top */
-  top: 10%; /* Stay at the top */
+  width: 210px;
+  position: fixed;
+  z-index: 1;
+  top: 10%;
   left: 55px;
-  overflow-x: hidden; /* Disable horizontal scroll */
+  overflow-x: hidden;
   padding-top: 20px;
   color: white;
+  margin-left: 10%;
+  margin-top: -2%;
 }
 
 .sidebar > div {
@@ -17,21 +19,18 @@
   border-radius: 10px;
 }
 
-/* The navigation menu links */
 .sidebar a {
   padding: 6px 8px 6px 16px;
   text-decoration: none;
   color: green;
 }
 
-/* When you mouse over the navigation links, change their color */
 .sidebar a:hover {
   color: #f1f1f1;
 }
 
-/* Style page content */
 .main {
-  margin-left: 160px; /* Same as the width of the sidebar */
+  margin-left: 160px;
   padding: 0px 10px;
 }
 

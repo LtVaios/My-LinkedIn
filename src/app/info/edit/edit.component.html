@@ -39,6 +39,9 @@
       <input id="ch3" type="checkbox" formControlName="skills_public" [ngModel]="user.skills_public">
       <label for="ch3">Δημόσια</label>
     </div>
+    <div><label> Θέση εργασίας </label>
+      <textarea rows="10" type="text" formControlName="job_pos"> </textarea>
+    </div>
 
     <button class="button" type="submit" >Save changes</button>
     <div *ngIf="saved"><h5>Saved!</h5></div>

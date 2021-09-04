@@ -94,6 +94,10 @@ export class PostsComponent implements OnInit {
     }
   }
 
+  local(d: Date): string{
+    return new Date(d).toLocaleString();
+  }
+
   imagesrc(img: Image): string{
     if (img == null) return "";
     return 'data:image/jpeg;base64,'+img.picByte;

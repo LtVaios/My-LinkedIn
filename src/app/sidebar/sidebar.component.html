@@ -6,7 +6,7 @@
           imagesrc(user.img):  '../../assets/default-user-image.png'">
     <div class="name"><strong>{{user.firstName}} {{user.lastName}}</strong></div>
     <div class="info">{{user.username}}</div>
-    <div class="info">My Job</div>
+    <div class="info">{{user.job_pos}}</div>
     <div class="text">{{user.skills}}</div>
   </div>
   <div class="myweb" id="myweb"> <!-- list of friends -->
@@ -16,7 +16,7 @@
         <img [src]="imagesrc(user.img) ? imagesrc(user.img):  '../../assets/default-user-image.png'" class="profile-image">
         <strong class="name">{{user.firstName}} {{user.lastName}}</strong>
         <br>
-        job position
+      {{user.job_pos}}
     </div>
   </div>
 </div>
