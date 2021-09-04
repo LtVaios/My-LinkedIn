@@ -13,6 +13,7 @@
       <div><input type="password" placeholder="Password" formControlName="pass"/></div>
       <button class="button" type="submit" >login</button>
       <p class="message">Not registered? <a [routerLink]="['/register']">Register now!</a></p>
+      <div *ngIf="wrong_credentials"><h4>Wrong username or password</h4></div>
     </form>
   </div>
 </div>
