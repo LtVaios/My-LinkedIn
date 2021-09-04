@@ -1,18 +1,10 @@
 package uoa.di.tedbackend.user_impl;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import uoa.di.tedbackend.image.Image;
-import uoa.di.tedbackend.job_impl.Job;
 
 @Data
 @Entity
@@ -26,6 +18,7 @@ public class User {
     private String firstName;
     private String lastName;
     private String phone;
+    private String job_pos="unemployed";
     protected boolean admin;
 
     private String work_experience;
@@ -42,22 +35,23 @@ public class User {
     @JsonIgnoreProperties("user")
     private Image img;
 
-//    @JsonIgnoreProperties("likes")
-//    @ManyToMany(fetch = FetchType.LAZY,
-//            cascade = {CascadeType.MERGE},
-//            mappedBy = "likes")
-//    private Set<Job> likedJobs = new HashSet<>();
-
     public User() {}
 
-    public User(int id,String uname,String pass, String fname, String lname, String phone, boolean admin) {
+    public User(int id,String uname,String pass, String fname, String lname, String phone, boolean admin, String wk, String ed, String skills,String jp) {
         this.id=id;
+        this.job_pos=jp;
         this.username=uname;
         this.password = pass;
         this.firstName = fname;
         this.lastName = lname;
         this.phone = phone;
         this.admin = admin;
+        this.work_experience=wk;
+        this.education=ed;
+        this.skills=skills;
+        this.work_experience_public=true;
+        this.education_public=true;
+        this.skills_public=true;
     }
 
 }

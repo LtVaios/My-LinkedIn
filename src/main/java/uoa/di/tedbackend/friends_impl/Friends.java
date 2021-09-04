@@ -16,7 +16,7 @@ public class Friends {
     public Friends() {}
 
     public Friends(int id,int u1,int u2,String state) {
-        this.state="completed";
+        this.state=state;
         this.user_one=u1;
         this.user_two=u2;
     }
