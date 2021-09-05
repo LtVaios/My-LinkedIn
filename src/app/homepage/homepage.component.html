@@ -116,6 +116,44 @@
       <button *ngIf="!liked_posts.get(post)" (click)="likePost(post)" class="like">Ενδιαφέρον!</button>
       <button (click)="goToPost(post.id)" class="comments_button">Σχόλια</button>
     </div>
+
+    <!-- TODO recommended posts temp -->
+    <div class="posts" *ngFor="let post of recommended_posts">
+      <img [src]="imagesrc(post.user.img) ? imagesrc(post.user.img):  '../../assets/default-user-image.png'" class="profile-image">
+      <a [routerLink]="['/'+post.user.username]" class="author">{{post.user.firstName}} {{post.user.lastName}}</a>
+      <br>
+      <span class="date">
+        {{post.date_time}}
+      </span>
+      <br><br>
+      <p class="post_body">
+        {{post.post_body}}
+      </p >
+      <div *ngFor="let aud of post.audios" class="audios">
+        <audio controls [src]="audiosrc(aud)">
+        </audio>
+      </div>
+      <div *ngFor="let image of post.images">
+        <img [lazyLoad]="imagesrc(image)" [decode]="true"  class="post-image">
+      </div>
+      <div *ngFor="let video of post.videos">
+        <video width="320" height="240" controls preload="metadata">
+          <source *ngIf="videos.get(video.id)" [src]="videos.get(video.id)"   type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <!--<a href="{{url}}"> vid link</a>-->
+        <!--        <video width="320" height="240" controls>-->
+        <!--          <source [src]="videosrc(video.id)" type="video/mp4">-->
+        <!--          Your browser does not support the video tag.-->
+        <!--        </video>-->
+      </div>
+      <span class="like_count"><i class="fa fa-thumbs-up"></i> {{likes_count.get(post)}} </span>
+      <button *ngIf="liked_posts.get(post)" class="disabled">Ενδιαφέρον!</button>
+      <button *ngIf="!liked_posts.get(post)" (click)="likePost(post)" class="like">Ενδιαφέρον!</button>
+      <button (click)="goToPost(post.id)" class="comments_button">Σχόλια</button>
+    </div>
+
+
     </body>
   </body>
 </html>

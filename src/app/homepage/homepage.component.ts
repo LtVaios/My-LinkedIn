@@ -13,6 +13,7 @@ import {Image} from "../model/image";
 import {Video} from "../model/video";
 import {DomSanitizer, SafeResourceUrl, SafeUrl} from "@angular/platform-browser";
 import {Audio_} from "../model/audio";
+import {User} from "../model/user";
 
 @Component({
   selector: 'app-homepage',
@@ -37,6 +38,7 @@ export class HomepageComponent implements OnInit {
     post_text: ''
   });
   fileUrl: SafeResourceUrl;
+  recommended_posts: Post[];
 
   constructor(private service: HomepageService,
               private sharedService: SharedService,
@@ -166,6 +168,58 @@ export class HomepageComponent implements OnInit {
         );
       }
     }
+
+    /* TODO check if views work */
+    let user:User;
+    this.service.getUser(this.currentuser).subscribe(response => {
+      user = response;
+      this.service.postViews(this.posts, user);
+    });
+
+    /* TODO recommended posts temp
+    * testing recommended posts
+    * */
+    this.recommended_posts=[];
+    //adding the posts with the boolean indicator aside that shows if the user has liked the current post
+    //so the html button will be disabled (you cannot like the same post more than 1 times)
+    let temp2:Post[] = [];
+    await this.service.getRecommendedPosts(this.currentuser).toPromise().then(response => temp2=response);
+    for (let p of temp2) {
+      this.posts.push(p)
+      likes_id=[];
+      likes=[];
+      await this.service.getPostLikes(p.id).toPromise().then(response=>likes=response);
+      this.likes_count.set(p, likes.length);
+      for(let l of likes)
+        likes_id.push(l.user.id)
+      if(likes_id.includes(this.currentuser))
+        this.liked_posts.set(p, true);
+      else
+        this.liked_posts.set(p, false);
+
+      for (let vid of p.videos) {
+        this.uploadService.downloadVideo(vid).subscribe(
+          event => {
+            console.log(event);
+            if (event.type === HttpEventType.UploadProgress) {
+              // this.progressInfosV[idx].value = Math.round(100 * event.loaded / event.total);
+            } else if (event instanceof HttpResponse) {
+              console.log(event.body);
+              this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(event.body));
+              const reader = new FileReader();
+              reader.onload = (e: any) => {
+                this.videos.set(vid.id, e.target.result);
+              };
+              reader.readAsDataURL(event.body);
+            }
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error)
+          }
+        );
+      }
+    }
+
     this.loading=false;
   }
 
