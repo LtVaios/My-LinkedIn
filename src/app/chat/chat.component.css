@@ -109,16 +109,19 @@ h5 {
   background-color:darkgreen ;
 }
 
+.grid_body{
+  background-color: whitesmoke;
+  width: 25.6%;
+  height: 95%;
+  overflow-y: scroll;
+}
+
 .grid-container {
   display: grid;
-  background-color: whitesmoke;
-  width: 25%;
-  height: 95%;
+  grid-template-columns: auto;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   row-gap: 0px;
-  overflow-y: scroll;
-  border: 2px solid lightgreen;
 }
 .grid-item {
   background-color: rgba(255, 255, 255, 0.9);
@@ -130,7 +133,7 @@ h5 {
   width: 85%;
   text-align: center;
   margin-left: 7px;
-  margin-top: 1px;
+  margin-top: 3px;
   position: relative;
 }
 
@@ -140,7 +143,7 @@ h5 {
   height: 89vh;
   float: right;
   background-color:#282828 ;
-  border: 2px solid lightgreen;
+  border: 2px solid darkgrey;
 }
 
 .container {
@@ -148,7 +151,7 @@ h5 {
   background-color: #f1f1f1;
   border-radius: 5px;
   padding: 10px;
-  margin: 10px 0;
+  margin: 10px 2px 0 2px;
   width: 50%;
   float: right;
 }
@@ -189,7 +192,7 @@ h5 {
   margin-left:10%;
   padding: 10px;
   text-align: center;
-  border: 2px solid lightgreen;
+  border: 2px solid darkgrey;
 }
 
 
@@ -228,13 +231,21 @@ h5 {
   background-color: #4CAF50; /* Green */
   border: 1px solid darkolivegreen;
   color: white;
-  padding: 5px;
+  padding: 3px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
   cursor: pointer;
   border-radius: 8px;
+  margin-right: 5%;
+  transition-duration: 0.3s;
+}
+
+.grid-item button:hover{
+  background-color: white; /* Green */
+  border: 1px solid darkolivegreen;
+  color: #4CAF50;
 }
 
 .load{
