@@ -1,25 +1,23 @@
 package uoa.di.tedbackend.likes_impl;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.web.bind.annotation.*;
-import uoa.di.tedbackend.joblike_impl.JobLike;
-import uoa.di.tedbackend.post_impl.Post;
+import uoa.di.tedbackend.matrix_factorization.matrix_factorization;
 import uoa.di.tedbackend.post_impl.PostRepository;
-import uoa.di.tedbackend.user_impl.User;
 import uoa.di.tedbackend.user_impl.UserRepository;
 
 @RestController
 @CrossOrigin(origins = "*")
 class LikesController {
 
+    private final matrix_factorization mf;
     private final LikesRepository repository;
     private final UserRepository urepository;
     private final PostRepository prepository;
 
-    LikesController(LikesRepository repository,UserRepository urepository,PostRepository prepository) {
+    LikesController(matrix_factorization mf, LikesRepository repository, UserRepository urepository, PostRepository prepository) {
+        this.mf = mf;
         this.repository = repository;
         this.urepository = urepository;
         this.prepository = prepository;
@@ -73,6 +71,7 @@ class LikesController {
     @CrossOrigin(origins = "*")
     @PostMapping("/likes/addlike")
     Likes newLike(@RequestBody Likes newLike) {
+        mf.mf_posts();
         return repository.save(newLike);
     }
 
