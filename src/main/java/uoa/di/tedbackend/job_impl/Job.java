@@ -6,8 +6,10 @@ import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
 import uoa.di.tedbackend.joblike_impl.JobLike;
 import uoa.di.tedbackend.user_impl.User;
+import uoa.di.tedbackend.user_impl.UserRepository;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,7 +35,13 @@ public class Job {
 //    @SortableField
     private Date createdDate;
 
-    public Job() {
+    public Job() { }
+
+    public Job(UserRepository urepository, String b, int uid, int id) {
+        this.id=id;
+        this.user=urepository.findById(uid).get();
+        this.body=b;
+        this.createdDate=new Date();
     }
 
 }

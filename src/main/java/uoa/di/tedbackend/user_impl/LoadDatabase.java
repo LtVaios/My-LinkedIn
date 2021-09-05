@@ -22,8 +22,13 @@ class LoadDatabase {
     @Bean("UserDatabase")
     CommandLineRunner initDatabase(UserRepository repository, PostRepository prepo) {
         //repository.deleteAll();
-        //this.MF();
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
+        //this is the website admin
+        repository.save(new User(99,"admin@gmail.com",bCryptPasswordEncoder.encode("1234"),"Admin", "Admin", "00",true,
+                "admin",
+                "admin",
+                "admin",
+                "admin"));
         repository.save(new User(1,"bilbo@gmail.com",bCryptPasswordEncoder.encode("1234"),"Bilbo", "Baggins", "501-872-2516",false,
                 "General Gaming, Boston, Developed full-stack web applications which processed, analyzed, and rendered data visually, " +
                         "Liaised with back end developers, front end developers, quality assurance testers, and CTO as needed.",
@@ -31,7 +36,7 @@ class LoadDatabase {
                 "Google Compute Engine, " +
                         "Android and iOS App Development, " +
                         "HTML, CSS, JavaScript, PHP",
-                "Senior andriod and ios developer"));
+                "Senior android and ios developer"));
         repository.save(new User(2,"sam@outlook.com",bCryptPasswordEncoder.encode("1234"),"Sam", "Baggins", "501-872-2516",false,
                 ".NET Developer Intern, " +
                         "BrainWild Global, " +

@@ -18,7 +18,7 @@ public class Message {
 
     public Message() {}
 
-    public Message(int sd,long dt,String text,int rd) {
+    public Message(long dt,String text,int sd,int rd) {
         this.sender_id=sd;
         this.receiver_id=rd;
         this.date_time=dt;

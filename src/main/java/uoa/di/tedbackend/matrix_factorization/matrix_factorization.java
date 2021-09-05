@@ -56,7 +56,7 @@ public class matrix_factorization {
             result.put(entry.getKey(), entry.getValue());
         }
 
-        return result.keys;
+        return null;
     }
 
     public void mf_posts(){

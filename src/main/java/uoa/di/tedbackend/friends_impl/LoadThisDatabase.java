@@ -42,6 +42,7 @@ class LoadThisDatabase {
         repository.save(new Friends(25,14,13,"completed"));
         repository.save(new Friends(26,14,5,"completed"));
         repository.save(new Friends(27,14,9,"completed"));
+
         return args -> {
             log.info("Preloading friends database");
         };
