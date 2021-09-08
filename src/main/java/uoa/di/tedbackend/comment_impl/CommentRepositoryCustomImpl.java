@@ -35,8 +35,9 @@ public class CommentRepositoryCustomImpl implements CommentRepositoryCustom {
 
     @Override
     public List<Comment> findCommentsToUsersPosts(int userId){
-        Query query = entityManager.createQuery(("SELECT c FROM Comment c WHERE c.post.user.id=?1")); //TODO add l.user.id!= userId to not show notifications for users's own likes
+        Query query = entityManager.createQuery(("SELECT c FROM Comment c WHERE c.post.user.id=?1 and c.user.id<>?2"));
         query.setParameter(1, userId);
+        query.setParameter(2, userId);
         List<Comment> comments = query.getResultList();
         return comments;
     }

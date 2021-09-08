@@ -13,7 +13,7 @@ import uoa.di.tedbackend.user_impl.UserRepository;
 @Slf4j
 public class LoadJobLikesDatabase {
 
-    @Bean
+    @Bean("joblikeDatabase")
     @DependsOn({"PostDatabase"})
     public CommandLineRunner initJobLikesDatabase(JobLikeRepository repository, JobRepository jrepository, UserRepository urepo) {
         repository.deleteAll();

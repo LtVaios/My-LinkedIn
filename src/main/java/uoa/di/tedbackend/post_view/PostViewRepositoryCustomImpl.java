@@ -33,7 +33,7 @@ public class PostViewRepositoryCustomImpl implements PostViewRepositoryCustom {
 
     @Override
     public List<PostView> findPostViewsToUsersPosts(int userId){
-        Query query = entityManager.createQuery(("SELECT l FROM Likes l WHERE l.post.user.id=?1")); //TODO add l.user.id!= userId to not show notifications for users's own likes
+        Query query = entityManager.createQuery(("SELECT l FROM Likes l WHERE l.post.user.id=?1")); //TODO add l.user.id!= userId to not get self views
         query.setParameter(1, userId);
         List<PostView> views = query.getResultList();
         return views;

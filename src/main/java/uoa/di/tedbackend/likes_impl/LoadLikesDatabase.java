@@ -18,7 +18,7 @@ import java.util.List;
 @Slf4j
 public class LoadLikesDatabase {
 
-    @Bean
+    @Bean("LikesDatabase")
     @DependsOn({"PostDatabase"})
     public CommandLineRunner initLikesDatabase(LikesRepository repository,PostRepository prepository, UserRepository urepo) {
         repository.deleteAll();

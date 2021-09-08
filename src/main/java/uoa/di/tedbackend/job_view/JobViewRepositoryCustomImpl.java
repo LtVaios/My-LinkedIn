@@ -34,7 +34,7 @@ public class JobViewRepositoryCustomImpl implements JobViewRepositoryCustom {
 
     @Override
     public List<JobView> findJobViewsToUsersJobs(int userId){
-        Query query = entityManager.createQuery(("SELECT l FROM Likes l WHERE l.job.user.id=?1")); //TODO add l.user.id!= userId to not show notifications for users's own likes
+        Query query = entityManager.createQuery(("SELECT l FROM JobView l WHERE l.job.user.id=?1")); //TODO add l.user.id!= userId to not get self views
         query.setParameter(1, userId);
         List<JobView> views = query.getResultList();
         return views;

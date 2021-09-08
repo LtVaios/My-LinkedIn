@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import uoa.di.tedbackend.job_impl.Job;
+import uoa.di.tedbackend.job_impl.JobRepository;
 import uoa.di.tedbackend.post_impl.Post;
 import uoa.di.tedbackend.post_impl.PostRepository;
 
@@ -17,10 +19,12 @@ public class MatrixFactorizationController {
     private final matrix_factorization mf;
 
     private final PostRepository prepository;
+    private final JobRepository jrepository;
 
-    MatrixFactorizationController(matrix_factorization mf, PostRepository prepository) {
+    MatrixFactorizationController(matrix_factorization mf, PostRepository prepository, JobRepository jrepository) {
         this.mf = mf;
         this.prepository = prepository;
+        this.jrepository = jrepository;
     }
 
     @GetMapping("/recommend/posts/{user_id}")
@@ -34,5 +38,18 @@ public class MatrixFactorizationController {
             posts.add(prepository.findById(id).get());
         }
         return posts;
+    }
+
+    @GetMapping("/recommend/jobs/{user_id}")
+    List<Job> getJobsOrdered(@PathVariable int user_id){
+        if (mf.job_ids==null) return new ArrayList<>();
+        List<Job> jobs = new ArrayList<>();
+        List<Integer> job_ids = mf.job_recommendations(user_id);
+        System.out.println("printing post ids"+job_ids);
+        for (int id:job_ids){
+            System.out.println("id:"+id);
+            jobs.add(jrepository.findById(id).get());
+        }
+        return jobs;
     }
 }

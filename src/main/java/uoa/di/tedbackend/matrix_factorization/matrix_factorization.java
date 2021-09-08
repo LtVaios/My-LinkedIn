@@ -6,6 +6,8 @@ import uoa.di.tedbackend.comment_impl.Comment;
 import uoa.di.tedbackend.comment_impl.CommentRepository;
 import uoa.di.tedbackend.job_impl.Job;
 import uoa.di.tedbackend.job_impl.JobRepository;
+import uoa.di.tedbackend.job_view.JobView;
+import uoa.di.tedbackend.job_view.JobViewRepository;
 import uoa.di.tedbackend.joblike_impl.JobLike;
 import uoa.di.tedbackend.joblike_impl.JobLikeRepository;
 import uoa.di.tedbackend.likes_impl.Likes;
@@ -47,10 +49,11 @@ public class matrix_factorization {
     private final JobRepository job_repository;
     private final CommentRepository comment_repository;
     private final PostViewRepository postview_repository;
+    private final JobViewRepository jobview_repository;
 
 //    private matrix_factorization() {}
     @Autowired
-    public matrix_factorization(PostRepository repository, UserRepository urepository, LikesRepository likes_repository, JobLikeRepository joblike_repository, JobRepository job_repository, CommentRepository comment_repository, PostViewRepository postview_repository) {
+    public matrix_factorization(PostRepository repository, UserRepository urepository, LikesRepository likes_repository, JobLikeRepository joblike_repository, JobRepository job_repository, CommentRepository comment_repository, PostViewRepository postview_repository, JobViewRepository jobview_repository) {
         this.post_repository = repository;
         this.user_repository=urepository;
         this.likes_repository = likes_repository;
@@ -58,7 +61,14 @@ public class matrix_factorization {
         this.job_repository = job_repository;
         this.comment_repository = comment_repository;
         this.postview_repository = postview_repository;
+        this.jobview_repository = jobview_repository;
+        post_user_ids = null;
+        post_ids = null;
+        job_ids = null;
+        job_user_ids = null;
     }
+
+    /* posts */
 
     public List<Integer> post_recommendations(int user_id){
         int user_index = post_user_ids.indexOf(user_id); /* get index of user */
@@ -102,32 +112,6 @@ public class matrix_factorization {
 
         post_dataMatrix = new SimpleMatrix(post_user_ids.size(),post_ids.size()); /* dataMatrix' size will be number_of_users*number_of_posts */
 
-//        List<Likes> likes = likes_repository.findAll();
-
-//        /* add likes */
-//        for (Likes like: likes){
-//            int user_id = like.getUser().getId();
-//            int user_index = post_user_ids.indexOf(user_id);
-//
-//            int post_id = like.getPost().getId();
-//            int post_index = post_user_ids.indexOf(post_id);
-//
-//            post_dataMatrix.set(user_index, post_index, post_dataMatrix.get(user_index, post_index) + 1);
-//        }
-//
-//        List<Comment> comments = comment_repository.findAll();
-//
-//        /* add comments */
-//        for (Comment comment: comments){
-//            int user_id = comment.getUser().getId();
-//            int user_index = post_user_ids.indexOf(user_id);
-//
-//            int post_id = comment.getPost().getId();
-//            int post_index = post_user_ids.indexOf(post_id);
-//
-//            post_dataMatrix.set(user_index, post_index, post_dataMatrix.get(user_index, post_index) + 1);
-//        }
-
         for (int userid: post_user_ids){
             int user_index = post_user_ids.indexOf(userid);
 
@@ -138,21 +122,24 @@ public class matrix_factorization {
                 List<PostView> views = postview_repository.findPostViewsByUser(userid);
                 for (PostView view: views){
                     int post_id = view.getPost().getId();
-                    int post_index = post_user_ids.indexOf(post_id);
+                    int post_index = post_ids.indexOf(post_id);
 
                     post_dataMatrix.set(user_index, post_index, post_dataMatrix.get(user_index, post_index) + 1);
                 }
             } else {
                 for (Likes like: user_likes){
                     int post_id = like.getPost().getId();
-                    int post_index = post_user_ids.indexOf(post_id);
+//                    System.out.println("post id:"+ post_id);
+//                    System.out.println("list_ids:"+post_user_ids);
+                    int post_index = post_ids.indexOf(post_id);
+//                    System.out.println("post index:"+post_index);
 
                     post_dataMatrix.set(user_index, post_index, post_dataMatrix.get(user_index, post_index) + 1);
                 }
                 for (Comment comment: user_comments){
 
                     int post_id = comment.getPost().getId();
-                    int post_index = post_user_ids.indexOf(post_id);
+                    int post_index = post_ids.indexOf(post_id);
 
                     post_dataMatrix.set(user_index, post_index, post_dataMatrix.get(user_index, post_index) + 1);
                 }
@@ -168,17 +155,19 @@ public class matrix_factorization {
         post_recommendationsMatrix = algorithm(post_dataMatrix, V, F, k, h);
     }
 
-    /* TODO recommendations for posts work: fix job recommendations same as posts */
+    /* jobs */
     public List<Integer> job_recommendations(int user_id){
-        int user_index = job_user_ids.indexOf(user_id);
-        Map<Integer, Double> ratings = null;
-        for (int i = 0; i< post_recommendationsMatrix.numCols(); i++){
-            if (post_dataMatrix.get(user_index, i) == 0){
-                ratings.put(i, post_recommendationsMatrix.get(user_index, i));
+        int user_index = job_user_ids.indexOf(user_id); /* get index of user */
+
+        /* put all ratings in a map{post_index->rating}*/
+        Map<Integer, Double> ratings =  new HashMap<>();
+        for (int i = 0; i< job_recommendationsMatrix.numCols(); i++){
+            if (job_dataMatrix.get(user_index, i) == 0){
+                ratings.put(i, job_recommendationsMatrix.get(user_index, i));
             }
         }
 
-        assert ratings != null;
+        /* sort by rating */
         List<Map.Entry<Integer, Double>> list = new ArrayList<>(ratings.entrySet());
         list.sort(Map.Entry.comparingByValue());
 
@@ -189,8 +178,10 @@ public class matrix_factorization {
         System.out.println(result);
 
         List<Integer> ids_ordered = new ArrayList<>();
+        int index;
         for (Map.Entry<Integer, Double> entry : list) {
-            ids_ordered.add(entry.getKey());
+            index = entry.getKey();
+            ids_ordered.add(job_ids.get(index));
         }
         System.out.println(ids_ordered);
 
@@ -199,20 +190,39 @@ public class matrix_factorization {
 
     /* TODO add job views */
     public void mf_jobs(){
-        job_user_ids = user_repository.findAll().stream().map(User::getId).collect(Collectors.toList());
-        job_ids = job_repository.findAll().stream().map(Job::getId).collect(Collectors.toList());
+        /* Applies matrix factorization for jobs.
+         * It fills a users*posts matrix with ratings based on likes.
+         * If a user has neither likes nor comments then we use views as ratings instead. */
 
-        List<JobLike> likes = joblike_repository.findAll();
-        job_dataMatrix = new SimpleMatrix(job_user_ids.size(),post_ids.size());
+        job_user_ids = user_repository.findAll().stream().map(User::getId).collect(Collectors.toList()); /* get all user ids in a list */
+        job_ids = job_repository.findAll().stream().map(Job::getId).collect(Collectors.toList()); /* get all job ids in a list */
 
-        for (JobLike like: likes){
-            int user_id = like.getUser().getId();
-            int user_index =job_user_ids.indexOf(user_id);
+        job_dataMatrix = new SimpleMatrix(job_user_ids.size(),job_ids.size()); /* dataMatrix' size will be number_of_users*number_of_jobs */
 
-            int job_id = like.getJob().getId();
-            int job_index = job_user_ids.indexOf(job_id);
+        for (int userid: job_user_ids){
+            int user_index = job_user_ids.indexOf(userid);
 
-            job_dataMatrix.set(user_index, job_index, job_dataMatrix.get(user_index, job_index) + 1);
+            List<JobLike> user_likes = joblike_repository.findJobLikesByUser(userid);
+
+            if (user_likes.size() == 0){ /* if user hasn't made any comments or likes then use views */
+                List<JobView> views = jobview_repository.findJobViewsByUser(userid);
+                for (JobView view: views){
+                    int job_id = view.getJob().getId();
+                    int job_index = job_ids.indexOf(job_id);
+
+                    job_dataMatrix.set(user_index, job_index, job_dataMatrix.get(user_index, job_index) + 1);
+                }
+            } else {
+                for (JobLike like: user_likes){
+                    int job_id = like.getJob().getId();
+//                    System.out.println("post id:"+ post_id);
+//                    System.out.println("list_ids:"+post_user_ids);
+                    int job_index = job_ids.indexOf(job_id);
+//                    System.out.println("post index:"+post_index);
+
+                    job_dataMatrix.set(user_index, job_index, job_dataMatrix.get(user_index, job_index) + 1);
+                }
+            }
         }
 
         int k=3;
