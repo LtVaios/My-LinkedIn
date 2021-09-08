@@ -185,7 +185,7 @@ export class HomepageComponent implements OnInit {
     let temp2:Post[] = [];
     await this.service.getRecommendedPosts(this.currentuser).toPromise().then(response => temp2=response);
     for (let p of temp2) {
-      this.posts.push(p)
+      this.recommended_posts.push(p)
       likes_id=[];
       likes=[];
       await this.service.getPostLikes(p.id).toPromise().then(response=>likes=response);

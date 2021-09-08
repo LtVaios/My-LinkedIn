@@ -24,17 +24,16 @@ export class HomepageService {
   private commentsUrl = 'https://localhost:8443/comments';
   private viewsUrl = 'https://localhost:8443/postviews/addview';
   private recommendedUrl = 'https://localhost:8443/recommend/posts';
-  newpost:Post
   constructor(private http: HttpClient) { }
 
   saveNewPost(pb:string,uid:number): Observable<Post> {
     console.log("saving new post");
-    this.newpost=new Post();
-    this.newpost.post_body=pb;
-    let date_time =new Date();
-    this.newpost.date_time=date_time.toLocaleString();
+    let new_post:Post = new Post();
+    new_post.post_body=pb;
+    let date_time =new Date(); //TODO change this same as jobs
+    new_post.date_time=date_time.toLocaleString();
     //console.log(date_time)
-    return this.http.post<Post>(this.postsUrl+"/"+uid,this.newpost);
+    return this.http.post<Post>(this.postsUrl+"/"+uid,new_post);
   }
 
   getPosts(uid:number): Observable<Post[]> {
@@ -42,13 +41,13 @@ export class HomepageService {
   }
 
   postViews(posts:Post[], user:User): void {
-    let view:PostView = new PostView();
-    console.log("in post vies");
-    for (let post of posts)
+    for (let post of posts) {
+      let view: PostView = new PostView();
       view.post = post;
       view.user = user;
-      view.createdDate= new Date();
-      this.http.post<PostView>(this.viewsUrl, view).subscribe(); //TODO maybe change to put instead of post
+      view.createdDate = new Date();
+      this.http.post<PostView>(this.viewsUrl, view).subscribe();
+    }
   }
 
   getFriends(id:number): Observable<Friends[]> {

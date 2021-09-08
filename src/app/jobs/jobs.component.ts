@@ -24,6 +24,7 @@ export class JobsComponent implements OnInit {
   uploadcondition: boolean;
   dataLoaded: boolean;
   all_jobs: Job[];
+  recommended_jobs: Job[];
   temp_jobs: Job[];
   likedJobs: Map<Job, boolean>;
   likes_count: Map<Job, number>;
@@ -110,6 +111,27 @@ export class JobsComponent implements OnInit {
       if (flag==false){
         this.likedJobs.set(job, false);
       }
+
+      await this.service.getRecommendedJobs(this.user.id).toPromise().then(response => this.recommended_jobs=response);
+      console.log(this.recommended_jobs);
+      var flag: boolean;
+      for (let job of this.recommended_jobs) {
+        flag = false;
+        var likes: JobLike[] = [];
+        await this.service.getJobLikes(job.id).toPromise().then(response => likes = response);
+        this.likes_count.set(job, likes.length);
+        for (let like of likes) {
+          if (like.user.id == this.currentUser) {
+            this.likedJobs.set(job, true);
+            flag = true;
+            break;
+          }
+        }
+        if (flag == false) {
+          this.likedJobs.set(job, false);
+        }
+      }
+
     }
   }
 

@@ -105,11 +105,7 @@
           <source *ngIf="videos.get(video.id)" [src]="videos.get(video.id)"   type="video/mp4">
           Your browser does not support the video tag.
         </video>
-<!--<a href="{{url}}"> vid link</a>-->
-<!--        <video width="320" height="240" controls>-->
-<!--          <source [src]="videosrc(video.id)" type="video/mp4">-->
-<!--          Your browser does not support the video tag.-->
-<!--        </video>-->
+
       </div>
       <span class="like_count"><i class="fa fa-thumbs-up"></i> {{likes_count.get(post)}} </span>
       <button *ngIf="liked_posts.get(post)" class="disabled">Ενδιαφέρον!</button>
@@ -118,6 +114,7 @@
     </div>
 
     <!-- TODO recommended posts temp -->
+    <label> RECOMMENDATIONS </label>
     <div class="posts" *ngFor="let post of recommended_posts">
       <img [src]="imagesrc(post.user.img) ? imagesrc(post.user.img):  '../../assets/default-user-image.png'" class="profile-image">
       <a [routerLink]="['/'+post.user.username]" class="author">{{post.user.firstName}} {{post.user.lastName}}</a>
@@ -141,11 +138,7 @@
           <source *ngIf="videos.get(video.id)" [src]="videos.get(video.id)"   type="video/mp4">
           Your browser does not support the video tag.
         </video>
-        <!--<a href="{{url}}"> vid link</a>-->
-        <!--        <video width="320" height="240" controls>-->
-        <!--          <source [src]="videosrc(video.id)" type="video/mp4">-->
-        <!--          Your browser does not support the video tag.-->
-        <!--        </video>-->
+
       </div>
       <span class="like_count"><i class="fa fa-thumbs-up"></i> {{likes_count.get(post)}} </span>
       <button *ngIf="liked_posts.get(post)" class="disabled">Ενδιαφέρον!</button>

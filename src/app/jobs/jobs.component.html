@@ -57,6 +57,18 @@
   <button *ngIf="likedJobs.get(job)" class="disabled">Ενδιαφέρον!</button>
   <button *ngIf="!likedJobs.get(job)" (click)="likeJob(job)" class="like">Ενδιαφέρον!</button>
 </div>
+<label>RECOMMENDED</label>
+  <div  class="posts" *ngFor="let job of recommended_jobs">
+    <img [src]="imagesrc(job.user.img)? imagesrc(job.user.img):  '../../assets/default-user-image.png'" class="image">
+    <a [routerLink]="['/',job.user.username]"><div class="author"> {{job.user.firstName}} {{job.user.lastName}}</div> </a>
+    <br/><span class="date">{{local(job.createdDate)}}</span>
+    <br/><br/>
+    <p class="job_body"> {{job.body}}  </p>
+    <br/>
+    <span class="like_count"><i class="fa fa-thumbs-up"></i>  {{likes_count.get(job)}} </span>
+    <button *ngIf="likedJobs.get(job)" class="disabled">Ενδιαφέρον!</button>
+    <button *ngIf="!likedJobs.get(job)" (click)="likeJob(job)" class="like">Ενδιαφέρον!</button>
+  </div>
 </div>
 </body>
 
