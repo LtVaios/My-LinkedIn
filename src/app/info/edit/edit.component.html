@@ -22,6 +22,9 @@
 
 <div class="form" >
   <form [formGroup]="InfoForm" (ngSubmit)="onSubmit()" >
+    <div><label> Θέση εργασίας </label>
+      <textarea rows="10" type="text" formControlName="job_pos"> </textarea>
+    </div>
     <div>
       <label> Επαγγελματική εμπειρία </label>
       <textarea rows="10" type="text" formControlName="work_experience"> </textarea>
@@ -38,9 +41,6 @@
       <textarea rows="10" type="text" formControlName="skills"> </textarea>
       <input id="ch3" type="checkbox" formControlName="skills_public" [ngModel]="user.skills_public">
       <label for="ch3">Δημόσια</label>
-    </div>
-    <div><label> Θέση εργασίας </label>
-      <textarea rows="10" type="text" formControlName="job_pos"> </textarea>
     </div>
 
     <button class="button" type="submit" >Save changes</button>
