@@ -71,7 +71,6 @@ class LikesController {
     @CrossOrigin(origins = "*")
     @PostMapping("/likes/addlike")
     Likes newLike(@RequestBody Likes newLike) {
-        mf.mf_posts();
         return repository.save(newLike);
     }
 

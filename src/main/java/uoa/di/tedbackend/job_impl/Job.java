@@ -1,18 +1,13 @@
 package uoa.di.tedbackend.job_impl;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.search.annotations.Field;
 import org.hibernate.search.annotations.Indexed;
-import uoa.di.tedbackend.joblike_impl.JobLike;
 import uoa.di.tedbackend.user_impl.User;
 import uoa.di.tedbackend.user_impl.UserRepository;
 
 import javax.persistence.*;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 
 @Entity

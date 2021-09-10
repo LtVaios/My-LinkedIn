@@ -66,10 +66,7 @@ class PostViewController {
     @CrossOrigin(origins = "*")
     @PostMapping("/addview")
     PostView newLike(@RequestBody PostView view) {
-        PostView temp = repository.save(view);
-        System.out.println("in post view");
-        mf.mf_posts();
-        return temp;
+        return repository.save(view);
     }
 
     @CrossOrigin(origins = "*")

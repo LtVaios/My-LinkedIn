@@ -1,10 +1,9 @@
-package uoa.di.tedbackend.joblike_impl;
+package uoa.di.tedbackend.application_impl;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import uoa.di.tedbackend.job_impl.Job;
 import uoa.di.tedbackend.job_impl.JobRepository;
-import uoa.di.tedbackend.post_impl.PostRepository;
 import uoa.di.tedbackend.user_impl.User;
 import uoa.di.tedbackend.user_impl.UserRepository;
 
@@ -14,7 +13,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-public class JobLike {
+public class Application {
 
     private @Id @GeneratedValue int id;
 
@@ -26,13 +25,16 @@ public class JobLike {
     @JoinColumn(name = "job_id",referencedColumnName = "id")
     private Job job;
 
+    private String text;
+
     @Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 //    @SortableField
     private Date createdDate;
 
-    public JobLike(UserRepository urepository, JobRepository jrepository, int uid, int jid) {
+    public Application(UserRepository urepository, JobRepository jrepository, int uid, int jid, String text) {
         this.user=urepository.findById(uid).get();
         this.job=jrepository.findById(jid).get();
         this.createdDate=new Date();
+        this.text = text;
     }
 }

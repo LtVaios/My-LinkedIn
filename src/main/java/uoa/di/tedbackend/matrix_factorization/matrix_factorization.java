@@ -8,8 +8,8 @@ import uoa.di.tedbackend.job_impl.Job;
 import uoa.di.tedbackend.job_impl.JobRepository;
 import uoa.di.tedbackend.job_view.JobView;
 import uoa.di.tedbackend.job_view.JobViewRepository;
-import uoa.di.tedbackend.joblike_impl.JobLike;
-import uoa.di.tedbackend.joblike_impl.JobLikeRepository;
+import uoa.di.tedbackend.application_impl.Application;
+import uoa.di.tedbackend.application_impl.ApplicationRepository;
 import uoa.di.tedbackend.likes_impl.Likes;
 import uoa.di.tedbackend.likes_impl.LikesRepository;
 import uoa.di.tedbackend.post_impl.Post;
@@ -23,6 +23,8 @@ import org.ejml.simple.SimpleMatrix;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.lang.Math.min;
 
 @Service("ms")
 public class matrix_factorization {
@@ -45,19 +47,18 @@ public class matrix_factorization {
     private final PostRepository post_repository;
     private final UserRepository user_repository;
     private final LikesRepository likes_repository;
-    private final JobLikeRepository joblike_repository;
+    private final ApplicationRepository application_repository;
     private final JobRepository job_repository;
     private final CommentRepository comment_repository;
     private final PostViewRepository postview_repository;
     private final JobViewRepository jobview_repository;
 
-//    private matrix_factorization() {}
     @Autowired
-    public matrix_factorization(PostRepository repository, UserRepository urepository, LikesRepository likes_repository, JobLikeRepository joblike_repository, JobRepository job_repository, CommentRepository comment_repository, PostViewRepository postview_repository, JobViewRepository jobview_repository) {
+    public matrix_factorization(PostRepository repository, UserRepository urepository, LikesRepository likes_repository, ApplicationRepository application_repository, JobRepository job_repository, CommentRepository comment_repository, PostViewRepository postview_repository, JobViewRepository jobview_repository) {
         this.post_repository = repository;
         this.user_repository=urepository;
         this.likes_repository = likes_repository;
-        this.joblike_repository = joblike_repository;
+        this.application_repository = application_repository;
         this.job_repository = job_repository;
         this.comment_repository = comment_repository;
         this.postview_repository = postview_repository;
@@ -70,7 +71,7 @@ public class matrix_factorization {
 
     /* posts */
 
-    public List<Integer> post_recommendations(int user_id){
+    public List<Integer> post_recommendations(int user_id, int size){
         int user_index = post_user_ids.indexOf(user_id); /* get index of user */
 
         /* put all ratings in a map{post_index->rating}*/
@@ -99,8 +100,25 @@ public class matrix_factorization {
         }
         System.out.println(ids_ordered);
 
-        return ids_ordered;
+        return ids_ordered; //.subList(0, min(ids_ordered.size(), size))
     }
+
+//    public List<Integer> findTopK(List<Map.Entry<Integer, Double>> input, int k) {
+//        PriorityQueue<Map.Entry<Integer, Double>> maxHeap = new PriorityQueue<>();
+//
+//        input.forEach(number -> {
+//            maxHeap.add(number);
+//
+//            if (maxHeap.size() > k) {
+//                maxHeap.poll();
+//            }
+//        });
+//
+//        List<Integer> topKList = new ArrayList<>(maxHeap);
+//        Collections.reverse(topKList);
+//
+//        return topKList;
+//    }
 
     public void mf_posts(){
         /* Applies matrix factorization for posts.
@@ -188,11 +206,10 @@ public class matrix_factorization {
         return ids_ordered;
     }
 
-    /* TODO add job views */
     public void mf_jobs(){
         /* Applies matrix factorization for jobs.
          * It fills a users*posts matrix with ratings based on likes.
-         * If a user has neither likes nor comments then we use views as ratings instead. */
+         * If a user has not likes then we use views as ratings instead. */
 
         job_user_ids = user_repository.findAll().stream().map(User::getId).collect(Collectors.toList()); /* get all user ids in a list */
         job_ids = job_repository.findAll().stream().map(Job::getId).collect(Collectors.toList()); /* get all job ids in a list */
@@ -202,7 +219,7 @@ public class matrix_factorization {
         for (int userid: job_user_ids){
             int user_index = job_user_ids.indexOf(userid);
 
-            List<JobLike> user_likes = joblike_repository.findJobLikesByUser(userid);
+            List<Application> user_likes = application_repository.findApplicationsByUser(userid);
 
             if (user_likes.size() == 0){ /* if user hasn't made any comments or likes then use views */
                 List<JobView> views = jobview_repository.findJobViewsByUser(userid);
@@ -213,7 +230,7 @@ public class matrix_factorization {
                     job_dataMatrix.set(user_index, job_index, job_dataMatrix.get(user_index, job_index) + 1);
                 }
             } else {
-                for (JobLike like: user_likes){
+                for (Application like: user_likes){
                     int job_id = like.getJob().getId();
 //                    System.out.println("post id:"+ post_id);
 //                    System.out.println("list_ids:"+post_user_ids);

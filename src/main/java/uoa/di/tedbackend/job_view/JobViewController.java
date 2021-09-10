@@ -1,19 +1,8 @@
 package uoa.di.tedbackend.job_view;
 
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 import org.springframework.web.bind.annotation.*;
-import uoa.di.tedbackend.joblike_impl.JobLike;
-import uoa.di.tedbackend.likes_impl.Likes;
-import uoa.di.tedbackend.likes_impl.LikesRepository;
-import uoa.di.tedbackend.job_impl.Job;
-import uoa.di.tedbackend.job_impl.JobRepository;
-import uoa.di.tedbackend.job_view.JobView;
-import uoa.di.tedbackend.job_view.JobViewRepository;
-import uoa.di.tedbackend.user_impl.User;
-import uoa.di.tedbackend.user_impl.UserRepository;
 
 @RestController
 @CrossOrigin(origins = "*")

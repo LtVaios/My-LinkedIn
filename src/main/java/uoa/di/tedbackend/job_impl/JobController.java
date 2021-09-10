@@ -1,20 +1,15 @@
 package uoa.di.tedbackend.job_impl;
 
 import org.springframework.web.bind.annotation.*;
-import uoa.di.tedbackend.joblike_impl.JobLikeRepository;
 import uoa.di.tedbackend.user_impl.User;
-import uoa.di.tedbackend.job_impl.JobNotFoundException;
 import uoa.di.tedbackend.user_impl.UserRepository;
 
 import java.io.File;
-import java.util.Scanner;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -23,14 +18,10 @@ import java.util.*;
 public class JobController {
 
     private final JobRepository repository;
-    private final UserRepository urepository;
-    private final JobLikeRepository jbrepository;
-    private List<String> stopwords;
+    private final List<String> stopwords;
 
-    JobController(JobRepository repository, UserRepository urepository, JobLikeRepository jbrepository) throws IOException {
+    JobController(JobRepository repository) throws IOException {
         this.repository = repository;
-        this.urepository = urepository;
-        this.jbrepository = jbrepository;
         File f = new File("./src/main/resources/static/stopwords.txt");
         System.out.println(f.getAbsolutePath());
         stopwords = Files.readAllLines(Paths.get(f.getAbsolutePath()));

@@ -7,8 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
-import uoa.di.tedbackend.comment_impl.Comment;
-import uoa.di.tedbackend.joblike_impl.JobLike;
 
 @Repository
 @Transactional(readOnly = true)
