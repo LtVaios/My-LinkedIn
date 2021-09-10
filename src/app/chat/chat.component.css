@@ -123,6 +123,7 @@ h5 {
   grid-row-gap: 0px;
   row-gap: 0px;
 }
+
 .grid-item {
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0, 0, 0, 0.8);

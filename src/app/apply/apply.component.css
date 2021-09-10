@@ -1,0 +1,253 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  width:100%;
+}
+
+li {
+  float: left;
+  border-right:1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04AA6D;
+}
+
+html {
+
+  padding: 0; margin: -8px;
+}
+
+.first_body{
+  background-image: url("/../assets/green-pattern-wallpaper-1.jpg");
+  text-align: center;
+  min-height: 100vh;
+  height:100%;
+  width:100%;
+  margin:auto;
+  background-position: center center;
+  background-repeat: repeat;
+  padding:0;
+}
+
+.second_body {
+  margin-top: 25px;
+}
+
+#mySidenav a {
+  position: absolute;
+  left: -80px;
+  margin-top: -20px;
+  transition: 0.3s;
+  padding: 15px;
+  width: 100px;
+  text-decoration: none;
+  font-size: 15px;
+  color: white;
+  position: fixed;
+  border-radius: 0 5px 5px 0;
+}
+
+#mySidenav a:hover {
+  left: 0;
+}
+
+
+#web {
+  top: 80px;
+  background-color: #04AA6D;
+}
+
+#info {
+  top: 140px;
+  background-color: #04AA6D;
+}
+
+.form button {
+  font-family: sans-serif;
+  text-transform: uppercase;
+
+  outline: 0;
+  background-color: dodgerblue;
+  border-style: groove ;
+  padding: 5px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form, .job{
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 560px;
+  margin-top: 0;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 13px;
+}
+
+.form textarea {
+  font-family: sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  margin: 0 0 5px;
+  padding-bottom: 3px;
+  padding-top: 3px;
+  box-sizing: border-box;
+  font-size: 14px;
+  resize: none;
+  border-radius: 7px;
+  min-height: 20px;
+  max-height: 500px;
+}
+
+.form p {
+  /*width: 550px;*/
+  background-color: whitesmoke;
+  border: 1px solid grey;
+  border-radius:  7px;
+  text-align: left;
+  padding: 2px 5px;
+  overflow: hidden;
+  margin: 0px;
+  word-break: break-all;
+  white-space: normal;
+  font-size: 14px;
+  color: black;
+}
+
+.form div {
+  font-size: 20px;
+  margin-bottom: 25px;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  color: #32CD32FF;
+  border-radius: 13px;
+}
+
+.item-label{
+  padding-bottom: 3px;
+  font-size: 20px;
+  font-family: sans-serif;
+  color: gray;
+  display: block;
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+}
+
+h4 {
+  font-size: 15px;
+  font-family: sans-serif;
+  color: red;
+}
+
+h5 {
+  font-size: 15px;
+  font-family: sans-serif;
+  color: limegreen;
+}
+
+button {
+  font-family: sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background-color: #328f8a;
+  background-image: linear-gradient(45deg,#328f8a,#08ac4b);
+  width: 150px;
+  height: 50px;
+  border: 0;
+  padding: 15px;
+  color: #FFFFFF;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  padding: 10px;
+  margin-right: 200px;
+  margin-left: 200px;
+  align-items: start;
+}
+
+.grid-item {
+  padding: 15px;
+}
+
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+.image {
+  width:40px;
+  height:40px;
+  object-fit:cover;
+  margin-right: 5px;
+  float: left;
+  border-radius: 50%;
+}
+
+.job_body{
+  margin: 5px;
+}
+
+.author{
+  color: green;
+  font-size: 15px;
+  float: left;
+}
+
+.author:hover{
+  text-decoration: underline;
+  cursor: pointer;
+  color: darkolivegreen;
+}
+
+.date{
+  float:left;
+  background-color: whitesmoke;
+  border-radius: 2px;
+  padding: 2px;
+}
+
+.applies_count{
+  color: limegreen;
+}
+
+.bio-image {
+  padding: 10px;
+  width:190px;
+  height:190px;
+  float: left;
+}

@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 import {Friends} from "../model/friends";
 import {User} from "../model/user";
 import {Likes} from "../model/likes";
-import {JobLike} from "../model/joblike";
+import {Application} from "../model/application";
 import {Comment} from "../model/comment";
 
 @Injectable({
@@ -14,7 +14,7 @@ export class NotificationsService {
   private friendsUrl = 'https://localhost:8443/friends';
   private usersUrl = 'https://localhost:8443/users';
   private postLikesUrl = 'https://localhost:8443/likes/touser';
-  private jobLikesUrl = 'https://localhost:8443/joblikes/touser';
+  private jobLikesUrl = 'https://localhost:8443/applications/touser';
   private commentsUrl = 'https://localhost:8443/comments/touser';
 
   constructor(private http: HttpClient) { }
@@ -39,8 +39,8 @@ export class NotificationsService {
       return this.http.get<Likes[]>(this.postLikesUrl+'?userid='+user_id);
   }
 
-  getJobLikes(user_id: number):Observable<JobLike[]>{
-    return this.http.get<JobLike[]>(this.jobLikesUrl+'?userid='+user_id);
+  getJobLikes(user_id: number):Observable<Application[]>{
+    return this.http.get<Application[]>(this.jobLikesUrl+'?userid='+user_id);
   }
 
   getComments(user_id: number):Observable<Comment[]>{

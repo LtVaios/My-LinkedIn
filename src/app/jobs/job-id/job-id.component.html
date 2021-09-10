@@ -25,10 +25,69 @@
     <br/><br/>
     <p> {{job.body}}  </p>
     <br/>
-    <span class="like_count"><i class="fa fa-thumbs-up"></i>  {{likes_count}} </span>
-    <button *ngIf="liked" class="disabled">Ενδιαφέρον!</button>
-    <button *ngIf="!liked" (click)="likeJob(job)" class="like">Ενδιαφέρον!</button>
+    <span class="applies_count"> {{applicants_count}} αιτήσεις</span>
+
+    <span *ngIf="user.id != job.user.id">
+      <button *ngIf="applied" [routerLink]="['/apply', { job_id: job.id }]" class="liked"
+              title="Έχετε κάνει ήδη αίτηση. Η νέα αίτηση θα αντικαταστήσει την προηγούμενη.">Αίτηση</button>
+      <button *ngIf="!applied" [routerLink]="['/apply', { job_id: job.id }]" class="like">Αίτηση</button>
+    </span>
   </div>
+
+  <div *ngIf="user.id == job.user.id"><label class="item-label">Αιτήσεις</label>
+    <span *ngIf="applicants_count==0" style="color: green">Δεν υπάρχουν αιτήσεις</span>
+
+    <div *ngIf="applicants_count>0">
+      <div class="grid-container">
+        <div class="preview">
+        <div class="preview-container">
+          <div class="preview-grid-item" *ngFor="let appl of applications" (click)="openApplication(appl)" [ngClass]="{'preview-grid-item-active': tab === appl.id}">
+            <img [src] = "imagesrc(appl.user.img) ? imagesrc(appl.user.img): '../../assets/default-user-image.png'" class="image">
+            <label>{{appl.user.firstName}} {{appl.user.lastName}}</label>
+            <div><label>E-mail: </label>{{appl.user.username}}</div>
+            <div><label>Job Position: </label>{{appl.user.job_pos}}</div>
+          </div>
+        </div>
+        </div>
+        <div class="application-container" *ngIf="current_application">
+          <label class="item-label"> {{current_application.user.firstName}} {{current_application.user.lastName}}</label>
+          <img [src]="current_application.user.img? current_application.user.img:  '../../assets/default-user-image.png'" class="bio-image">
+          <div>
+            <label>E-mail</label>
+            <p>{{current_application.user.username}}</p>
+          </div>
+          <div>
+            <label>Τηλέφωνο</label>
+            <p>{{current_application.user.phone}}</p>
+          </div>
+
+          <div>
+            <label>Θέση εργασίας</label>
+            <p>{{current_application.user.job_pos}}</p>
+          </div>
+          <div>
+            <label>Επαγγελματική Εμπειρία</label>
+            <p>{{current_application.user.skills}}</p>
+          </div>
+          <div>
+            <label>Εκπαίδευση</label>
+            <p>{{current_application.user.education}}</p>
+          </div>
+          <div>
+            <label>Επαγγελματικές Ικανότητες</label>
+            <p>{{current_application.user.skills}}</p>
+          </div>
+
+          <div>
+            <label>Γιατί πιστεύετε ότι είστε κατάλληλος για αυτή τη θέση;</label>
+            <p>{{current_application.text}}</p>
+          </div>
+
+          <button [routerLink]="['/',current_application.user.username]">Μεταβείτε στη σελίδα του</button>
+        </div>
+      </div>
+      </div>
+    </div>
 
 </body>
 

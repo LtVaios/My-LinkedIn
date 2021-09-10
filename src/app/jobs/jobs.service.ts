@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {Job} from "../model/job";
 import {User} from "../model/user";
 import {Router} from "@angular/router";
-import {JobLike} from "../model/joblike";
+import {Application} from "../model/application";
 import {Likes} from "../model/likes";
 import {PostView} from "../model/postview";
 import {JobView} from "../model/jobview";
@@ -17,7 +17,7 @@ import {JobView} from "../model/jobview";
 export class JobsService {
   private jobsUrl = 'https://localhost:8443/jobs';
   private usersUrl = 'https://localhost:8443/users';
-  private joblikesUrl = 'https://localhost:8443/joblikes';
+  private applyUrl = 'https://localhost:8443/applications';
   private viewsUrl = 'https://localhost:8443/jobviews/addview';
   private recommendedUrl = 'https://localhost:8443/recommend/jobs';
 
@@ -71,13 +71,13 @@ export class JobsService {
       return this.http.get<Job[]>(this.jobsUrl+'?search='+encodeURIComponent(skills));
   }
 
-  saveLike(jl: JobLike): Observable<Post> {
+  saveLike(jl: Application): Observable<Post> {
     console.log(jl);
-    return this.http.post<Post>(this.joblikesUrl, jl);
+    return this.http.post<Post>(this.applyUrl, jl);
   }
 
-  getJobLikes(job_id:number): Observable<JobLike[]>{
-    return this.http.get<JobLike[]>(this.joblikesUrl+"/ofpost/"+job_id);
+  getApplications(job_id:number): Observable<Application[]>{
+    return this.http.get<Application[]>(this.applyUrl+"/ofpost/"+job_id);
   }
 
   getRecommendedJobs(user_id: number): Observable<Job[]>{

@@ -53,9 +53,16 @@
   <br/><br/>
   <p class="job_body"> {{job.body}}  </p>
   <br/>
-  <span class="like_count"><i class="fa fa-thumbs-up"></i>  {{likes_count.get(job)}} </span>
-  <button *ngIf="likedJobs.get(job)" class="disabled">Ενδιαφέρον!</button>
-  <button *ngIf="!likedJobs.get(job)" (click)="likeJob(job)" class="like">Ενδιαφέρον!</button>
+  <span class="applies_count"> {{applicants_count.get(job)}} αιτήσεις</span>
+
+  <span *ngIf="user.id != job.user.id">
+    <button *ngIf="appliedJobs.get(job)" [routerLink]="['/apply', { job_id: job.id }]" class="liked"
+            title="Έχετε κάνει ήδη αίτηση. Η νέα αίτηση θα αντικαταστήσει την προηγούμενη.">Αίτηση</button>
+    <button *ngIf="!appliedJobs.get(job)" [routerLink]="['/apply', { job_id: job.id }]" class="like">Αίτηση</button>
+  </span>
+  <span *ngIf="user.id == job.user.id">
+    <a [routerLink]="[job.id]" class="applications_link">Δες τις αιτήσεις</a>
+  </span>
 </div>
 <label>RECOMMENDED</label>
   <div  class="posts" *ngFor="let job of recommended_jobs">
@@ -65,9 +72,15 @@
     <br/><br/>
     <p class="job_body"> {{job.body}}  </p>
     <br/>
-    <span class="like_count"><i class="fa fa-thumbs-up"></i>  {{likes_count.get(job)}} </span>
-    <button *ngIf="likedJobs.get(job)" class="disabled">Ενδιαφέρον!</button>
-    <button *ngIf="!likedJobs.get(job)" (click)="likeJob(job)" class="like">Ενδιαφέρον!</button>
+    <div class="applies_count"> {{applicants_count.get(job)}} αιτήσεις</div>
+
+    <span *ngIf="user.id != job.user.id">
+      <button *ngIf="appliedJobs.get(job)" class="disabled">Αίτηση</button>
+      <button *ngIf="!appliedJobs.get(job)" [routerLink]="['/apply', { job_id: job.id }]" class="like">Αίτηση</button>
+    </span>
+    <span *ngIf="user.id == job.user.id">
+      <a [routerLink]="[job.id]" class="applications_link">Δες τις αιτήσεις</a>
+    </span>
   </div>
 </div>
 </body>

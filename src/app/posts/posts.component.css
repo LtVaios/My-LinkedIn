@@ -291,7 +291,7 @@ h5 {
   margin-top: 15px;
 }
 
-.like_count {
+.applies_count {
   color: green;
   float:left;
   border: none;
@@ -302,7 +302,7 @@ h5 {
   margin: 5px 5px 5px 0px;
 }
 
-.like_count img{
+.applies_count img{
   padding: 1px;
   height:19px;
   float:left;

@@ -1,1 +1,132 @@
 @import "../jobs.component.css";
+
+.second_body {
+  text-align: center;
+  margin:auto;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.grid-container {
+  margin:auto;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.preview {
+  max-height: 95vh;
+  overflow-y: scroll;
+}
+
+.preview-container {
+  display: grid;
+  grid-template-columns: auto;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  row-gap: 0px;
+}
+
+.preview-grid-item {
+  background-color: rgba(255, 255, 255, 0.9);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 10px;
+  height: 65px;
+  width: auto;
+  margin-left: 7px;
+  text-align: left;
+  position: relative;
+}
+.preview-grid-item label {
+  color: green;
+}
+
+.preview-grid-item-active {
+  background-color: lightgray;
+}
+
+.preview-grid-item:hover {
+  background-color: lightgray;
+  cursor: pointer;
+}
+
+.preview-grid-item:last-child {
+  border-bottom: none;
+}
+
+.application-container {
+  overflow-y: scroll;
+  height: fit-content;
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 560px;
+  margin-top: 0;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  border-radius: 13px;
+}
+
+.application-container p {
+  background-color: whitesmoke;
+  border: 1px solid grey;
+  border-radius:  7px;
+  text-align: left;
+  padding: 2px 5px;
+  overflow: hidden;
+  margin: 0px;
+  word-break: break-all;
+  white-space: normal;
+  font-size: 14px;
+  color: black;
+}
+
+.application-container div {
+  font-size: 20px;
+  margin-bottom: 25px;
+  box-sizing: border-box;
+  font-family: sans-serif;
+  color: #32CD32FF;
+  border-radius: 13px;
+}
+
+.item-label{
+  padding-bottom: 3px;
+  font-size: 20px;
+  font-family: sans-serif;
+  color: gray;
+  display: block;
+  border-bottom: 1px solid black;
+  margin-bottom: 5px;
+}
+
+.bio-image {
+  padding: 10px;
+  width:190px;
+  height:190px;
+  float: left;
+}
+
+button {
+  background-color: #4CAF50; /* Green */
+  border: 2px solid forestgreen;
+  color: white;
+  padding: 3px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  /*margin: 5px 5px 5px 0px;*/
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 5px;
+  float: left;
+}
+
+button:hover {
+  background-color: white;
+  border: 2px solid #4CAF50;
+  color: black;
+}
+
+

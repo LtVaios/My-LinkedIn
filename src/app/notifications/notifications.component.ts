@@ -5,7 +5,8 @@ import {Friends} from "../model/friends"
 import {User} from "../model/user";
 import loader from "@angular-devkit/build-angular/src/webpack/plugins/single-test-transform";
 import {Likes} from "../model/likes";
-import {JobLike, notification} from "../model/joblike";
+import {Application} from "../model/application";
+import {notification} from "../model/notification";
 import {Comment} from "../model/comment";
 
 @Component({
@@ -20,7 +21,7 @@ export class NotificationsComponent implements OnInit {
   notifications: Array<notification> = [];
   currentUser: number;
   post_likes: Likes[];
-  job_likes: JobLike[];
+  job_likes: Application[];
   comments: Comment[];
 
   constructor(private sharedService: SharedService,
@@ -65,8 +66,8 @@ export class NotificationsComponent implements OnInit {
     this.service.deleteFriendship(fr.id).subscribe(data => console.log(data));
   }
 
-  isJobLike(n: notification): n is JobLike {
-    return (<JobLike>n).job !== undefined;
+  isJobLike(n: notification): n is Application {
+    return (<Application>n).job !== undefined;
   }
 
   isPostLike(n: notification): n is Likes {
@@ -85,8 +86,8 @@ export class NotificationsComponent implements OnInit {
     return <Likes>n;
   }
 
-  getJobLike(n: notification): JobLike{
-    return <JobLike>n;
+  getJobLike(n: notification): Application{
+    return <Application>n;
   }
 
   local(d: Date): string{

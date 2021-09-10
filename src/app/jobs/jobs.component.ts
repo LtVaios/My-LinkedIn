@@ -5,10 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../model/user";
 import {JobsService} from "./jobs.service";
 import {Job} from "../model/job";
-import {Observable} from "rxjs";
-import {Post} from "../model/post";
-import {JobLike} from "../model/joblike";
-import {flatMap} from "rxjs/internal/operators";
+import {Application} from "../model/application";
 
 @Component({
   selector: 'app-jobs',
@@ -26,9 +23,11 @@ export class JobsComponent implements OnInit {
   all_jobs: Job[];
   recommended_jobs: Job[];
   temp_jobs: Job[];
-  likedJobs: Map<Job, boolean>;
-  likes_count: Map<Job, number>;
+  appliedJobs: Map<Job, boolean>;
+  applicants_count: Map<Job, number>;
   tab: number;
+  inapply: boolean;
+  bodyText:string;
 
   jobForm = this.formBuilder.group({
     job_text: ''
@@ -39,9 +38,11 @@ export class JobsComponent implements OnInit {
               private service: JobsService) {
     this.requiredcondition = false;
     this.posted = false;
-    this.likedJobs = new Map();
-    this.likes_count = new Map<Job, number>();
+    this.appliedJobs = new Map();
+    this.applicants_count = new Map<Job, number>();
+    this.inapply = false;
   }
+
 
   async ngOnInit() {
     this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
@@ -73,15 +74,6 @@ export class JobsComponent implements OnInit {
     }
   }
 
-  likeJob(job: Job): void{
-    var jl = new JobLike();
-    jl.job = job;
-    jl.user = this.user;
-    jl.createdDate = new Date();
-    this.service.saveLike(jl).subscribe((data=>console.log(data)));
-    this.likedJobs.set(job,true);
-  }
-
   local(d: Date): string{
     return new Date(d).toLocaleString();
   }
@@ -98,18 +90,18 @@ export class JobsComponent implements OnInit {
     var flag: boolean;
     for (let job of this.all_jobs){
       flag = false;
-      var likes: JobLike[] = [];
-      await this.service.getJobLikes(job.id).toPromise().then(response => likes=response);
-      this.likes_count.set(job, likes.length);
+      var likes: Application[] = [];
+      await this.service.getApplications(job.id).toPromise().then(response => likes=response);
+      this.applicants_count.set(job, likes.length);
       for (let like of likes) {
         if (like.user.id == this.currentUser) {
-          this.likedJobs.set(job, true);
+          this.appliedJobs.set(job, true);
           flag=true;
           break;
         }
       }
       if (flag==false){
-        this.likedJobs.set(job, false);
+        this.appliedJobs.set(job, false);
       }
 
       await this.service.getRecommendedJobs(this.user.id).toPromise().then(response => this.recommended_jobs=response);
@@ -117,18 +109,18 @@ export class JobsComponent implements OnInit {
       var flag: boolean;
       for (let job of this.recommended_jobs) {
         flag = false;
-        var likes: JobLike[] = [];
-        await this.service.getJobLikes(job.id).toPromise().then(response => likes = response);
-        this.likes_count.set(job, likes.length);
+        var likes: Application[] = [];
+        await this.service.getApplications(job.id).toPromise().then(response => likes = response);
+        this.applicants_count.set(job, likes.length);
         for (let like of likes) {
           if (like.user.id == this.currentUser) {
-            this.likedJobs.set(job, true);
+            this.appliedJobs.set(job, true);
             flag = true;
             break;
           }
         }
         if (flag == false) {
-          this.likedJobs.set(job, false);
+          this.appliedJobs.set(job, false);
         }
       }
 
@@ -144,18 +136,18 @@ export class JobsComponent implements OnInit {
 
     for (let job of this.temp_jobs) {
       flag = false;
-      var likes: JobLike[] = [];
-      await this.service.getJobLikes(job.id).toPromise().then(response => likes = response);
-      this.likes_count.set(job, likes.length);
+      var likes: Application[] = [];
+      await this.service.getApplications(job.id).toPromise().then(response => likes = response);
+      this.applicants_count.set(job, likes.length);
       for (let like of likes) {
         if (like.user.id == this.currentUser) {
-          this.likedJobs.set(job, true);
+          this.appliedJobs.set(job, true);
           flag = true;
           break;
         }
       }
-      if (flag == false) {
-        this.likedJobs.set(job, false);
+      if (!flag) {
+        this.appliedJobs.set(job, false);
       }
     }
     this.temp_jobs.sort((a, b) =>
@@ -172,18 +164,18 @@ export class JobsComponent implements OnInit {
     var flag: boolean;
     for (let job of this.temp_jobs) {
       flag = false;
-      var likes: JobLike[] = [];
-      await this.service.getJobLikes(job.id).toPromise().then(response => likes = response);
-      this.likes_count.set(job, likes.length);
+      var likes: Application[] = [];
+      await this.service.getApplications(job.id).toPromise().then(response => likes = response);
+      this.applicants_count.set(job, likes.length);
       for (let like of likes) {
         if (like.user.id == this.currentUser) {
-          this.likedJobs.set(job, true);
+          this.appliedJobs.set(job, true);
           flag = true;
           break;
         }
       }
-      if (flag == false) {
-        this.likedJobs.set(job, false);
+      if (!flag) {
+        this.appliedJobs.set(job, false);
       }
     }
     this.temp_jobs.sort((a, b) =>
@@ -200,7 +192,7 @@ export class JobsComponent implements OnInit {
   //   var flag: boolean;
   //   for (let job of this.temp_jobs) {
   //     flag = false;
-  //     var likes: JobLike[] = [];
+  //     var likes: Application[] = [];
   //     await this.service.getJobLikes(job.id).toPromise().then(response => likes = response);
   //     for (let like of likes) {
   //       if (like.user.id == this.currentUser) {

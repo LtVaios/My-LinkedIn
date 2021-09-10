@@ -4,7 +4,7 @@ import {Job} from "../../model/job";
 import {SharedService} from "../../shared.service";
 import {FormBuilder} from "@angular/forms";
 import {JobsService} from "../jobs.service";
-import {JobLike} from "../../model/joblike";
+import {Application} from "../../model/application";
 import {ActivatedRoute} from "@angular/router";
 import {colors} from "@angular/cli/utilities/color";
 
@@ -19,8 +19,11 @@ export class JobIdComponent implements OnInit {
   user: User;
   dataLoaded: boolean;
   job: Job;
-  liked: boolean;
-  likes_count: number;
+  applied: boolean;
+  applicants_count: number;
+  applications: Application[];
+  current_application: Application;
+  tab: number;
 
   constructor(private sharedService: SharedService,
               private jobs_service: JobsService,
@@ -37,13 +40,13 @@ export class JobIdComponent implements OnInit {
     });
     await this.jobs_service.getJob(job_id).toPromise().then( response => this.job = response);
     await this.jobs_service.getUser(this.currentUser).toPromise().then(response => this.user = response);
-    var likes: JobLike[] = [];
-    this.liked = false;
-    await this.jobs_service.getJobLikes(job_id).toPromise().then(response => likes=response);
-    this.likes_count = likes.length;
-    for (let like of likes) {
-      if (like.user.id == this.currentUser) {
-          this.liked = true;
+    this.applied = false;
+    await this.jobs_service.getApplications(job_id).toPromise().then(response => this.applications=response);
+
+    this.applicants_count = this.applications.length;
+    for (let application of this.applications) {
+      if (application.user.id == this.currentUser) {
+          this.applied = true;
         break;
       }
     }
@@ -53,9 +56,9 @@ export class JobIdComponent implements OnInit {
 
 
   likeJob(job: Job): void{
-    this.liked=true;
-    this.likes_count += 1;
-    var jl = new JobLike();
+    this.applied=true;
+    this.applicants_count += 1;
+    var jl = new Application();
     jl.job = job;
     jl.user = this.user;
     jl.createdDate = new Date();
@@ -70,5 +73,10 @@ export class JobIdComponent implements OnInit {
   imagesrc(img: any): string{
     if (img == null) return "";
     return 'data:image/jpeg;base64,'+img.picByte;
+  }
+
+  openApplication(appl: Application) {
+    this.tab = appl.id;
+    this.current_application = appl;
   }
 }

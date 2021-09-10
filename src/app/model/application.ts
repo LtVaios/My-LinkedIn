@@ -1,14 +1,11 @@
 import {User} from "./user";
 import {Job} from "./job";
+import {notification} from "./notification";
 
-export class JobLike implements notification{
+export class Application implements notification{
   id: number;
   user: User;
   job: Job;
   createdDate: Date;
-}
-
-export interface notification {
-  user:User;
-  createdDate: Date;
+  text: string;
 }
