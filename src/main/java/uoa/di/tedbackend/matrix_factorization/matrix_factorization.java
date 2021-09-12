@@ -1,6 +1,7 @@
 package uoa.di.tedbackend.matrix_factorization;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Service;
 import uoa.di.tedbackend.comment_impl.Comment;
 import uoa.di.tedbackend.comment_impl.CommentRepository;
@@ -165,12 +166,33 @@ public class matrix_factorization {
         }
 
         int k=3;
-        double h=0.00001;
+//        double h=0.00001;
         Random rand = new Random();
-        SimpleMatrix V = SimpleMatrix.random_DDRM(post_dataMatrix.numRows(),k,1,5,rand);
-        SimpleMatrix F = SimpleMatrix.random_DDRM(k, post_dataMatrix.numCols(),1,5,rand);
+        List<Double> list_of_h = new ArrayList<Double>(){{
+            add(0.1);
+            add(0.01);
+            add(0.001);
+            add(0.0001);
+            add(0.00001);
+            add(0.000001);
+        }};
+        double min_error = 999999, error;
+        double best_h = 0.1;
+        SimpleMatrix best_matrix = null;
+        for (double h: list_of_h){
+            SimpleMatrix V = SimpleMatrix.random_DDRM(post_dataMatrix.numRows(),k,1,5,rand);
+            SimpleMatrix F = SimpleMatrix.random_DDRM(k, post_dataMatrix.numCols(),1,5,rand);
 
-        post_recommendationsMatrix = algorithm(post_dataMatrix, V, F, k, h);
+            Pair<SimpleMatrix, Double> tuple = algorithm(post_dataMatrix, V, F, k, h);
+            System.out.println("for h=" + h + " error is " + tuple.getSecond());
+            if (tuple.getSecond()<min_error) {
+                min_error = tuple.getSecond();
+                best_h = h;
+                best_matrix = tuple.getFirst();
+            }
+        }
+        System.out.println("Best h=" + best_h + "with error " + min_error);
+        post_recommendationsMatrix = best_matrix;
     }
 
     /* jobs */
@@ -243,20 +265,37 @@ public class matrix_factorization {
         }
 
         int k=3;
-        double h=0.00001;
+//        double h=0.00001;
         Random rand = new Random();
-        SimpleMatrix V = SimpleMatrix.random_DDRM(job_dataMatrix.numRows(),k,1,5,rand);
-        SimpleMatrix F = SimpleMatrix.random_DDRM(k, job_dataMatrix.numCols(),1,5,rand);
+        List<Double> list_of_h = new ArrayList<Double>(){{
+            add(0.1);
+            add(0.01);
+            add(0.001);
+            add(0.0001);
+            add(0.00001);
+            add(0.000001);
+        }};
+        double min_error = 999999, error;
+        double best_h = 0.1;
+        SimpleMatrix best_matrix = null;
+        for (double h: list_of_h){
+            SimpleMatrix V = SimpleMatrix.random_DDRM(job_dataMatrix.numRows(),k,1,5,rand);
+            SimpleMatrix F = SimpleMatrix.random_DDRM(k, job_dataMatrix.numCols(),1,5,rand);
 
-        job_recommendationsMatrix = algorithm(job_dataMatrix, V, F, k, h);
+            Pair<SimpleMatrix, Double> tuple = algorithm(job_dataMatrix, V, F, k, h);
+            System.out.println("for h=" + h + " error is " + tuple.getSecond());
+            if (tuple.getSecond()<min_error) {
+                min_error = tuple.getSecond();
+                best_h = h;
+                best_matrix = tuple.getFirst();
+            }
+        }
+        System.out.println("Best h=" + best_h + "with error " + min_error);
+        job_recommendationsMatrix = best_matrix;
     }
 
-    private SimpleMatrix algorithm(SimpleMatrix dataMatrix, SimpleMatrix V, SimpleMatrix F, int k, double h){
-        return algorithm(dataMatrix, V, F, k, h, 10000);
-    }
-
-    private SimpleMatrix algorithm(SimpleMatrix dataMatrix, SimpleMatrix V, SimpleMatrix F, int k, double h, int max_iters){
-
+    private Pair<SimpleMatrix, Double> algorithm(SimpleMatrix dataMatrix, SimpleMatrix V, SimpleMatrix F, int k, double h){
+        int max_iters = 10000;
         double err=999999,e,prev_err;
         double x_;
         for(int iter=0; iter<=max_iters; iter++){
@@ -297,6 +336,7 @@ public class matrix_factorization {
         SimpleMatrix recommendationsMatrix = V.mult(F);
         System.out.println("Result: ");
         recommendationsMatrix.print();
-        return recommendationsMatrix;
+//        Pair<SimpleMatrix, Double> tuple = Pair.of(recommendationsMatrix,err);
+        return Pair.of(recommendationsMatrix,err);
     }
 }

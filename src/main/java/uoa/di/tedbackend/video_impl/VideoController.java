@@ -1,5 +1,6 @@
 package uoa.di.tedbackend.video_impl;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.util.List;
 
@@ -35,6 +36,9 @@ class VideoController {
     VideoController(VideoRepository repository, PostRepository prepository) {
         this.repository = repository;
         this.prepository = prepository;
+        File file = new File(UPLOADED_FOLDER);
+
+        boolean dirCreated = file.mkdir();
     }
 
     // Aggregate root

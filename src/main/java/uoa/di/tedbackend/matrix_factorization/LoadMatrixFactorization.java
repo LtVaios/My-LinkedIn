@@ -7,10 +7,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import uoa.di.tedbackend.comment_impl.Comment;
-import uoa.di.tedbackend.comment_impl.CommentRepository;
-import uoa.di.tedbackend.post_impl.PostRepository;
-import uoa.di.tedbackend.user_impl.UserRepository;
 
 @Configuration
 @Slf4j

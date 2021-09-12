@@ -14,7 +14,7 @@ import uoa.di.tedbackend.user_impl.UserRepository;
 public class LoadApplicationsDatabase {
 
     @Bean("joblikeDatabase")
-    @DependsOn({"PostDatabase"})
+    @DependsOn({"JobDatabase"})
     public CommandLineRunner initJobLikesDatabase(ApplicationRepository repository, JobRepository jrepository, UserRepository urepo) {
         repository.deleteAll();
         repository.save(new Application(urepo,jrepository,4,1, ""));
