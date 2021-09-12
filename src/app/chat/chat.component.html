@@ -1,11 +1,11 @@
-<html *ngIf="sending">
-  <body class="load">
-  <span style="margin-right: 23%">LOADING</span>
-    <div class="loader"></div>
-  </body>
-</html>
+<!--<html *ngIf="sending">-->
+<!--  <body class="load">-->
+<!--  <span style="margin-right: 23%">LOADING</span>-->
+<!--    <div class="loader"></div>-->
+<!--  </body>-->
+<!--</html>-->
 
-<html style="padding: 0; margin: -8px;" *ngIf="!sending">
+<html style="padding: 0; margin: -8px;" >
 
 <body class="first_body">
 
@@ -28,10 +28,13 @@
 
 <body class="second_body" *ngIf="dataLoaded">
 
-<div class="mess_container" *ngIf="messagesLoaded">
-  <div *ngFor="let message of load_messages">
+<div class="mess_container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+  <div *ngFor="let message of load_messages;index as i">
     <div *ngIf="message[1]" class="container">
-      <p>{{message[0]}}</p>
+      <p>{{message[0]}}
+        <span *ngIf="sending && i==load_messages.length-1" class="loader-small" style="float:right"></span>
+      </p>
+
     </div>
     <div *ngIf="!message[1]" class="container darker">
       <p>{{message[0]}}</p>

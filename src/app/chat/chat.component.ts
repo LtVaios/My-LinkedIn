@@ -74,7 +74,7 @@ export class ChatComponent implements OnInit {
   }
 
   async openChat(id:number){
-    this.messagesLoaded=false;
+    // this.messagesLoaded=false;
     var current_messages:Message[];
 
     for(let u of this.chat_users){
@@ -105,20 +105,28 @@ export class ChatComponent implements OnInit {
       else
         this.load_messages.push([m.text,false]);
     }
-    this.messagesLoaded=true;
+    // this.messagesLoaded=true;
   }
-
 
   async Send(){
     if(this.messageForm.value.message_text==="" || this.messageForm.value.message_text===null)
       this.messageForm.reset();
     else{
-      await this.service.sendMessage(this.currentUser,this.user.id,this.messageForm.value.message_text).subscribe();
       this.sending=true;
-      await new Promise(f => setTimeout(f, 2000));
-      this.sending=false;
-      this.messageForm.reset();
-      this.openChat(this.user.id);
+      this.load_messages.push([this.messageForm.value.message_text,true]);
+      await this.service.sendMessage(this.currentUser,this.user.id,this.messageForm.value.message_text).subscribe(
+        next => console.log("sending"),
+        err => console.log(err),
+        async () => {
+          this.messageForm.reset();
+          await new Promise(f => setTimeout(f, 2000));
+          this.openChat(this.user.id);
+          this.sending = false;
+        }
+
+      );
+      // this.sending=false;
+      // this.messageForm.reset();
     }
   }
 

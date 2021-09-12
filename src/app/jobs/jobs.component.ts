@@ -7,27 +7,35 @@ import {JobsService} from "./jobs.service";
 import {Job} from "../model/job";
 import {Application} from "../model/application";
 
+enum progress{
+  init,
+  loading,
+  error,
+  completed
+}
+
 @Component({
   selector: 'app-jobs',
   templateUrl: './jobs.component.html',
   styleUrls: ['./jobs.component.css']
 })
 export class JobsComponent implements OnInit {
-  loading:boolean;
-  currentUser: number;
-  posted: boolean;
-  user: User;
-  requiredcondition:boolean;
-  uploadcondition: boolean;
+  ref_progress = progress; /* reference to enum type*/
+  post_progress: progress; /* shows the state of a job post */
+
+  currentUser: number; /* id of current user*/
+  user: User; /* current user */
+
+  requiredcondition: boolean; /* condition that shows if a job post is empty */
   dataLoaded: boolean;
-  all_jobs: Job[];
-  recommended_jobs: Job[];
-  temp_jobs: Job[];
-  appliedJobs: Map<Job, boolean>;
-  applicants_count: Map<Job, number>;
-  tab: number;
-  inapply: boolean;
-  bodyText:string;
+  all_jobs: Job[]; /* every job that is going to show up on html */
+  temp_jobs: Job[]; /* just a temp to do sorting of jobs and then assign it to all_jobs */
+  recommended_jobs: Job[]; /* recommended jobs by matrix factorization */
+  appliedJobs: Map<Job, boolean>; /* all_jobs' jobs mapped with true or false depending on if the current user haw applied for it */
+  applicants_count: Map<Job, number>; /* all_jobs' jobs mapped with their applicants count */
+
+  tab: number; /* for the three tabs: default, most recent and my jobs
+                  basically changes the all_jobs list depending on the value of tab */
 
   jobForm = this.formBuilder.group({
     job_text: ''
@@ -37,40 +45,47 @@ export class JobsComponent implements OnInit {
               private formBuilder: FormBuilder,
               private service: JobsService) {
     this.requiredcondition = false;
-    this.posted = false;
     this.appliedJobs = new Map();
     this.applicants_count = new Map<Job, number>();
-    this.inapply = false;
+    this.post_progress = progress.init;
+    this.tab = 0;
+    this.dataLoaded=false;
   }
 
 
   async ngOnInit() {
-    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'))
-    await this.loadJobs()
-  }
-
-  async loadJobs(){
-    this.posted=false;
-    this.dataLoaded=false;
+    this.dataLoaded=false; /* TODO check dataLoaded*/
+    this.currentUser=parseInt(<string>localStorage.getItem('currentuser'));
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
-
     this.default();
-
     this.dataLoaded=true;
   }
 
   async onSubmit() {
-    this.loading=true
     if(this.jobForm.value.job_text==="" || this.jobForm.value.job_text===null) {
       this.requiredcondition = true;
     }
     else {
-      this.service.saveNewJob(this.jobForm.value.job_text,this.user).subscribe(data=>this.uploadcondition=true);
-      await new Promise(f => setTimeout(f, 2000));
-      this.jobForm.reset();
-      this.posted=true;
-      this.loading=false
-      await this.loadJobs()
+      this.service.saveNewJob(this.jobForm.value.job_text,this.user).subscribe(
+        data => this.post_progress = progress.loading,
+        error => {
+          this.post_progress = progress.error;
+          },
+        async () => {
+          await new Promise(f => setTimeout(f, 2000));
+          this.post_progress = progress.completed;
+          this.jobForm.reset();
+          if (this.tab == 0){
+            this.default();
+          }
+          else if (this.tab == 1){
+            this.most_recent();
+          }
+          else if (this.tab == 2){
+            this.my_jobs();
+          }
+        }
+      );
     }
   }
 
@@ -183,31 +198,4 @@ export class JobsComponent implements OnInit {
     );
     this.all_jobs = this.temp_jobs;
   }
-
-  // async connected_jobs() {
-  //   this.tab = 3;
-  //   localStorage.setItem('tab', JSON.stringify(this.tab));
-  //
-  //   await this.service.getFriendsJobs(this.user).toPromise().then(response => this.temp_jobs = response);
-  //   var flag: boolean;
-  //   for (let job of this.temp_jobs) {
-  //     flag = false;
-  //     var likes: Application[] = [];
-  //     await this.service.getJobLikes(job.id).toPromise().then(response => likes = response);
-  //     for (let like of likes) {
-  //       if (like.user.id == this.currentUser) {
-  //         this.likedJobs.set(job, true);
-  //         flag = true;
-  //         break;
-  //       }
-  //     }
-  //     if (flag == false) {
-  //       this.likedJobs.set(job, false);
-  //     }
-  //   }
-  //   this.temp_jobs.sort((a, b) =>
-  //     (new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime())
-  //   );
-  //   this.all_jobs = this.temp_jobs;
-  // }
 }

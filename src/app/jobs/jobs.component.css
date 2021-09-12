@@ -5,6 +5,9 @@ ul {
   overflow: hidden;
   background-color: #333;
   width:100%;
+  position: sticky;
+  top:0;
+  z-index: 2;
 }
 
 li {
@@ -304,6 +307,17 @@ h5 {
 .applications_link {
   color: green;
   float: left;
+}
+
+.loader-small {
+  display: inline-block;
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid #3498db;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 

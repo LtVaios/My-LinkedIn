@@ -5,7 +5,9 @@ ul {
   overflow: hidden;
   background-color: #333;
   width:100%;
-  /*position: fixed;*/
+  position: sticky;
+  top:0;
+  z-index: 2;
 }
 
 li {

@@ -20,8 +20,8 @@ import {User} from "../model/user";
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.css']
 })
-
 export class HomepageComponent implements OnInit {
+
   requiredcondition:boolean;
   loading:boolean;
   uploaded:boolean;
@@ -32,8 +32,6 @@ export class HomepageComponent implements OnInit {
   currentuser:number;
   likes_count: Map<Post, number>;
   videos: Map<number, SafeUrl>;
-  urllist: string[];
-  url: any;
   postForm = this.formBuilder.group({
     post_text: ''
   });
@@ -58,7 +56,7 @@ export class HomepageComponent implements OnInit {
   }
 
   async loadPosts(){
-    this.loading=true;
+    // this.loading=true;
     let temp: Set<Post>;
     let temp_posts: Post[]=[];
     let likes:Likes[]=[];
@@ -149,11 +147,11 @@ export class HomepageComponent implements OnInit {
       for (let vid of p.videos) {
         this.uploadService.downloadVideo(vid).subscribe(
           event => {
-            console.log(event);
+            // console.log(event);
             if (event.type === HttpEventType.UploadProgress) {
               // this.progressInfosV[idx].value = Math.round(100 * event.loaded / event.total);
             } else if (event instanceof HttpResponse) {
-              console.log(event.body);
+              // console.log(event.body);
               this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(event.body));
               const reader = new FileReader();
               reader.onload = (e: any) => {
@@ -169,7 +167,7 @@ export class HomepageComponent implements OnInit {
       }
     }
 
-    /* TODO check if views work */
+    /* TODO (: */
     let user:User;
     this.service.getUser(this.currentuser).subscribe(response => {
       user = response;
@@ -204,8 +202,8 @@ export class HomepageComponent implements OnInit {
             if (event.type === HttpEventType.UploadProgress) {
               // this.progressInfosV[idx].value = Math.round(100 * event.loaded / event.total);
             } else if (event instanceof HttpResponse) {
-              console.log(event.body);
-              this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(event.body));
+              // console.log(event.body);
+              // this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(event.body));
               const reader = new FileReader();
               reader.onload = (e: any) => {
                 this.videos.set(vid.id, e.target.result);
@@ -220,11 +218,10 @@ export class HomepageComponent implements OnInit {
       }
     }
 
-    this.loading=false;
+    // this.loading=false;
   }
 
   async submitPost() {
-    this.previews = [];
     this.loading=true;
     this.requiredcondition=false;
     this.uploaded=false;
@@ -239,15 +236,16 @@ export class HomepageComponent implements OnInit {
         console.log(data);
         this.uploadFiles(data.id);
         this.uploadFilesV(data.id);
-      });
-      this.previews = [];
-      await new Promise(f => setTimeout(f, 2000));
-      this.postForm.reset();
-      this.previews = [];
-      this.loading=false;
-      this.uploaded=true;
+      },
+        error => {},
+        () => {
+          this.previews = [];
+          this.postForm.reset();
+          this.loading=false;
+          this.uploaded=true;
+          this.loadPosts();
+        });
     }
-    await this.loadPosts();
   }
 
   async likePost(p:Post){
@@ -276,11 +274,10 @@ export class HomepageComponent implements OnInit {
   previews: string[] = [];
   previewsA: string[] = [];
 
-  selectImageFiles(event: any,aud:boolean): void {
+  selectImageFiles(event: any): void {
     this.message = [];
     this.progressInfos = [];
     this.selectedImageFiles = event.target.files;
-    this.aud=aud
 
     this.previews = [];
     if (this.selectedImageFiles && this.selectedImageFiles[0]) {
@@ -290,10 +287,7 @@ export class HomepageComponent implements OnInit {
 
         reader.onload = (e: any) => {
           //console.log(e.target.result);
-          if(!this.aud)
             this.previews.push(e.target.result);
-          else
-            this.previewsA.push(e.target.result);
         };
 
         reader.readAsDataURL(this.selectedImageFiles[i]);
@@ -301,25 +295,19 @@ export class HomepageComponent implements OnInit {
     }
   }
 
-  selectAudioFiles(event: any,aud:boolean): void {
+  selectAudioFiles(event: any): void {
     this.message = [];
     this.progressInfos = [];
     this.selectedAudioFiles = event.target.files;
-    this.aud=aud
     this.previewsA=[];
     if (this.selectedAudioFiles && this.selectedAudioFiles[0]) {
       const numberOfFiles = this.selectedAudioFiles.length;
       for (let i = 0; i < numberOfFiles; i++) {
         const reader = new FileReader();
-
         reader.onload = (e: any) => {
           //console.log(e.target.result);
-          if(!this.aud)
-            this.previews.push(e.target.result);
-          else
             this.previewsA.push(e.target.result);
         };
-
         reader.readAsDataURL(this.selectedAudioFiles[i]);
       }
     }
@@ -442,14 +430,20 @@ export class HomepageComponent implements OnInit {
             this.progressInfosV[idx].value = Math.round(100 * event.loaded / event.total);
           } else if (event instanceof HttpResponse) {
             const msg = 'Uploaded the file successfully: ' + file.name;
-            this.messageV.push(msg);
+            this.message.push(msg);
             // this.imageInfos = this.uploadService.getFiles();
           }
         },
         (err: any) => {
-          this.progressInfosV[idx].value = 0;
-          const msg = 'Could not upload the file: ' + file.name;
-          this.messageV.push(msg);
+          if (err=="OK"){
+            const msg = 'Uploaded the file successfully: ' + file.name;
+            this.message.push(msg)
+          } else{
+            this.progressInfosV[idx].value = 0;
+            const msg = 'Could not upload the file: ' + file.name;
+            console.log(err);
+            this.message.push(msg);
+          }
         });
     }
   }
