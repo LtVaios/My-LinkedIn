@@ -51,7 +51,7 @@
 
 <div class="grid_body">
   <div class="grid-container">
-    <div class="grid-item" *ngFor="let user of chat_users">
+    <div class="grid-item" *ngFor="let user of chat_users"  [ngClass]="{'active-chat': chat_id === user.id}">
       <img [src]="users_images.get(user) ? users_images.get(user): '../../assets/default-user-image.png'"  class="image">
       {{user.firstName}} {{user.lastName}}
       <div></div>

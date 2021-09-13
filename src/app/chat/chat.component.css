@@ -298,3 +298,8 @@ h5 {
   -webkit-animation: spin 2s linear infinite;
   animation: spin 2s linear infinite;
 }
+
+.active-chat {
+  background: lightgray;
+}
+

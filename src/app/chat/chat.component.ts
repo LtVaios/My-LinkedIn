@@ -26,6 +26,8 @@ export class ChatComponent implements OnInit {
   chat_users:User[];
   users_images: Map<User, string>;
 
+  chat_id: number; /* for showing which chat is open */
+
   messageForm = this.formBuilder.group({
     message_text: ''
   });
@@ -75,6 +77,7 @@ export class ChatComponent implements OnInit {
 
   async openChat(id:number){
     // this.messagesLoaded=false;
+    this.chat_id = id;
     var current_messages:Message[];
 
     for(let u of this.chat_users){
