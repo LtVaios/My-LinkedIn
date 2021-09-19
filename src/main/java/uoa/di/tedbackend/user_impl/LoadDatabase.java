@@ -23,12 +23,6 @@ class LoadDatabase {
     CommandLineRunner initDatabase(UserRepository repository, PostRepository prepo) {
         //repository.deleteAll();
         BCryptPasswordEncoder bCryptPasswordEncoder=new BCryptPasswordEncoder();
-        //this is the website admin
-        repository.save(new User(16,"admin@gmail.com",bCryptPasswordEncoder.encode("1234"),"Admin", "Admin", "00",true,
-                "admin",
-                "admin",
-                "admin",
-                "admin"));
         repository.save(new User(1,"bilbo@gmail.com",bCryptPasswordEncoder.encode("1234"),"Bilbo", "Baggins", "501-872-2516",false,
                 "General Gaming, Boston, Developed full-stack web applications which processed, analyzed, and rendered data visually, " +
                         "Liaised with back end developers, front end developers, quality assurance testers, and CTO as needed.",
@@ -205,6 +199,12 @@ class LoadDatabase {
                 "Bachelor's degree in engineering from Princeton University, and an MBA from Stanford Graduate School of Business.",
                 "Past Ceo of a lot of companies",
                 "Current Ceo of E-bay"));
+        //this is the website admin
+        repository.save(new User(16,"admin@gmail.com",bCryptPasswordEncoder.encode("1234"),"Admin", "Admin", "00",true,
+                "admin",
+                "admin",
+                "admin",
+                "admin"));
         return args -> {
             log.info("Preloading user database");
         };
