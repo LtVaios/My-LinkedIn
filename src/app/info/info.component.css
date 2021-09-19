@@ -5,6 +5,9 @@ ul {
   overflow: hidden;
   background-color: #333;
   width:100%;
+  position: sticky;
+  top:0;
+  z-index: 2;
 }
 
 li {
@@ -172,13 +175,6 @@ load{
   width:250px;
   height:250px;
   object-fit:cover;
-  /*margin: 0;*/
-  /*position: absolute;*/
-  /*top: 50%;*/
-  /*left: 50%;*/
-  /*margin-right: -50%;*/
-  /*transform: translate(-50%, -50%);*/
-  /*display: block;*/
 }
 
 

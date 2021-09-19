@@ -53,7 +53,7 @@
       <p>
         Ο χρήστης <a [routerLink]="['/',n.user.username]" class="userlink"> {{n.user.firstName}} {{n.user.lastName}}</a>
         <span *ngIf="isComment(n)"> σχολίασε στην <a [routerLink]="['/posts',getComment(n).post.id]">ανάρτηση</a> σας: "{{getComment(n).comment_text}}." </span>
-        <span *ngIf="isJobLike(n)"> ενδιαφέρεται για την <a [routerLink]="['/jobs',getJobLike(n).job.id]">αγγελία</a> σας. </span>
+        <span *ngIf="isJobLike(n)"> υπέβαλε αίτηση για την <a [routerLink]="['/jobs',getJobLike(n).job.id]">αγγελία</a> σας. </span>
         <span *ngIf="isPostLike(n)"> ενδιαφέρεται για την <a [routerLink]="['/posts',getPostLike(n).post.id]">ανάρτηση</a> σας. </span>
       </p>
       <br>

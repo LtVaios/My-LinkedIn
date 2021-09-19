@@ -1,15 +1,15 @@
-<html *ngIf="loading">
+<html style="padding: 0; margin: -8px;">
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="load">
-<span style="margin-right: 23%">LOADING</span>
-<div class="loader"></div>
-</body>
-</html>
+<!--<body class="load">-->
+<!--<span style="margin-right: 23%">LOADING</span>-->
+<!--<div class="loader"></div>-->
+<!--</body>-->
+<!--</html>-->
 
-<html style="padding: 0; margin: -8px;" *ngIf="!loading">
+<!--<html  *ngIf="!loading">-->
     <body class="first_body">
     <ul>
       <li><a class="active" [routerLink]="['/home']">Αρχική σελίδα</a></li>
@@ -22,7 +22,7 @@
       <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
     </ul>
     <app-sidebar></app-sidebar>
-    <body class="second_body" *ngIf="!loading">
+    <body class="second_body">
     <div class="form">
       <form [formGroup]="postForm" (ngSubmit)="submitPost()">
         <div>
@@ -32,14 +32,14 @@
 <!--upload buttons-->
         <div class="file-upload-container">
         <label for="img_file" class="file-upload" title="Image Upload"><i class="fa fa-image"></i> Images </label>
-        <input type="file" id="img_file" accept="image/*" multiple (change)="selectImageFiles($event,false)" class="image_input"/>
+        <input [disabled]="loading" type="file" id="img_file" accept="image/*" multiple (change)="selectImageFiles($event)" class="image_input"/>
 
         <label for="aud_file" class="file-upload" title="Audio Upload"><i class="fa fa-file-audio-o"></i> Audio </label>
-        <input type="file" id="aud_file" accept="audio/*" multiple (change)="selectAudioFiles($event,true)" class="audio_input"/>
+        <input [disabled]="loading" type="file" id="aud_file" accept="audio/mp3" multiple (change)="selectAudioFiles($event)" class="audio_input"/>
 
 
         <label for="vid_file" class="file-upload" title="Video Upload"><i class="fa fa-video-camera"> Videos </i></label>
-        <input type="file" accept="video/mp4" id="vid_file" multiple (change)="selectFilesV($event)" />
+        <input [disabled]="loading" type="file" accept="video/mp4" id="vid_file" multiple (change)="selectFilesV($event)" />
         </div>
 <!--previews-->
         <div>
@@ -55,8 +55,8 @@
         </div>
         <div>
         <span *ngFor='let previewA of previewsA' >
-          <audio width="320" height="240" controls>
-            <source [src]="previewA" type="audio/mp3">
+          <audio controls>
+            <source [src]="previewA.replace('mpeg','mp3')" type="audio/mp3">
             Your browser does not support the audio tag.
           </audio>
         </span>
@@ -75,8 +75,11 @@
             Post uploaded successfully!
           </h5>
         </div>
+        <div *ngIf="loading">
+          <div class="loader-small"></div>
+        </div>
         <div *ngIf="message.length">
-          <div *ngFor="let msg of message; let i = index">
+          <div *ngFor="let msg of message">
             <p>{{ msg }}</p>
           </div>
         </div>
@@ -105,11 +108,7 @@
           <source *ngIf="videos.get(video.id)" [src]="videos.get(video.id)"   type="video/mp4">
           Your browser does not support the video tag.
         </video>
-<!--<a href="{{url}}"> vid link</a>-->
-<!--        <video width="320" height="240" controls>-->
-<!--          <source [src]="videosrc(video.id)" type="video/mp4">-->
-<!--          Your browser does not support the video tag.-->
-<!--        </video>-->
+
       </div>
       <span class="like_count"><i class="fa fa-thumbs-up"></i> {{likes_count.get(post)}} </span>
       <button *ngIf="liked_posts.get(post)" class="disabled">Ενδιαφέρον!</button>
@@ -118,6 +117,7 @@
     </div>
 
     <!-- TODO recommended posts temp -->
+    <label> RECOMMENDATIONS </label>
     <div class="posts" *ngFor="let post of recommended_posts">
       <img [src]="imagesrc(post.user.img) ? imagesrc(post.user.img):  '../../assets/default-user-image.png'" class="profile-image">
       <a [routerLink]="['/'+post.user.username]" class="author">{{post.user.firstName}} {{post.user.lastName}}</a>
@@ -138,14 +138,10 @@
       </div>
       <div *ngFor="let video of post.videos">
         <video width="320" height="240" controls preload="metadata">
-          <source *ngIf="videos.get(video.id)" [src]="videos.get(video.id)"   type="video/mp4">
+          <source *ngIf="videos.get(video.id)" [src]="videos.get(video.id)" type="video/mp4">
           Your browser does not support the video tag.
         </video>
-        <!--<a href="{{url}}"> vid link</a>-->
-        <!--        <video width="320" height="240" controls>-->
-        <!--          <source [src]="videosrc(video.id)" type="video/mp4">-->
-        <!--          Your browser does not support the video tag.-->
-        <!--        </video>-->
+
       </div>
       <span class="like_count"><i class="fa fa-thumbs-up"></i> {{likes_count.get(post)}} </span>
       <button *ngIf="liked_posts.get(post)" class="disabled">Ενδιαφέρον!</button>

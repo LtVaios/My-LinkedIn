@@ -29,6 +29,7 @@ import { JobIdComponent } from './jobs/job-id/job-id.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ApplyComponent } from './apply/apply.component';
 
 
 const appRoutes: Routes = [
@@ -44,6 +45,7 @@ const appRoutes: Routes = [
   {path: 'info', children: [{path: '', component: InfoComponent}, {path: 'edit', component: EditComponent}], canActivate: [AuthGuard]},
   {path: 'jobs', children:[{path: '', component: JobsComponent},{path: ':id', component: JobIdComponent}], canActivate: [AuthGuard]},
   {path: 'notifications', component:NotificationsComponent, canActivate: [AuthGuard]},
+  {path: 'apply', component: ApplyComponent, canActivate: [AuthGuard]},
   {path: ':id', component: UserinfoComponent, canActivate: [AuthGuard]},
   {path: 'posts', children:[{path:'',component: HomepageComponent},{path: ':id',component: PostsComponent}], canActivate: [AuthGuard]}
 ]
@@ -69,6 +71,7 @@ const appRoutes: Routes = [
     PostsComponent,
     NotificationsComponent,
     SidebarComponent,
+    ApplyComponent,
   ],
   imports: [
     BrowserModule,

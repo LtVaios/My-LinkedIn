@@ -1,6 +1,6 @@
 import {User} from "./user";
 import {Post} from "./post";
-import {notification} from "./joblike"
+import {notification} from "./notification"
 
 export class Comment implements notification{
   id:number;

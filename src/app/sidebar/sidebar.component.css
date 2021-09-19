@@ -5,18 +5,18 @@
   position: fixed;
   z-index: 1;
   top: 10%;
-  left: 55px;
+  left: 0;
   overflow-x: hidden;
   padding-top: 20px;
   color: white;
-  margin-left: 10%;
+  /*margin-left: 10%;*/
   margin-top: -2%;
 }
 
 .sidebar > div {
   padding: 15px;
   background-color: #333; /* Black */
-  border-radius: 10px;
+  /*border-radius: 10px;*/
 }
 
 .sidebar a {

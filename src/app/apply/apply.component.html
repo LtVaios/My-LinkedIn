@@ -1,0 +1,87 @@
+<html>
+
+<body class="first_body">
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" id="info" [routerLink]="['/info']">Προσωπικά στοιχεία</a>
+  <a href="#" id="web" [routerLink]="['/myweb']">Το δίκτυό μου</a>
+</div>
+<ul>
+  <li><a [routerLink]="['/home']">Αρχική σελίδα</a></li>
+  <li><a [routerLink]="['/myweb']">Δίκτυο</a></li>
+  <li><a class="active" [routerLink]="['/jobs']">Αγγελίες</a></li>
+  <li><a [routerLink]="['/chat']">Συζητήσεις</a></li>
+  <li><a [routerLink]="['/notifications']">Ειδοποιήσεις</a></li>
+  <li><a [routerLink]="['/info']">Προσωπικά στοιχεία</a></li>
+  <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
+  <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
+</ul>
+
+<body class="second_body">
+<div class="grid-container">
+  <div class="grid-item">
+  <div class="job" *ngIf="jobLoaded">
+    <label class="item-label"> Αγγελία </label>
+    <img [src] = "imagesrc(job.user.img) ? imagesrc(job.user.img): '../../assets/default-user-image.png'" class="image">
+    <a [routerLink]="['/',job.user.username]"><div class="author"> {{job.user.firstName}} {{job.user.lastName}}</div> </a>
+    <br/><span class="date">{{local(job.createdDate)}}</span>
+    <br/><br/>
+    <p> {{job.body}}  </p>
+    <br/>
+    <small class="applies_count" *ngIf="applicants_count>0"> <span *ngIf="user_already_applied">Εσείς και</span> {{applicants_count}} άλλοι χρήστες έχουν κάνει αίτηση. </small>
+  </div>
+  </div>
+  <div class="grid-item">
+  <div class="form" *ngIf="userLoaded">
+    <label class="item-label"> Αίτηση </label>
+    <h4 *ngIf="user_already_applied"> Έχετε κάνει ήδη αίτηση. Η νέα αίτηση θα αντικαταστήσει την προηγούμενη.</h4>
+    <img [src]="current_user.img? current_user.img:  '../../assets/default-user-image.png'" class="bio-image">
+    <div>
+      <label>E-mail</label>
+      <p>{{current_user.username}}</p>
+    </div>
+    <div>
+      <label>Τηλέφωνο</label>
+      <p>{{current_user.phone}}</p>
+    </div>
+
+    <div>
+      <label>Θέση εργασίας</label>
+      <p>{{current_user.job_pos}}</p>
+    </div>
+    <div>
+      <label>Επαγγελματική Εμπειρία</label>
+      <p>{{current_user.skills}}</p>
+    </div>
+    <div>
+      <label>Εκπαίδευση</label>
+      <p>{{current_user.education}}</p>
+    </div>
+    <div>
+      <label>Επαγγελματικές Ικανότητες</label>
+      <p>{{current_user.skills}}</p>
+    </div>
+
+    <small>
+      Στην αίτηση περιλαμβάνονται τα στοιχεία του προφίλ σας
+      <br>
+      <a [routerLink]="['/info/edit']"> Επεξεργασία στοιχείων </a>
+    </small>
+    <form [formGroup]="textForm" (ngSubmit)="onSubmit()">
+    <div><label>Γιατί πιστεύετε ότι είστε κατάλληλος για αυτή τη θέση;</label>
+      <textarea rows="10" type="text" formControlName="text"></textarea>
+    </div>
+    <button class="button" type="submit">Ολοκλήρωση Αίτησης</button>
+    <div *ngIf="applied == ref_application_progress.completed"><h5>Η αίτηση ολοκληρώθηκε επιτυχώς</h5></div>
+    <div *ngIf="applied == ref_application_progress.loading" class="loader"></div>
+    <div *ngIf="applied == ref_application_progress.error"><h4>Υπήρξε ένα σφάλμα στην ολοκλήρση της αίτησης.</h4></div>
+    </form>
+  </div>
+  </div>
+</div>
+</body>
+</body>
+</html>
+
+<router-outlet></router-outlet>
+

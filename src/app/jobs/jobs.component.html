@@ -1,11 +1,4 @@
-<html *ngIf="loading">
-<body class="load">
-<span style="margin-right: 23%">LOADING</span>
-<div class="loader"></div>
-</body>
-</html>
-
-<html style="padding: 0; margin: -8px;" *ngIf="!loading">
+<html style="padding: 0; margin: -8px;">
 
 <body class="first_body">
 
@@ -19,18 +12,22 @@
   <li><a [routerLink]="['/settings']">Ρυθμίσεις</a></li>
   <li style="float:right"><a [routerLink]="['/login']">Log-out</a></li>
 </ul>
+
 <app-sidebar></app-sidebar>
+
 <body class="second_body">
 <div class="form" >
-  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()" >
+  <form [formGroup]="jobForm" (ngSubmit)="onSubmit()">
     <div>
       <label> Νέα Αγγελία </label>
       <br>
       <textarea class="newpost" rows="10" type="text" formControlName="job_text"> </textarea>
       <br>
-    <button class="button" type="submit" >Post</button>
+    <button [disabled]="post_progress==ref_progress.loading" class="button" type="submit" >Upload Job</button>
     </div>
-    <div *ngIf="posted"><h5>Posted!</h5></div>
+    <div *ngIf="post_progress==ref_progress.loading"><br><div class="loader-small"></div></div>
+    <div *ngIf="post_progress==ref_progress.completed"><h5>Posted!</h5></div>
+    <div *ngIf="post_progress==ref_progress.error"><br><h4>Something went wrong. Try again.</h4></div>
     <div *ngIf="requiredcondition">
       <h4>
         You must write a post before trying to upload.
@@ -42,22 +39,45 @@
 <div class="options">
   <button (click)="default()" [ngClass]="{'active': tab === 0}">Προκαθορισμένες</button> |
   <button (click)="most_recent()" [ngClass]="{'active': tab === 1}">Πιο πρόσφατα</button> |
-  <button (click)="my_jobs()" [ngClass]="{'active': tab === 2}">Οι αγγελίες μου</button> |
-<!--  <button (click)="connected_jobs()" >Αγγελίες Συνδεδεμένων</button>-->
+  <button (click)="my_jobs()" [ngClass]="{'active': tab === 2}">Οι αγγελίες μου</button>
 </div>
-<div *ngIf="dataLoaded">
-<div  class="posts" *ngFor="let job of all_jobs">
+
+<div class="posts" *ngFor="let job of all_jobs">
   <img [src]="imagesrc(job.user.img)? imagesrc(job.user.img):  '../../assets/default-user-image.png'" class="image">
   <a [routerLink]="['/',job.user.username]"><div class="author"> {{job.user.firstName}} {{job.user.lastName}}</div> </a>
   <br/><span class="date">{{local(job.createdDate)}}</span>
   <br/><br/>
   <p class="job_body"> {{job.body}}  </p>
   <br/>
-  <span class="like_count"><i class="fa fa-thumbs-up"></i>  {{likes_count.get(job)}} </span>
-  <button *ngIf="likedJobs.get(job)" class="disabled">Ενδιαφέρον!</button>
-  <button *ngIf="!likedJobs.get(job)" (click)="likeJob(job)" class="like">Ενδιαφέρον!</button>
+  <span class="applies_count"> {{applicants_count.get(job)}} αιτήσεις</span>
+
+  <span *ngIf="user.id != job.user.id">
+    <button *ngIf="appliedJobs.get(job)" [routerLink]="['/apply', { job_id: job.id }]" class="liked"
+            title="Έχετε κάνει ήδη αίτηση. Η νέα αίτηση θα αντικαταστήσει την προηγούμενη.">Αίτηση</button>
+    <button *ngIf="!appliedJobs.get(job)" [routerLink]="['/apply', { job_id: job.id }]" class="like">Αίτηση</button>
+  </span>
+  <span *ngIf="user.id == job.user.id">
+    <a [routerLink]="[job.id]" class="applications_link">Δες τις αιτήσεις</a>
+  </span>
 </div>
-</div>
+<label>RECOMMENDED</label>
+  <div  class="posts" *ngFor="let job of recommended_jobs">
+    <img [src]="imagesrc(job.user.img)? imagesrc(job.user.img):  '../../assets/default-user-image.png'" class="image">
+    <a [routerLink]="['/',job.user.username]"><div class="author"> {{job.user.firstName}} {{job.user.lastName}}</div> </a>
+    <br/><span class="date">{{local(job.createdDate)}}</span>
+    <br/><br/>
+    <p class="job_body"> {{job.body}}  </p>
+    <br/>
+    <div class="applies_count"> {{applicants_count.get(job)}} αιτήσεις</div>
+
+    <span *ngIf="user.id != job.user.id">
+      <button *ngIf="appliedJobs.get(job)" class="disabled">Αίτηση</button>
+      <button *ngIf="!appliedJobs.get(job)" [routerLink]="['/apply', { job_id: job.id }]" class="like">Αίτηση</button>
+    </span>
+    <span *ngIf="user.id == job.user.id">
+      <a [routerLink]="[job.id]" class="applications_link">Δες τις αιτήσεις</a>
+    </span>
+  </div>
 </body>
 
 </body>

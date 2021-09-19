@@ -5,6 +5,9 @@ ul {
   overflow: hidden;
   background-color: #333;
   width:100%;
+  position: sticky;
+  top:0;
+  z-index: 2;
 }
 
 li {
@@ -215,44 +218,37 @@ h5 {
 
 .like {
   background-color: #4CAF50; /* Green */
-  border: none;
+  border: 2px solid forestgreen;
   color: white;
   padding: 3px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-  margin: 5px 5px 5px 0px;
+  /*margin: 5px 5px 5px 0px;*/
   transition-duration: 0.4s;
   cursor: pointer;
   border-radius: 5px;
   float: left;
 }
 
-.disabled {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
+.like:hover {
+  background-color: white;
+  border: 2px solid #4CAF50;
+  color: black;
+}
+
+.liked {
   padding: 3px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
   font-size: 14px;
-  margin: 5px 5px 5px 0px;
+  /*margin: 5px 5px 5px 0px;*/
   transition-duration: 0.4s;
+  cursor: pointer;
   border-radius: 5px;
   float: left;
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.like {
-  background-color: #4CAF50;
-  color: white;
-  border: 2px solid forestgreen;
-}
-
-.like:hover {
   background-color: white;
   border: 2px solid #4CAF50;
   color: black;
@@ -303,24 +299,25 @@ h5 {
   text-decoration: none;
 }
 
-.like_count {
+.applies_count {
   color: green;
-  float:left;
-  border: none;
-  padding: 1px;
-  text-align: center;
-  display: inline-block;
-  font-size: 19px;
-  margin: 5px 5px 5px 0px;
+  float: right;
 }
 
-.like_count img{
-  padding: 1px;
-  height:19px;
-  float:left;
-  width:19px;
+.applications_link {
   color: green;
-  text-align: center;
+  float: left;
+}
+
+.loader-small {
+  display: inline-block;
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid #3498db;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
 }
 
 

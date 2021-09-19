@@ -15,6 +15,9 @@ ul {
   overflow: hidden;
   background-color: #333;
   width:100%;
+  position: sticky;
+  top:0;
+  z-index: 2;
 }
 
 li {
@@ -123,6 +126,7 @@ h5 {
   grid-row-gap: 0px;
   row-gap: 0px;
 }
+
 .grid-item {
   background-color: rgba(255, 255, 255, 0.9);
   border: 1px solid rgba(0, 0, 0, 0.8);
@@ -284,11 +288,18 @@ h5 {
 }
 
 
+.loader-small {
+  display: inline-block;
+  border: 3px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 3px solid #3498db;
+  width: 20px;
+  height: 20px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
 
-
-
-
-
-
-
+.active-chat {
+  background: lightgray;
+}
 
