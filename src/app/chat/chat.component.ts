@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, AfterViewChecked, ElementRef, ViewChild,OnInit } from '@angular/core';
 import {SharedService} from "../shared.service";
 import {ChatService} from "./chat.service";
 import {Message} from '../model/message';
@@ -76,7 +76,7 @@ export class ChatComponent implements OnInit {
   }
 
   async openChat(id:number){
-    // this.messagesLoaded=false;
+    this.messagesLoaded=false;
     this.chat_id = id;
     var current_messages:Message[];
 
@@ -108,7 +108,7 @@ export class ChatComponent implements OnInit {
       else
         this.load_messages.push([m.text,false]);
     }
-    // this.messagesLoaded=true;
+    this.messagesLoaded=true;
   }
 
   async Send(){
@@ -131,6 +131,18 @@ export class ChatComponent implements OnInit {
       // this.sending=false;
       // this.messageForm.reset();
     }
+  }
+
+  //functions that help the templateauto scroll at the bottom of the chat
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }
   }
 
 }

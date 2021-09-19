@@ -60,7 +60,8 @@
     <a [routerLink]="[job.id]" class="applications_link">Δες τις αιτήσεις</a>
   </span>
 </div>
-<label>RECOMMENDED</label>
+<h5 class="rec_tag"> RECOMMENDATIONS </h5>
+<br>
   <div  class="posts" *ngFor="let job of recommended_jobs">
     <img [src]="imagesrc(job.user.img)? imagesrc(job.user.img):  '../../assets/default-user-image.png'" class="image">
     <a [routerLink]="['/',job.user.username]"><div class="author"> {{job.user.firstName}} {{job.user.lastName}}</div> </a>

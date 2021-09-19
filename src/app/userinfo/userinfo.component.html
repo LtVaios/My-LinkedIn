@@ -60,6 +60,21 @@
     </div>
   </div>
 </div>
+<h1>{{other_user.firstName}}'s web</h1>
+<div class="grid-container_111">
+  <div class="grid-item_111" *ngFor="let user of users">
+    <div class="grid-container-simple_111">
+      <div class="grid-item-simple1_111">
+        <img [src]="users_images.get(user) ? users_images.get(user): '../../assets/default-user-image.png'" class="image_111">
+      </div>
+      <div class="grid-item-simple2_111">
+        <h3><span style="text-decoration: underline">Όνομα:</span><span style="color:darkgreen"> {{user.firstName}}</span></h3>
+        <h3><span style="text-decoration: underline">Επώνυμο:</span><span style="color:darkgreen"> {{user.lastName}}</span></h3>
+        <h3><span *ngIf="user.work_experience_public" style="text-decoration: underline">Εμπειρία:</span><span style="color:darkgreen"> {{user.work_experience}}</span></h3>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 </body>

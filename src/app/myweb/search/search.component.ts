@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
     //await new Promise(f => setTimeout(f, 5000));
     this.sharedService.curr_search.subscribe(response=>this.searchData=response)
     await this.service.searchUsers(this.searchData).toPromise().then(response => this.users=response);
-    console.log(this.users);
+    //console.log(this.users);
     if(this.users.length==0)
       this.empty=true;
     this.dataLoaded=true

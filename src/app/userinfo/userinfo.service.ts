@@ -18,6 +18,11 @@ export class UserinfoService {
     return this.http.get<User>(this.usersUrl+"/"+user);
   }
 
+  getUserByID(id:number): Observable<User> {
+    const url = this.usersUrl + '/getbyid/' + id;
+    return this.http.get<User>(url);
+  }
+
   getFriendsAndRequests(id:number): Observable<Friends[]> {
     return this.http.get<Friends[]>(this.friendsUrl+ '/findall/' + id);
   }
@@ -29,6 +34,10 @@ export class UserinfoService {
     friends.user_two=u2;
     friends.state="pending";
     return this.http.post<Friends>(this.friendsUrl,friends);
+  }
+
+  getFriends(id:number): Observable<Friends[]> {
+    return this.http.get<Friends[]>(this.friendsUrl+ '/' + id);
   }
 
 }

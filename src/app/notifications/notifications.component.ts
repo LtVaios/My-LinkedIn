@@ -49,7 +49,7 @@ export class NotificationsComponent implements OnInit {
     this.notifications.push(...this.post_likes);
     this.notifications.push(...this.job_likes);
     this.notifications.push(...this.comments);
-    console.log(this.notifications);
+    //console.log(this.notifications);
     this.notifications.sort((a:notification,b:notification) =>
      (new Date(b.createdDate).getTime() - new Date(a.createdDate).getTime())
     );

@@ -117,7 +117,8 @@
     </div>
 
     <!-- TODO recommended posts temp -->
-    <label> RECOMMENDATIONS </label>
+    <h5 class="rec_tag"> RECOMMENDATIONS </h5>
+    <br>
     <div class="posts" *ngFor="let post of recommended_posts">
       <img [src]="imagesrc(post.user.img) ? imagesrc(post.user.img):  '../../assets/default-user-image.png'" class="profile-image">
       <a [routerLink]="['/'+post.user.username]" class="author">{{post.user.firstName}} {{post.user.lastName}}</a>

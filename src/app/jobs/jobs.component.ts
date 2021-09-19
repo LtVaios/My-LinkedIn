@@ -120,7 +120,7 @@ export class JobsComponent implements OnInit {
       }
 
       await this.service.getRecommendedJobs(this.user.id).toPromise().then(response => this.recommended_jobs=response);
-      console.log(this.recommended_jobs);
+      //console.log(this.recommended_jobs);
       var flag: boolean;
       for (let job of this.recommended_jobs) {
         flag = false;

@@ -27,8 +27,7 @@
 </html>
 
 <body class="second_body" *ngIf="dataLoaded">
-
-<div class="mess_container" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+<div class="mess_container" #scrollMe>
   <div *ngFor="let message of load_messages;index as i">
     <div *ngIf="message[1]" class="container">
       <p>{{message[0]}}

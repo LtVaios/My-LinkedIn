@@ -143,6 +143,7 @@ h5 {
 
 .mess_container{
   overflow-y: scroll;
+
   width: 74%;
   height: 89vh;
   float: right;
