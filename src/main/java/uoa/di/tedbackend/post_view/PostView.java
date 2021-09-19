@@ -2,7 +2,9 @@ package uoa.di.tedbackend.post_view;
 
 import lombok.Data;
 import uoa.di.tedbackend.post_impl.Post;
+import uoa.di.tedbackend.post_impl.PostRepository;
 import uoa.di.tedbackend.user_impl.User;
+import uoa.di.tedbackend.user_impl.UserRepository;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,4 +29,10 @@ public class PostView {
     private Date createdDate;
 
     public PostView() {}
+
+    public PostView(UserRepository urepository, PostRepository prepository, int uid, int pid) {
+        this.user=urepository.findById(uid).get();
+        this.post=prepository.findById(pid).get();
+        this.createdDate=new Date();
+    }
 }

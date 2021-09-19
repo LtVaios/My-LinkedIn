@@ -2,7 +2,9 @@ package uoa.di.tedbackend.job_view;
 
 import lombok.Data;
 import uoa.di.tedbackend.job_impl.Job;
+import uoa.di.tedbackend.job_impl.JobRepository;
 import uoa.di.tedbackend.user_impl.User;
+import uoa.di.tedbackend.user_impl.UserRepository;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -27,4 +29,10 @@ public class JobView {
     private Date createdDate;
 
     public JobView() {}
+
+    public JobView(UserRepository urepository, JobRepository jrepository, int uid, int jid) {
+        this.user=urepository.findById(uid).get();
+        this.job=jrepository.findById(jid).get();
+        this.createdDate=new Date();
+    }
 }
