@@ -2,9 +2,7 @@ import { BrowserModule} from '@angular/platform-browser';
 import { RouterModule, Routes} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { UserService} from './user/user.service';
 import { AppComponent } from './app.component';
-import { UserComponent } from './user/user.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
@@ -47,14 +45,12 @@ const appRoutes: Routes = [
   {path: 'jobs', children:[{path: '', component: JobsComponent},{path: ':id', component: JobIdComponent}], canActivate: [AuthGuard]},
   {path: 'notifications', component:NotificationsComponent, canActivate: [AuthGuard]},
   {path: ':id', component: UserinfoComponent, canActivate: [AuthGuard]},
-  {path: 'users', component: UserComponent, canActivate: [AuthGuard]},
   {path: 'posts', children:[{path:'',component: HomepageComponent},{path: ':id',component: PostsComponent}], canActivate: [AuthGuard]}
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent,
     LoginComponent,
     LoginComponent,
     HomepageComponent,
@@ -83,7 +79,6 @@ const appRoutes: Routes = [
     LazyLoadImageModule
   ],
   providers: [
-    UserService,
     LoginService,
     RegisterService,
     HomepageService,
