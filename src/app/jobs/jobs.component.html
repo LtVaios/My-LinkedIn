@@ -72,7 +72,7 @@
     <div class="applies_count"> {{applicants_count.get(job)}} αιτήσεις</div>
 
     <span *ngIf="user.id != job.user.id">
-      <button *ngIf="appliedJobs.get(job)" class="disabled">Αίτηση</button>
+      <button *ngIf="appliedJobs.get(job)" class="liked">Αίτηση</button>
       <button *ngIf="!appliedJobs.get(job)" [routerLink]="['/apply', { job_id: job.id }]" class="like">Αίτηση</button>
     </span>
     <span *ngIf="user.id == job.user.id">
