@@ -216,6 +216,12 @@ h5 {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 
+.add_border {
+  height: 2px;
+  background-color: #282828;
+  margin-bottom: 15px;
+}
+
 .like {
   background-color: #4CAF50; /* Green */
   border: 2px solid forestgreen;
