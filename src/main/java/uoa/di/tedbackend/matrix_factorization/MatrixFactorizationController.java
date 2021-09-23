@@ -31,7 +31,7 @@ public class MatrixFactorizationController {
     List<Post> getPostsOrdered(@PathVariable int user_id){
         if (mf.post_ids==null) return new ArrayList<>();
         List<Post> posts = new ArrayList<>();
-        List<Integer> post_ids = mf.post_recommendations(user_id, 50);
+        List<Integer> post_ids = mf.post_recommendations(user_id, 5); //return top 5 recommendations
         for (int id:post_ids){
             posts.add(prepository.findById(id).get());
         }
@@ -42,7 +42,7 @@ public class MatrixFactorizationController {
     List<Job> getJobsOrdered(@PathVariable int user_id){
         if (mf.job_ids==null) return new ArrayList<>();
         List<Job> jobs = new ArrayList<>();
-        List<Integer> job_ids = mf.job_recommendations(user_id);
+        List<Integer> job_ids = mf.job_recommendations(user_id, 5); //return top 5 recommendations
         for (int id:job_ids){
             jobs.add(jrepository.findById(id).get());
         }

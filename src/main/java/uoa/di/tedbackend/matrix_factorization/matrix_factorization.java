@@ -29,9 +29,6 @@ import static java.lang.Math.min;
 
 @Service("ms")
 public class matrix_factorization {
-//    private SimpleMatrix userMatrix;
-//    private SimpleMatrix postMatrix;
-//    private SimpleMatrix jobMatrix;
 
     private SimpleMatrix post_dataMatrix;
     private SimpleMatrix post_recommendationsMatrix;
@@ -48,18 +45,16 @@ public class matrix_factorization {
     private final PostRepository post_repository;
     private final UserRepository user_repository;
     private final LikesRepository likes_repository;
-    private final ApplicationRepository application_repository;
     private final JobRepository job_repository;
     private final CommentRepository comment_repository;
     private final PostViewRepository postview_repository;
     private final JobViewRepository jobview_repository;
 
     @Autowired
-    public matrix_factorization(PostRepository repository, UserRepository urepository, LikesRepository likes_repository, ApplicationRepository application_repository, JobRepository job_repository, CommentRepository comment_repository, PostViewRepository postview_repository, JobViewRepository jobview_repository) {
+    public matrix_factorization(PostRepository repository, UserRepository urepository, LikesRepository likes_repository, JobRepository job_repository, CommentRepository comment_repository, PostViewRepository postview_repository, JobViewRepository jobview_repository) {
         this.post_repository = repository;
         this.user_repository=urepository;
         this.likes_repository = likes_repository;
-        this.application_repository = application_repository;
         this.job_repository = job_repository;
         this.comment_repository = comment_repository;
         this.postview_repository = postview_repository;
@@ -101,7 +96,7 @@ public class matrix_factorization {
         }
         System.out.println(ids_ordered);
 
-        return ids_ordered; //.subList(0, min(ids_ordered.size(), size))
+        return ids_ordered.subList(0, min(ids_ordered.size(), size));
     }
 
 //    public List<Integer> findTopK(List<Map.Entry<Integer, Double>> input, int k) {
@@ -196,7 +191,7 @@ public class matrix_factorization {
     }
 
     /* jobs */
-    public List<Integer> job_recommendations(int user_id){
+    public List<Integer> job_recommendations(int user_id, int size){
         int user_index = job_user_ids.indexOf(user_id); /* get index of user */
 
         /* put all ratings in a map{post_index->rating}*/
@@ -225,7 +220,7 @@ public class matrix_factorization {
         }
         System.out.println(ids_ordered);
 
-        return ids_ordered;
+        return ids_ordered.subList(0, min(ids_ordered.size(), size));
     }
 
     public void mf_jobs(){
@@ -241,27 +236,14 @@ public class matrix_factorization {
         for (int userid: job_user_ids){
             int user_index = job_user_ids.indexOf(userid);
 
-            List<Application> user_likes = application_repository.findApplicationsByUser(userid);
+            List<JobView> views = jobview_repository.findJobViewsByUser(userid);
+            for (JobView view: views){
+                int job_id = view.getJob().getId();
+                int job_index = job_ids.indexOf(job_id);
 
-            if (user_likes.size() == 0){ /* if user hasn't made any comments or likes then use views */
-                List<JobView> views = jobview_repository.findJobViewsByUser(userid);
-                for (JobView view: views){
-                    int job_id = view.getJob().getId();
-                    int job_index = job_ids.indexOf(job_id);
-
-                    job_dataMatrix.set(user_index, job_index, job_dataMatrix.get(user_index, job_index) + 1);
-                }
-            } else {
-                for (Application like: user_likes){
-                    int job_id = like.getJob().getId();
-//                    System.out.println("post id:"+ post_id);
-//                    System.out.println("list_ids:"+post_user_ids);
-                    int job_index = job_ids.indexOf(job_id);
-//                    System.out.println("post index:"+post_index);
-
-                    job_dataMatrix.set(user_index, job_index, job_dataMatrix.get(user_index, job_index) + 1);
-                }
+                job_dataMatrix.set(user_index, job_index, job_dataMatrix.get(user_index, job_index) + 1);
             }
+
         }
 
         int k=3;
