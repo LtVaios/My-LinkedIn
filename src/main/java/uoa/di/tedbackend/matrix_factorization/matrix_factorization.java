@@ -9,8 +9,6 @@ import uoa.di.tedbackend.job_impl.Job;
 import uoa.di.tedbackend.job_impl.JobRepository;
 import uoa.di.tedbackend.job_view.JobView;
 import uoa.di.tedbackend.job_view.JobViewRepository;
-import uoa.di.tedbackend.application_impl.Application;
-import uoa.di.tedbackend.application_impl.ApplicationRepository;
 import uoa.di.tedbackend.likes_impl.Likes;
 import uoa.di.tedbackend.likes_impl.LikesRepository;
 import uoa.di.tedbackend.post_impl.Post;
@@ -82,39 +80,17 @@ public class matrix_factorization {
         List<Map.Entry<Integer, Double>> list = new ArrayList<>(ratings.entrySet());
         list.sort(Map.Entry.comparingByValue());
 
-        Map<Integer, Double> result = new LinkedHashMap<>();
-        for (Map.Entry<Integer, Double> entry : list) {
-            result.put(entry.getKey(), entry.getValue());
-        }
-        System.out.println(result);
-
+        /* keep only ids */
         List<Integer> ids_ordered = new ArrayList<>();
         int index;
         for (Map.Entry<Integer, Double> entry : list) {
             index = entry.getKey();
             ids_ordered.add(post_ids.get(index));
         }
-        System.out.println(ids_ordered);
+//        System.out.println(ids_ordered);
 
         return ids_ordered.subList(0, min(ids_ordered.size(), size));
     }
-
-//    public List<Integer> findTopK(List<Map.Entry<Integer, Double>> input, int k) {
-//        PriorityQueue<Map.Entry<Integer, Double>> maxHeap = new PriorityQueue<>();
-//
-//        input.forEach(number -> {
-//            maxHeap.add(number);
-//
-//            if (maxHeap.size() > k) {
-//                maxHeap.poll();
-//            }
-//        });
-//
-//        List<Integer> topKList = new ArrayList<>(maxHeap);
-//        Collections.reverse(topKList);
-//
-//        return topKList;
-//    }
 
     public void mf_posts(){
         /* Applies matrix factorization for posts.
@@ -164,30 +140,29 @@ public class matrix_factorization {
 //        double h=0.00001;
         Random rand = new Random();
         List<Double> list_of_h = new ArrayList<Double>(){{
-            add(0.1);
             add(0.01);
             add(0.001);
             add(0.0001);
             add(0.00001);
-            add(0.000001);
         }};
         double min_error = 999999, error;
-        double best_h = 0.1;
+        double best_h = 0.01;
         SimpleMatrix best_matrix = null;
         for (double h: list_of_h){
             SimpleMatrix V = SimpleMatrix.random_DDRM(post_dataMatrix.numRows(),k,1,5,rand);
             SimpleMatrix F = SimpleMatrix.random_DDRM(k, post_dataMatrix.numCols(),1,5,rand);
 
             Pair<SimpleMatrix, Double> tuple = algorithm(post_dataMatrix, V, F, k, h);
-            System.out.println("for h=" + h + " error is " + tuple.getSecond());
+//            System.out.println("for h=" + h + " error is " + tuple.getSecond());
             if (tuple.getSecond()<min_error) {
                 min_error = tuple.getSecond();
                 best_h = h;
                 best_matrix = tuple.getFirst();
             }
         }
-        System.out.println("Best h=" + best_h + "with error " + min_error);
+        System.out.println("Best h=" + best_h + " with error " + min_error);
         post_recommendationsMatrix = best_matrix;
+        best_matrix.print();
     }
 
     /* jobs */
@@ -206,12 +181,7 @@ public class matrix_factorization {
         List<Map.Entry<Integer, Double>> list = new ArrayList<>(ratings.entrySet());
         list.sort(Map.Entry.comparingByValue());
 
-        Map<Integer, Double> result = new LinkedHashMap<>();
-        for (Map.Entry<Integer, Double> entry : list) {
-            result.put(entry.getKey(), entry.getValue());
-        }
-        System.out.println(result);
-
+        /* keep only ids */
         List<Integer> ids_ordered = new ArrayList<>();
         int index;
         for (Map.Entry<Integer, Double> entry : list) {
@@ -250,30 +220,29 @@ public class matrix_factorization {
 //        double h=0.00001;
         Random rand = new Random();
         List<Double> list_of_h = new ArrayList<Double>(){{
-            add(0.1);
             add(0.01);
             add(0.001);
             add(0.0001);
             add(0.00001);
-            add(0.000001);
         }};
         double min_error = 999999, error;
-        double best_h = 0.1;
+        double best_h = 0.01;
         SimpleMatrix best_matrix = null;
         for (double h: list_of_h){
             SimpleMatrix V = SimpleMatrix.random_DDRM(job_dataMatrix.numRows(),k,1,5,rand);
             SimpleMatrix F = SimpleMatrix.random_DDRM(k, job_dataMatrix.numCols(),1,5,rand);
 
             Pair<SimpleMatrix, Double> tuple = algorithm(job_dataMatrix, V, F, k, h);
-            System.out.println("for h=" + h + " error is " + tuple.getSecond());
+//            System.out.println("for h=" + h + " error is " + tuple.getSecond());
             if (tuple.getSecond()<min_error) {
                 min_error = tuple.getSecond();
                 best_h = h;
                 best_matrix = tuple.getFirst();
             }
         }
-        System.out.println("Best h=" + best_h + "with error " + min_error);
+        System.out.println("Best h=" + best_h + " with error " + min_error);
         job_recommendationsMatrix = best_matrix;
+        best_matrix.print();
     }
 
     private Pair<SimpleMatrix, Double> algorithm(SimpleMatrix dataMatrix, SimpleMatrix V, SimpleMatrix F, int k, double h){
@@ -312,12 +281,12 @@ public class matrix_factorization {
                 break;
             }
         }
-        System.out.println("err: "+err);
-        System.out.println("Initial: ");
-        dataMatrix.print();
+//        System.out.println("err: "+err);
+//        System.out.println("Initial: ");
+//        dataMatrix.print();
         SimpleMatrix recommendationsMatrix = V.mult(F);
-        System.out.println("Result: ");
-        recommendationsMatrix.print();
+//        System.out.println("Result: ");
+//        recommendationsMatrix.print();
 //        Pair<SimpleMatrix, Double> tuple = Pair.of(recommendationsMatrix,err);
         return Pair.of(recommendationsMatrix,err);
     }

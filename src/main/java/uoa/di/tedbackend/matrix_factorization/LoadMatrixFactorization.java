@@ -25,10 +25,12 @@ public class LoadMatrixFactorization {
     }
 
     @DependsOn({"MatrixFactorizationInit"})
-    @Scheduled(fixedRate = 1200 * 1000) /* 120 seconds */
+    @Scheduled(fixedRate = 1200 * 1000) /* 1200 seconds */
     public void run_mf(){
+        log.info("Running matrix factorization for posts");
         mf.mf_posts();
+        log.info("Running matrix factorization for jobs");
         mf.mf_jobs();
-        log.info("mf run");
+        log.info("Finished matrix factorization");
     }
 }
