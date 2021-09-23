@@ -6,6 +6,7 @@ import {Friends} from "../model/friends";
 import {Post} from "../model/post";
 import {Likes} from "../model/likes";
 import {Job} from "../model/job";
+import {Comment} from "../model/comment";
 
 @Injectable({
   providedIn: 'root'

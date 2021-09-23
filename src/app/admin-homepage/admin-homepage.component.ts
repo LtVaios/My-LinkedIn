@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Comment} from "../model/comment";
 import {DomSanitizer, SafeResourceUrl, SafeUrl} from '@angular/platform-browser';
 import {User} from "../model/user";
 import {AdminHomepageService} from "./admin-homepage.service";
@@ -9,6 +10,7 @@ import {Job} from "../model/job";
 import * as JsonToXML from "js2xmlparser";
 import {AuthenticationService} from "../authentication.service";
 import {ActivatedRoute, Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-admin-homepage',
@@ -68,18 +70,21 @@ export class AdminHomepageComponent implements OnInit {
       await this.service.getFriends(id).toPromise().then(response => this.friends = response)
       await this.service.getJobs(id).toPromise().then(response => this.jobs = response)
       await this.service.getUserLikes(id).toPromise().then(response => this.likes = response)
-      var combined=new Array()
-      combined.push(this.user)
-      combined.push(this.friends)
-      combined.push(this.posts)
-      combined.push(this.jobs)
-      combined.push(this.comments)
-      combined.push(this.likes)
-      var theJSON = JSON.stringify(combined);
+      var data= {
+        user_:this.user,
+        friends_:this.friends,
+        posts_:this.posts,
+        jobs_:this.jobs,
+        comments_:this.comments,
+        likes_:this.likes
+      }
+      data.user_=this.user
+      var theJSON = JSON.stringify(data);
       var uri = this.sanitizer.bypassSecurityTrustUrl("data:text/json;charset=UTF-8," + encodeURIComponent(theJSON));
       this.jsons.set(id, uri)
 
-      var obj=JsonToXML.parse("user", this.user)
+
+      var obj=JsonToXML.parse("data", data)
       var url = this.sanitizer.bypassSecurityTrustUrl("data:text/xml;charset=UTF-8," + encodeURIComponent(obj));
       this.xmls.set(id,url)
     }
