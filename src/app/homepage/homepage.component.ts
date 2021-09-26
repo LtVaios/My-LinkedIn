@@ -167,16 +167,12 @@ export class HomepageComponent implements OnInit {
       }
     }
 
-    /* TODO (: */
     let user:User;
     this.service.getUser(this.currentuser).subscribe(response => {
       user = response;
       this.service.postViews(this.posts, user);
     });
 
-    /* TODO recommended posts temp
-    * testing recommended posts
-    * */
     this.recommended_posts=[];
     //adding the posts with the boolean indicator aside that shows if the user has liked the current post
     //so the html button will be disabled (you cannot like the same post more than 1 times)
@@ -236,16 +232,16 @@ export class HomepageComponent implements OnInit {
         console.log(data);
         this.uploadFiles(data.id);
         this.uploadFilesV(data.id);
-      },
-        error => {},
-        () => {
-          this.previews = [];
-          this.postForm.reset();
-          this.loading=false;
-          this.uploaded=true;
-          this.loadPosts();
-        });
+      });
+      this.previews = [];
+      await new Promise(f => setTimeout(f, 2000));
+      this.postForm.reset();
+      this.previews = [];
+      this.loading=false;
+      this.uploaded=true;
     }
+    await this.loadPosts();
+
   }
 
   async likePost(p:Post){
