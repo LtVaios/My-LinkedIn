@@ -39,13 +39,13 @@ public class JobRepositoryCustomImpl implements JobRepositoryCustom{
                 .forEntity(Job.class)
                 .get();
 
-        FuzzyQuery foodQuery = (FuzzyQuery) qb.keyword().fuzzy().withEditDistanceUpTo(2)
+        FuzzyQuery q = (FuzzyQuery) qb.keyword().fuzzy().withEditDistanceUpTo(2)
                 .onFields("body")
                 .matching(word)
                 .createQuery();
 
         FullTextQuery fullTextQuery = fullTextEntityManager
-                .createFullTextQuery((org.apache.lucene.search.Query) foodQuery, Job.class);
+                .createFullTextQuery((org.apache.lucene.search.Query) q, Job.class);
         return (List<Job>) fullTextQuery.getResultList();
     }
 }

@@ -36,7 +36,7 @@ public class JobController {
 //    }
     @CrossOrigin(origins = "*")
     @GetMapping("/jobs/{id}")
-    Job all(@PathVariable(value = "id") int id) {
+    Job getById(@PathVariable(value = "id") int id) {
         try {
             Optional<Job> test_job;
             test_job=repository.findById(id);
@@ -55,13 +55,13 @@ public class JobController {
 
     @CrossOrigin(origins = "*")
     @GetMapping("/jobs/ofuser/{userId}")
-    List<Job> all(@PathVariable(value = "userId") User userid) {
+    List<Job> getByOwner(@PathVariable(value = "userId") User userid) {
         return repository.findJobByUser(userid);
     }
 
     @CrossOrigin(origins = "*")
     @GetMapping("/jobs")
-    List<Job> all(@RequestParam(value = "search", required = false) String search) throws UnsupportedEncodingException {
+    List<Job> getByKeywords(@RequestParam(value = "search", required = false) String search) throws UnsupportedEncodingException {
         if (search == null) return repository.findAll();
 //        System.out.println("In get by skills after null check: "+search);
         Set<Job> jobs = new HashSet<Job>();
@@ -72,7 +72,6 @@ public class JobController {
         String[] allWords = search.toLowerCase().split(" ");
         for (String word: allWords){
             if (stopwords.contains(word)) continue;
-//            System.out.println("print word: "+ word);
             List<Job> temp = repository.getJobBasedOnWord(word);
             if (!temp.isEmpty())
                 jobs.addAll(temp);
@@ -82,13 +81,13 @@ public class JobController {
 
     @CrossOrigin(origins = "*")
     @PostMapping("/jobs")
-    Job newMessage(@RequestBody Job newJob) {
+    Job newJob(@RequestBody Job newJob) {
         return repository.save(newJob);
     }
 
     @CrossOrigin(origins = "*")
     @DeleteMapping("/jobs/ofuser/{userId}")
-    void deleteMessages(@PathVariable (value = "userId") User userid) {
+    void deleteJobs(@PathVariable (value = "userId") User userid) {
         List<Job> jobs=repository.findJobByUser(userid);
         for(Job j:jobs){
             repository.deleteById(j.getId());
