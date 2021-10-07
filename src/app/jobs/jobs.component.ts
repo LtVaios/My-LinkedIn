@@ -54,7 +54,7 @@ export class JobsComponent implements OnInit {
 
 
   async ngOnInit() {
-    this.dataLoaded=false; /* TODO check dataLoaded*/
+    this.dataLoaded=false;
     this.currentUser=parseInt(<string>localStorage.getItem('currentuser'));
     await this.service.getUser(this.currentUser).toPromise().then((response) => this.user = response);
     this.default();

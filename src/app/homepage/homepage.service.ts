@@ -30,7 +30,7 @@ export class HomepageService {
     console.log("saving new post");
     let new_post:Post = new Post();
     new_post.post_body=pb;
-    let date_time =new Date(); //TODO change this same as jobs
+    let date_time =new Date();
     new_post.date_time=date_time.toLocaleString();
     //console.log(date_time)
     return this.http.post<Post>(this.postsUrl+"/"+uid,new_post);
