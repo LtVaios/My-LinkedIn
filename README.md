@@ -15,5 +15,6 @@ The website has CORS security with a self-signed protocol and also supports acco
 
 ## Built with
 ![](https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/240px-Angular_full_color_logo.svg.png)
-![](https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/240px-Typescript_logo_2020.svg.png)
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/240px-Typescript_logo_2020.svg.png" alt="MarineGEO circle logo" style="height: 200px; width:200px;"/>
+
 
