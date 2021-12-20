@@ -3,7 +3,8 @@
 ✔️ This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.1.
 
 ## 🔨 Installation / Run
-  * You will need to install node.js to your computer in order to run this project.
+  * You will need to install node.js to your system in order to run this project.
+  * Run `npm install` to download the node modules
   * Run `npm install js2xmlparser`
   * Run `npm install ng-lazyload-image`
   * Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
